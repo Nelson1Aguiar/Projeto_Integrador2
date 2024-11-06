@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34916.146
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projeto_Integrador2.Server", "Projeto_Integrador2.Server\Projeto_Integrador2.Server.csproj", "{FFEDCF87-71EC-452C-B926-815871A4CB03}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "projeto_integrador2.client", "projeto_integrador2.client\projeto_integrador2.client.esproj", "{2E370AC5-C53B-4846-9497-1490C5A05EEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FFEDCF87-71EC-452C-B926-815871A4CB03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFEDCF87-71EC-452C-B926-815871A4CB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFEDCF87-71EC-452C-B926-815871A4CB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFEDCF87-71EC-452C-B926-815871A4CB03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E370AC5-C53B-4846-9497-1490C5A05EEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E370AC5-C53B-4846-9497-1490C5A05EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E370AC5-C53B-4846-9497-1490C5A05EEE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{2E370AC5-C53B-4846-9497-1490C5A05EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E370AC5-C53B-4846-9497-1490C5A05EEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E370AC5-C53B-4846-9497-1490C5A05EEE}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDDA0FE5-5FB8-4B31-AE99-82F93D4D14A1}
+	EndGlobalSection
+EndGlobal
