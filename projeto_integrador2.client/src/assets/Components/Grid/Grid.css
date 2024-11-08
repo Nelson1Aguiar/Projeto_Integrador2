@@ -1,0 +1,36 @@
+.grid{
+    height: 720px;
+    width: 1280px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+
+    background-color: rgb(24, 158, 42);
+    margin: auto;
+}
+ 
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-width: 1000px;
+    width: 100%;
+ 
+  }
+  
+  .grid-container img {
+    width: 350px;
+    height: 350px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+ 
+  }
+  
+  .grid-container img:hover {
+    transform: scale(1.05);
+  }
+  
