@@ -1,4 +1,7 @@
 
+using Projeto_Integrador2.Server.Interface;
+using Projeto_Integrador2.Server.Service;
+
 namespace Projeto_Integrador2.Server
 {
     public class Program
@@ -13,6 +16,18 @@ namespace Projeto_Integrador2.Server
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<IConnection, Connection>();
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
 
             var app = builder.Build();
 
