@@ -12,7 +12,7 @@ namespace Projeto_Integrador2.Server.Transaction
             try
             {
                 UserBUS userBUS = new UserBUS(connection);
-                userBUS.ValdiateUserCredentials(user);
+                userBUS.ValidateUserCredentials(user);
             }
             catch (Exception ex)
             {

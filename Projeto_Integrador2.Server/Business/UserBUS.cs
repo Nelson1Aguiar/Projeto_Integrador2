@@ -23,18 +23,18 @@ namespace Projeto_Integrador2.Server.Business
                     mySqlConnection.Open();
                     MySqlCommand command = new MySqlCommand("ValidateUserCredentials", mySqlConnection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@p_email", user.Email);
-                    command.Parameters.AddWithValue("@p_password", user.Password);
+                    command.Parameters.AddWithValue("@p_Email", user.Email);
+                    command.Parameters.AddWithValue("@p_Password", user.Password);
                     MySqlDataReader reader = command.ExecuteReader();
                     reader.Read();
-                    user.Id = reader.GetInt32("id");
-                    user.Name = reader.GetString("name");
+                    user.UserId = reader.GetInt32("UserId");
+                    user.Name = reader.GetString("Name");
                     mySqlConnection.Close();
                 }
                 catch (Exception ex)
                 {
                     mySqlConnection.Close();
-                    throw ex;
+                    throw new ApplicationException("Login inválido!");
                 }
             }
         }
