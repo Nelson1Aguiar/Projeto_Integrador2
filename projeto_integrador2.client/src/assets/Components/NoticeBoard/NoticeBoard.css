@@ -1,0 +1,14 @@
+.noticeBoard{
+    height: 400px;
+    width: auto;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgb(218, 221, 11);
+    margin: auto;
+}
+ 
+  

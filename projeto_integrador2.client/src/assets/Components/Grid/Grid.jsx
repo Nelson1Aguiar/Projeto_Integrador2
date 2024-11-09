@@ -1,15 +1,46 @@
-import './Grid.css';
+import "./Grid.css";
+import  { useState } from 'react';
 
 const Grid = () => {
+  const imagens = [
+    "src/assets/Components/Grid/Img/1.png",
+    "src/assets/Components/Grid/Img/2.png",
+    "src/assets/Components/Grid/Img/3.png",
+    "src/assets/Components/Grid/Img/4.png",
+    "src/assets/Components/Grid/Img/5.png",
+    "src/assets/Components/Grid/Img/6.png",
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const imagesPerPage = 4;
+
+  const handleNext = () => {
+    if (currentIndex + imagesPerPage < imagens.length) {
+      setCurrentIndex(currentIndex + imagesPerPage);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentIndex - imagesPerPage >= 0) {
+      setCurrentIndex(currentIndex - imagesPerPage);
+    }
+  };
+
   return (
-    <div className="grid">
-      <div className="grid-container">
-        <img src="src\Img\1.png" alt="Imagem 1" />
-        <img src="src\Img\2.png" alt="Imagem 2" />
-        <img src="src\Img\3.png" alt="Imagem 3" />
-        <img src="src\Img\4.png" alt="Imagem 4" />
-        <img src="src\Img\5.png" alt="Imagem 5" />
-        <img src="src\Img\6.png" alt="Imagem 6" />
+    <div className="gallery-container">
+      <div className="image-grid">
+        {imagens.slice(currentIndex, currentIndex + imagesPerPage).map((image, index) => (
+          <img
+            key={index}
+            src={image}
+            alt={`Imagem ${currentIndex + index + 1}`}
+            className="gallery-image"
+          />
+        ))}
+      </div>
+      <div className="button-container">
+        <button onClick={handlePrevious} disabled={currentIndex === 0}>Anterior</button>
+        <button onClick={handleNext} disabled={currentIndex + imagesPerPage >= imagens.length}>Próxima</button>
       </div>
     </div>
   );

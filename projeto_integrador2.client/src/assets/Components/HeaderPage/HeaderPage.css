@@ -1,5 +1,28 @@
-.header{
-    height: 250px;
-    width: auto;
-    background-color: aliceblue;
+/* Centralizar o header */
+.header {
+    display: flex;
+    justify-content: center; /* Centraliza as divs horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    gap: 400px; /* Espaçamento entre as divs */
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Estilos para cada div interna */
+.imgUFC img {
+    width: 50px; /* Ajuste o tamanho da imagem conforme necessário */
+    height: auto;
+}
+
+.searchHeader input {
+    padding: 8px;
+    font-size: 16px;
+    width: 200px; /* Ajuste a largura do campo de pesquisa conforme necessário */
+}
+
+.signIn button {
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
 }
