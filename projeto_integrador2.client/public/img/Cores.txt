@@ -1,0 +1,41 @@
+Fundo site claro:
+
+Background: #F2F2F2
+
+Tom de Amarelo: #FFC711
+
+Barra de pesquisa e filtros: #FFFFFF
+
+Números para mudar a pág: #000000 transparência 50%
+
+Letras: #000000
+
+Letras do filtro: #000000 transparência 50%
+
+Sombra: #000000 transparência %25
+
+Stroke's (linha ao redor das coisas): #000000 transparência 50%
+
+Linha footer: #000000 transparência 20%
+
+Letras do footer: #000000 transparência 20%
+
+------------------------------------------------------------------------------------
+
+Fundo site escuro:
+
+Background: #212121	
+
+Tom de branco: #FFFFFF	
+
+Números para mudar a pág: #FFFFFF transparência 50%	
+
+Letras: #000000	
+
+Letras do filtro: #000000 transparência 50%	
+
+Sombra: #FFFFFF transparência %25	
+
+Linha footer: #FFFFFF transparência 20%
+
+Letras do footer: #FFFFFF transparência 50%
