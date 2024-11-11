@@ -1,6 +1,7 @@
 import './HeaderPage.css';
+import PropTypes from 'prop-types';
 
-const HeaderPage = () => {
+const HeaderPage = ({ setPage }) => {
 
     return (
         <div className = "header">
@@ -11,12 +12,17 @@ const HeaderPage = () => {
                 <input type="text" placeholder='Pesquisar'/>
             </div>
             <div className='signIn'>
-                <button>
+                <button onClick={() => setPage('login')}>
                     Login
                 </button>
             </div>
         </div>
     );
 }
+
+HeaderPage.propTypes = {
+    setPage: PropTypes.func.isRequired,
+};
+
 
 export default HeaderPage;
