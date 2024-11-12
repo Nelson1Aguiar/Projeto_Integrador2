@@ -1,6 +1,0 @@
-@Projeto_Integrador2.Server_HostAddress = http://localhost:5293
-
-GET {{Projeto_Integrador2.Server_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

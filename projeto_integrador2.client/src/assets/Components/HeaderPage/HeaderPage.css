@@ -3,26 +3,53 @@
     display: flex;
     justify-content: center; /* Centraliza as divs horizontalmente */
     align-items: center; /* Centraliza o conteúdo verticalmente */
-    gap: 400px; /* Espaçamento entre as divs */
-    padding: 10px;
+    padding: 1%;
     width: 100%;
     box-sizing: border-box;
 }
 
+.searchHeader {
+    width: 33.3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgUFC {
+    width: 33.3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signIn {
+    width: 33.3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 /* Estilos para cada div interna */
 .imgUFC img {
-    width: 50px; /* Ajuste o tamanho da imagem conforme necessário */
-    height: auto;
+    width: 12%; /* Ajuste o tamanho da imagem conforme necessário */
 }
 
 .searchHeader input {
-    padding: 8px;
-    font-size: 16px;
-    width: 200px; /* Ajuste a largura do campo de pesquisa conforme necessário */
+    padding: 1%;
+    font-size: 80%;
+    width: 80%; /* Ajuste a largura do campo de pesquisa conforme necessário */
 }
 
 .signIn button {
-    padding: 8px 16px;
-    font-size: 16px;
+    padding: 1.5% 2.5%;
+    font-size: 100%;
     cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .header{
+        margin-top: 7%;
+    }
+    .imgUFC img {
+        width: 30%;
+    }
 }
