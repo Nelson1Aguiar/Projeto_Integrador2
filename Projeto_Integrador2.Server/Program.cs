@@ -1,8 +1,8 @@
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Projeto_Integrador2.Server.Infraestructure;
 using Projeto_Integrador2.Server.Interface;
-using Projeto_Integrador2.Server.Service;
 using Projeto_Integrador2.Server.Services;
 using System.Text;
 
