@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
@@ -10,13 +11,16 @@ namespace Projeto_Integrador2.Server.Controllers
     public class UserController : ControllerBase
     {
         private readonly IConnection _connection;
+        private readonly ITokenService _tokenService;
 
-        public UserController(IConnection connection)
+        public UserController(IConnection connection, ITokenService tokenService)
         {
             _connection = connection;
+            _tokenService = tokenService;
         }
 
         [HttpPost("Login")]
+        [AllowAnonymous]
         public IActionResult Login([FromBody] User user)
         {
             if (user != null)
@@ -24,7 +28,8 @@ namespace Projeto_Integrador2.Server.Controllers
                 try
                 {
                     UserTRA.ValidateLogin(user,_connection);
-                    return Ok(new { status = "success", message = "Conta criada com sucesso!" });
+                    string token = _tokenService.GenerateToken(user);
+                    return Ok(new { Success = true, message = "Conta criada com sucesso!", Token = token });
                 }
                 catch (ApplicationException ex)
                 {
@@ -39,5 +44,11 @@ namespace Projeto_Integrador2.Server.Controllers
                 return BadRequest(new { success = false, message = "Não foi possível efetuar login" });
         }
 
+        [Authorize]
+        [HttpGet("teste")]
+        public IActionResult TestEndPointSecurity()
+        {
+            return Ok(new { message = "Endpoint seguro" });
+        }
     }
 }
