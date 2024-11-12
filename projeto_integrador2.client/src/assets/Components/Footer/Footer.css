@@ -1,0 +1,19 @@
+.footer{
+    display: flex;
+    margin-top: 20px;
+    height: 100px;
+    width: auto;
+    border-top: 2px solid #000000;;
+    text-align: center;
+    justify-content:center;
+    align-items: center;
+    gap: 1000px;
+}
+.outroslinks{
+    display: flex;
+    gap: 20px;
+}
+a {
+    color: inherit; /* Herda a cor do elemento pai */
+    text-decoration: none; /* Remove o sublinhado do link */
+  }
