@@ -1,0 +1,30 @@
+.footer{
+    display: flex;
+    margin-top: 20px;
+    height: 15%;
+    width: 100%;
+    border-top: 2px solid #000000;
+    text-align: center;
+    justify-content:center;
+    align-items: center;
+    gap: 25%;
+    font-size: 90%;
+}
+.outroslinks{
+    display: flex;
+    gap: 20px;
+}
+a {
+    color: inherit; /* Herda a cor do elemento pai */
+    text-decoration: none; /* Remove o sublinhado do link */
+  }
+
+@media (max-width: 768px) {
+    .footer{
+        gap: 15%;
+        font-size: 13px;
+    }
+    .outroslinks {
+        flex-direction: column;
+    }
+}
