@@ -2,13 +2,13 @@
 using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
 
-namespace Projeto_Integrador2.Server.Business
+namespace Projeto_Integrador2.Server.Repository
 {
-    public class UserBUS
+    public class UserRepository
     {
         private readonly IConnection _connectionProvider;
         private readonly MySqlConnection mySqlConnection;
-        public UserBUS(IConnection connection)
+        public UserRepository(IConnection connection)
         {
             _connectionProvider = connection;
             mySqlConnection = _connectionProvider.ProviderConnection();

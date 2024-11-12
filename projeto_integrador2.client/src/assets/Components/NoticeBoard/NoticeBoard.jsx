@@ -1,8 +1,8 @@
 import './NoticeBoard.css';
 
 const NoticeBoard = () => {
-  return (
-    <div className="noticeBoard">
+    return (
+        <div className= "noticeBoard">
         NoticeBoard
     </div>
   );

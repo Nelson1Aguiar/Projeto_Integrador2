@@ -1,14 +1,17 @@
 .noticeBoard{
-    height: 400px;
-    width: auto;
+    height: 30%;
+    width: 100%;
     justify-content: center;
     text-align: center;
     align-items: center;
     display: flex;
     justify-content: center;
-    padding: 20px;
     background-color: rgb(218, 221, 11);
-    margin: auto;
 }
- 
-  
+
+@media (max-width: 768px) {
+   .noticeBoard{
+       height: 20%;
+       margin-top: 10%;
+   }
+}

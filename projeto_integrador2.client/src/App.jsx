@@ -1,18 +1,21 @@
 import './App.css';
-import Header from './assets/Components/HeaderPage/HeaderPage'
-import NoticeBoard from './assets/Components/NoticeBoard/NoticeBoard'
-import Grid from './assets/Components/Grid/Grid';
-import Footer from './assets/Components/Footer/Footer'
-
-
-
+import { useState } from 'react';
+import HomePage from './assets/HomePage';
 function App() {
+    const [page, setPage] = useState('homePage');
+
     return (
         <div>
-            <Header/>
-            <NoticeBoard/>
-            <Grid/>
-            <Footer/>
+            {page === 'homePage' && (
+                <HomePage setPage={setPage} page={page} />
+            )}
+
+            {page === 'login' && (
+                <div>
+                    <HomePage setPage={setPage} page={page} />
+                </div>
+            )}
+
         </div>
     ); 
 }

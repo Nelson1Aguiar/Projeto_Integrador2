@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
-using Projeto_Integrador2.Server.Business;
 using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
+using Projeto_Integrador2.Server.Repository;
 
 namespace Projeto_Integrador2.Server.Transaction
 {
@@ -11,7 +11,7 @@ namespace Projeto_Integrador2.Server.Transaction
         {
             try
             {
-                UserBUS userBUS = new UserBUS(connection);
+                UserRepository userBUS = new UserRepository(connection);
                 userBUS.ValidateUserCredentials(user);
             }
             catch (Exception ex)
