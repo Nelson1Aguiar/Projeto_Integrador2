@@ -9,7 +9,8 @@ import TextLogin from './assets/Components/TextLogin/TextLogin';
 
 function App() {
     const [page, setPage] = useState('homePage');
-    const [loginType, setLoginType] = useState('anonymous');
+    const [loginType, setLoginType] = useState('Anonymous');
+    const [user, setUser] = useState(null);
 
     const pageIsLogin = page === 'login' ? true : false;
 
@@ -20,10 +21,10 @@ function App() {
                     <><LoginHeader /><TextLogin /></>
                 )}
 
-                <HomePage setPage={setPage} page={page} />
+                <HomePage setPage={setPage} page={page} loginType={loginType} user={user} setUser={setUser} />
 
                 {pageIsLogin && (
-                    <><NotebookComponent /><LoginForm setPage={setPage} setLoginType={setLoginType} /></>
+                    <><NotebookComponent /><LoginForm setPage={setPage} setLoginType={setLoginType} setUser={setUser} /></>
                 )}
                 </div>
 

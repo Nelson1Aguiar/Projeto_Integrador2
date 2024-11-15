@@ -1,8 +1,9 @@
 import "./LoginForm.css"
 import anonimo from './Img/anonimo.png';
 import PropTypes from "prop-types"
+import { jwtDecode } from "jwt-decode";
 
-const LoginForm = ({ setPage, setLoginType }) => {
+const LoginForm = ({ setPage, setLoginType, setUser}) => {
 
     const changePage = () => {
         setPage("homePage");
@@ -31,13 +32,18 @@ const LoginForm = ({ setPage, setLoginType }) => {
                 throw new Error(data.message);
             }
 
+            const decodedToken = jwtDecode(data.token);
+
             const User = {
-                Success: data.success,
-                Message: data.message,
-                Token : data.token
+                Token: data.token,
+                Name: decodedToken.name,
+                Email: decodedToken.email,
+                UserId: decodedToken.userId
             }
 
-            console.log(User)
+            changePage('homePage');
+            setUser(User);
+            setLoginType('Authenticated');
         }
         catch (error) {
             console.error('ERRO: ', error);
@@ -71,6 +77,7 @@ const LoginForm = ({ setPage, setLoginType }) => {
 
 LoginForm.propTypes = {
     setPage: PropTypes.func.isRequired,
+    setUser: PropTypes.func.isRequired,
     setLoginType: PropTypes.func.isRequired
 };
 
