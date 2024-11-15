@@ -29,19 +29,19 @@ namespace Projeto_Integrador2.Server.Controllers
                 {
                     UserTRA.ValidateLogin(user,_connection);
                     string token = _tokenService.GenerateToken(user);
-                    return Ok(new { Success = true, message = "Conta criada com sucesso!", Token = token });
+                    return Ok(new { Success = true, Message = "Login validado com sucesso", Token = token });
                 }
                 catch (ApplicationException ex)
                 {
-                    return BadRequest(new {success = false, message = ex});
+                    return BadRequest(new { Success = false, Message = ex.Message});
                 }
                 catch (Exception ex) 
                 {
-                    return StatusCode(500, new {success = false, message = "Erro interno do servidor: " + ex.Message });
+                    return StatusCode(500, new { Success = false, Message = "Erro interno do servidor: " + ex.Message });
                 }
             }
             else
-                return BadRequest(new { success = false, message = "Não foi possível efetuar login" });
+                return BadRequest(new { Success = false, Message = "Não foi possível efetuar login" });
         }
 
         [Authorize]

@@ -11,27 +11,30 @@ const LoginForm = ({ setPage, setLoginType }) => {
     const validateLogin = async (event) => {
         event.preventDefault();
 
-        const formData = new FormData(event);
+        const formData = new FormData(event.target);
+
+        const json = Object.fromEntries(formData.entries());
 
         const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: formData,
+            body: JSON.stringify(json),
         }
 
         try {
-            const response = await fetch('https://localhost:7106/User/Login',options);
-            if (!response.ok) {
-                throw new Error('Erro de rede');
-            }
+            const response = await fetch('https://localhost:7106/User/Login', options);
             const data = await response.json();
 
+            if (!response.ok) {
+                throw new Error(data.message);
+            }
+
             const User = {
-                Succes: data.Succes,
+                Success: data.success,
                 Message: data.message,
-                Token : data.Token
+                Token : data.token
             }
 
             console.log(User)
@@ -44,11 +47,11 @@ const LoginForm = ({ setPage, setLoginType }) => {
     return (
             <div className="containerLogin">
             <h1>Crie sua ideia!</h1>
-            <form onSubmit={(event) => validateLogin(event)} className="formLogin">
+            <form onSubmit={validateLogin} className="formLogin">
                     <label htmlFor="email">E-mail</label>
-                    <input id="email" type="email" placeholder="usuario@email.com" required></input>
+                    <input name="email" type="email" placeholder="usuario@email.com" required></input>
                     <label htmlFor="password">Senha</label>
-                    <input id="password" type="password" placeholder="***********" required></input>
+                    <input name="password" type="password" placeholder="***********" required></input>
                     <a>Esqueceu a senha?</a>
                     <button type="submit">Sign In</button>
                 </form>
