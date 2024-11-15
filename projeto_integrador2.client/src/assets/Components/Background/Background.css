@@ -1,0 +1,13 @@
+.backgroundImage {
+    background-image: url('./Img/Background.png');
+    background-size: auto;
+    background-position: center;
+    background-repeat: repeat;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}

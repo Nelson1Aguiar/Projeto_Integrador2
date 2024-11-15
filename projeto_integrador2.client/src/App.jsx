@@ -1,8 +1,12 @@
 import './App.css';
 import { useState } from 'react';
 import HomePage from './assets/HomePage';
+
+import Background from './assets/Components/Background/Background';
+import LoginForm from './assets/Components/LoginForm/LoginForm';
+
 function App() {
-    const [page, setPage] = useState('homePage');
+    const [page, setPage] = useState('login');
 
     return (
         <div>
@@ -11,8 +15,8 @@ function App() {
             )}
 
             {page === 'login' && (
-                <div>
-                    <HomePage setPage={setPage} page={page} />
+                <div className="container">
+                    <LoginForm />
                 </div>
             )}
 

@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using Projeto_Integrador2.Server.Interface;
+﻿using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
 using Projeto_Integrador2.Server.Repository;
 
