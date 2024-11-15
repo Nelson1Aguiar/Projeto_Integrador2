@@ -1,7 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
-using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -30,8 +29,9 @@ namespace Projeto_Integrador2.Server.Services
 
             var claims = new[]
             {
-            new Claim(ClaimTypes.Name, user.Name),
-            new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+            new Claim("name", user.Name),
+            new Claim("userId", user.UserId.ToString()),
+            new Claim("email", user.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
 

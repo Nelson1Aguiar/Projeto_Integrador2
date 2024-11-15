@@ -1,0 +1,11 @@
+.ContainerNotebook{
+    background-color: transparent;
+    margin-right: 50%;
+    margin-top: 5%;
+    position: absolute;
+}
+
+.ContainerNotebook img {
+    background-color: transparent;
+    width: 120%;
+}
