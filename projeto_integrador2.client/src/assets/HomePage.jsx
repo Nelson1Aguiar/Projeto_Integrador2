@@ -19,11 +19,13 @@ const HomePage = ({ setPage, page }) => {
     }, [page]);
 
     return (
-        <div className={`homePage ${scaled ? 'changeScale' : ''}`}>
-            <Header setPage={setPage} />
+        <div id="containerHomePage" className={`homePage ${scaled ? 'changeScale' : ''}`}>
+            <Header setPage={setPage} page={page} />
             <NoticeBoard />
-            <Grid />
-            <Footer />
+            <Grid page={page} />
+            {page === "homePage" && (
+                <Footer />
+            )}
         </div>
     )
 }

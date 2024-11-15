@@ -4,8 +4,17 @@
     box-sizing: border-box;
 }
 
-.container{
-    display: flex;
+.backgroundLogin {
+    background-image: url('./assets/Icons/Background.png');
+    background-size: auto;
+    background-position: center;
+    background-repeat: repeat;
     width: 100vw;
     height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
+

@@ -8,4 +8,8 @@
     <!-- Folder where production build objects will be placed -->
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\assets\Components\LoginHeader\Img\" />
+    <Folder Include="src\assets\Components\TextLogin\" />
+  </ItemGroup>
 </Project>
