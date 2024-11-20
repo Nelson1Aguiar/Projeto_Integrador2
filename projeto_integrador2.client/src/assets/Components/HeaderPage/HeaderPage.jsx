@@ -16,7 +16,7 @@ const HeaderPage = ({ setPage, page, loginType, user, setUser }) => {
                 <img style={isLoginScreen ? { width: "15%" } : {}} src="src\assets\Components\HeaderPage\img\ufcSymbol.png" alt="UFC.Symbol.Header" />
             </div>
             
-                <SearchBar disabled={isLoginScreen}/>
+                <SearchBar isLocked={isLoginScreen}/>
          
             <div className='signIn'>
                 {!isAuthenticated && (
