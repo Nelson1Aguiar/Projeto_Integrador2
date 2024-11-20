@@ -9,6 +9,8 @@ const LoginForm = ({ setPage, setLoginType, setUser}) => {
         setPage("homePage");
     }
 
+    const apiUrl = import.meta.env.VITE_API_URL_LOGIN;
+
     const validateLogin = async (event) => {
         event.preventDefault();
 
@@ -25,7 +27,7 @@ const LoginForm = ({ setPage, setLoginType, setUser}) => {
         }
 
         try {
-            const response = await fetch('https://localhost:7106/User/Login', options);
+            const response = await fetch(apiUrl, options);
             const data = await response.json();
 
             if (!response.ok) {
