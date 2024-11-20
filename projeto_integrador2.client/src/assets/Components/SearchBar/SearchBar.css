@@ -1,0 +1,47 @@
+.SearchBar{
+    display: flex;
+    background-color: white;
+    width: 33.3%;
+    border-radius: 30px;
+    height: 30px;
+    padding: 1.3%;
+    align-items: center;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(0, 0, 0, 0.1);
+
+}
+.iconSearchbar {
+
+    border-right:2px solid #aaa;
+    background-color: transparent;
+    font-size: 140%;
+    margin-right: 2%;
+
+    
+}
+.icoSearch{
+    background-color: white;
+    margin-right: 5px;
+    font-size: 100%;
+    color: #aaa;
+    margin-top: 6px;
+   
+}
+
+.inputSearchBar {
+    width: 100%;
+    border: none;
+    font-size: 130%;
+    color: #aaa;
+
+    
+}
+
+.inputSearchBar:focus {
+    outline: none;
+}
+
+.inputSearchBar::placeholder {
+    color: #aaa;
+    font-size: 100%;
+    font-style: italic;
+}

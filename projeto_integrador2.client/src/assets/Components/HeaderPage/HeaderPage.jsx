@@ -1,6 +1,6 @@
 import './HeaderPage.css';
 import PropTypes from 'prop-types';
-
+import SearchBar from '../SearchBar/SearchBar';
 const HeaderPage = ({ setPage, page, loginType, user, setUser }) => {
 
     const isLoginScreen = page === "login" ? true : false
@@ -15,9 +15,9 @@ const HeaderPage = ({ setPage, page, loginType, user, setUser }) => {
             <div className='imgUFC'>
                 <img style={isLoginScreen ? { width: "15%" } : {}} src="src\assets\Components\HeaderPage\img\ufcSymbol.png" alt="UFC.Symbol.Header" />
             </div>
-            <div className='searchHeader'>
-                <input disabled={isLoginScreen} type="text" placeholder='Pesquisar'/>
-            </div>
+            
+                <SearchBar disabled={isLoginScreen}/>
+         
             <div className='signIn'>
                 {!isAuthenticated && (
                     <button style={isLoginScreen === true ? { padding: "0%", width: "40%", backgroundColor: "#007bff" } : {}} disabled={isLoginScreen} onClick={() => setPage('login')}>
