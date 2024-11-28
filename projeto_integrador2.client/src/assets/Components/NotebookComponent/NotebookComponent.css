@@ -1,11 +1,12 @@
 .ContainerNotebook{
     background-color: transparent;
-    margin-right: 50%;
-    margin-top: 5%;
+    margin-left: 5%;
+    margin-top: 7%;
     position: absolute;
+    width: 100%;
 }
 
 .ContainerNotebook img {
     background-color: transparent;
-    width: 120%;
+    width: 40%;
 }
