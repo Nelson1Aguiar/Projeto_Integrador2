@@ -1,12 +1,29 @@
 .ContainerNotebook{
     background-color: transparent;
-    margin-left: 5%;
+    margin-right: 55%;
     margin-top: 7%;
     position: absolute;
-    width: 100%;
 }
 
 .ContainerNotebook img {
     background-color: transparent;
-    width: 40%;
+    width: 125%;
+}
+
+.ScreenContent {
+    position: absolute;
+    top: 21.5%;
+    left: 22%;
+    width: 80.7%;
+    height: 53.2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.ScreenContent img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
