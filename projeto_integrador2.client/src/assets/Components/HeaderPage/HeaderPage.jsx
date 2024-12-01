@@ -1,9 +1,9 @@
 import './HeaderPage.css';
 import PropTypes from 'prop-types';
 import SearchBar from '../SearchBar/SearchBar';
-const HeaderPage = ({ setPage, page, loginType, user, setUser }) => {
 
-    const isLoginScreen = page === "login" ? true : false
+const HeaderPage = ({ setPage, loginType, user, setUser }) => {
+
     const isAuthenticated = loginType === "Authenticated" ? true : false
 
     const getFirstName = () => {
@@ -13,14 +13,14 @@ const HeaderPage = ({ setPage, page, loginType, user, setUser }) => {
     return (
         <div className = "header">
             <div className='imgUFC'>
-                <img style={isLoginScreen ? { width: "15%" } : {}} src="src\assets\Components\HeaderPage\img\ufcSymbol.png" alt="UFC.Symbol.Header" />
+                <img src="src\assets\Components\HeaderPage\img\ufcSymbol.png" alt="UFC.Symbol.Header" />
             </div>
             
-                <SearchBar isLocked={isLoginScreen}/>
+                <SearchBar/>
          
             <div className='signIn'>
                 {!isAuthenticated && (
-                    <button style={isLoginScreen === true ? { padding: "0%", width: "40%", backgroundColor: "#007bff" } : {}} disabled={isLoginScreen} onClick={() => setPage('login')}>
+                    <button onClick={() => setPage('login')}>
                         Login
                     </button>
                 )}
@@ -34,7 +34,6 @@ const HeaderPage = ({ setPage, page, loginType, user, setUser }) => {
 
 HeaderPage.propTypes = {
     setPage: PropTypes.func.isRequired,
-    page: PropTypes.string,
     loginType: PropTypes.string,
     setUser: PropTypes.func.isRequired,
 

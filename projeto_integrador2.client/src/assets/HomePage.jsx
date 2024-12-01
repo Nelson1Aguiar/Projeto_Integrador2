@@ -20,12 +20,10 @@ const HomePage = ({ setPage, page, loginType, user, setUser }) => {
 
     return (
         <div id="containerHomePage" className={`homePage ${scaled ? 'changeScale' : ''}`}>
-            <Header setPage={setPage} page={page} loginType={loginType} user={user} setUser={setUser} />
+            <Header setPage={setPage} loginType={loginType} user={user} setUser={setUser} />
             <NoticeBoard />
             <Grid page={page} />
-            {page === "homePage" && (
-                <Footer />
-            )}
+            <Footer />
         </div>
     )
 }

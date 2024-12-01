@@ -1,10 +1,16 @@
 import "./NotebookComponent.css"
-import image from "./Img/telaNote.png"
+import NotebookImage from "./Img/telaNote.png"
+import HomePageImage from "./Img/Modelo.png"
 
 const NotebookComponent = () => {
     return (
         <div className = "ContainerNotebook">
-            <img src={image} />
+            <img src={NotebookImage} />
+
+            <div className="ScreenContent">
+                <img src={HomePageImage} />
+            </div>
+
         </div>
     )
 }

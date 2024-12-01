@@ -1,16 +1,31 @@
 import "./LoginForm.css"
 import anonimo from './Img/anonimo.png';
+import {useState} from 'React'
 import PropTypes from "prop-types"
 import { jwtDecode } from "jwt-decode";
 
-const LoginForm = ({ setPage, setLoginType, setUser}) => {
+const LoginForm = ({ setPage, setLoginType, setUser }) => {
+
+    const [disableButtons, setDisableButtons] = useState(false);
 
     const changePage = () => {
         setPage("homePage");
     }
 
+    const disableButton = () => {
+        setDisableButtons(true);
+    }
+
+    const enableButton = () => {
+        setDisableButtons(false);
+    }
+
+    const apiUrl = import.meta.env.VITE_API_URL_LOGIN;
+
     const validateLogin = async (event) => {
         event.preventDefault();
+
+        disableButton();
 
         const formData = new FormData(event.target);
 
@@ -25,10 +40,11 @@ const LoginForm = ({ setPage, setLoginType, setUser}) => {
         }
 
         try {
-            const response = await fetch('https://localhost:7106/User/Login', options);
+            const response = await fetch(apiUrl, options);
             const data = await response.json();
 
             if (!response.ok) {
+                alert(data.message);
                 throw new Error(data.message);
             }
 
@@ -48,6 +64,8 @@ const LoginForm = ({ setPage, setLoginType, setUser}) => {
         catch (error) {
             console.error('ERRO: ', error);
         }
+
+        enableButton();
     }
 
     return (
@@ -59,14 +77,14 @@ const LoginForm = ({ setPage, setLoginType, setUser}) => {
                     <label htmlFor="password">Senha</label>
                     <input name="password" type="password" placeholder="***********" required></input>
                     <a>Esqueceu a senha?</a>
-                    <button type="submit">Sign In</button>
+                <button disabled={disableButtons} type="submit">Sign In</button>
                 </form>
                 <div className = "divider">
                     <span>ou</span>
                 </div>
 
             <div className="defaultAccess">
-                <button onClick={() => changePage()}>
+                <button disabled={disableButtons} onClick={() => changePage()}>
                     <img src={anonimo} />
                     Entrar como visitante
                 </button>

@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { IoSearchOutline } from "react-icons/io5";
-import PropTypes from 'prop-types';
 import './SearchBar.css';
 
-const SearchBar = ({isLocked}) => {
+const SearchBar = () => {
     const [searchBar, setSearchBar] = useState('');
     
     const handleChange = (e) => {
@@ -22,16 +21,10 @@ const SearchBar = ({isLocked}) => {
                     type="text"
                     placeholder="Pesquisar"
                     value={searchBar}
-                    onChange={handleChange}
-                    disabled = {isLocked} />
+                    onChange={handleChange} />
         </div>
     );
     
 };
-SearchBar.propTypes = {
-    isLocked: PropTypes.bool,
-  
-};
 
 export default SearchBar;
-
