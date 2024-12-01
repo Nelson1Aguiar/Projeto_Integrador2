@@ -10,9 +10,12 @@
 
 .searchHeader {
     width: 33.3%;
+    height: 2.3rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
+    border-radius: 25px;
 }
 
 .imgUFC {
