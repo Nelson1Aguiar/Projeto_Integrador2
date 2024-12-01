@@ -1,11 +1,7 @@
 import './App.css';
 import { useState } from 'react';
 import HomePage from './assets/HomePage';
-
-import LoginForm from './assets/Components/LoginForm/LoginForm';
-import NotebookComponent from './assets/Components/NotebookComponent/NotebookComponent';
-import LoginHeader from './assets/Components/LoginHeader/LoginHeader';
-import TextLogin from './assets/Components/TextLogin/TextLogin';
+import LoginPage from './assets/LoginPage';
 
 function App() {
     const [page, setPage] = useState('homePage');
@@ -15,19 +11,15 @@ function App() {
     const pageIsLogin = page === 'login' ? true : false;
 
     return (
-        <div>
-            <div className={pageIsLogin ?  "backgroundLogin" : ''}>
-                {pageIsLogin && (
-                    <><LoginHeader /><TextLogin /></>
-                )}
-
-                <HomePage setPage={setPage} page={page} loginType={loginType} user={user} setUser={setUser} />
-
-                {pageIsLogin && (
-                    <><NotebookComponent /><LoginForm setPage={setPage} setLoginType={setLoginType} setUser={setUser} /></>
-                )}
+        <div className="App">
+            <div className={`Pages ${pageIsLogin ? 'slide-to-login' : 'slide-to-home'}`}>
+                <div className="Page OverflowHomePage">
+                    <HomePage setPage={setPage} page={page} loginType={loginType} user={user} setUser={setUser} />
                 </div>
-
+                <div className="Page">
+                    <LoginPage setPage={setPage} setLoginType={setLoginType} setUser={setUser} />
+                </div>
+            </div>
         </div>
     ); 
 }
