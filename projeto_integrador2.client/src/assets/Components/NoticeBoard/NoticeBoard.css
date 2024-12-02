@@ -87,6 +87,10 @@
     gap: 10px;
 }
 
+.iconStyle{
+    background-color: transparent;
+}
+
 @media (max-width: 768px) {
     .noticeBoard{
        height: 40%;

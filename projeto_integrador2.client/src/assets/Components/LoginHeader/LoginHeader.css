@@ -1,4 +1,4 @@
-.headerLogin{
+.headerLogin {
     width: 100%;
     position: absolute;
     align-self: start;
@@ -6,7 +6,7 @@
     height: 8%;
     display: flex;
     align-items: center;
-    background-color: yellow;
+    background-color: #ffc712;
 }
 
 .imgUFCForLogin {
@@ -24,4 +24,13 @@
 
 .imgUFCForLogin img {
     width: 3%;
+}
+@media (max-width: 768px) {
+    .imgUFCForLogin {
+        justify-content: center;
+        margin-left: 0;
+    }
+    .imgUFCForLogin img {
+        width: 8%;
+    }
 }
