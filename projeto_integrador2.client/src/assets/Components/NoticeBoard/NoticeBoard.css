@@ -1,7 +1,3 @@
-*{
-    background-color: transparent;
-}
-
 .noticeBoard {
     height: 65%;
     width: 100%;
@@ -16,7 +12,6 @@
     background-position-x: center;
     background-position-y: 40%;
     background-repeat:no-repeat;
-    overflow: hidden;
 }
 
 .display {
@@ -29,20 +24,32 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
-.postSuggestion{
+.postSuggestion {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     flex-direction: column;
+    overflow: hidden;
+    background-color: transparent;
 }
 
-.textContainer{
+.textContainer {
     width: 100%;
     font-size: 1rem;
     margin-bottom: 0;
+    background-color: transparent;
+}
+
+.textContainer h2, h1{
+    background-color: transparent;
+}
+
+.labelDescricao{
+    margin-top: 5%;
 }
 
 .suggestionForm {
@@ -52,10 +59,12 @@
     justify-content: center;
     flex-direction: column;
     margin-top: 5%;
+    background-color: transparent;
 }
 
 .suggestionForm label{
     align-self: start;
+    background-color: transparent;
 }
 
 .suggestionForm input{
@@ -80,7 +89,28 @@
 
 @media (max-width: 768px) {
     .noticeBoard{
-       height: 20%;
+       height: 40%;
        margin-top: 10%;
+       background-repeat: repeat;
    }
+    .display {
+        width: 90%;
+        height: 80%;
+    }
+    .textContainer {
+        font-size: 0.6rem;
+    }
+    .suggestionForm button{
+        width: 50%;
+        margin-top: 10%;
+    }
+    .suggestionForm label {
+        font-size: 0.8rem;
+    }
+    .labelDescricao {
+        margin-top: 10%;
+    }
+    .suggestionForm {
+        width: 50%;
+    }
 }

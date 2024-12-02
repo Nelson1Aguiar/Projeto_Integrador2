@@ -13,7 +13,7 @@ const NoticeBoard = () => {
                     <form className="suggestionForm">
                         <label htmlFor="email">E-mail</label>
                         <input type = 'email' name="email" placeholder="aluno@ufc.com.br" required></input>
-                        <label style={{ marginTop: "5%" }} htmlFor="descricao">Descrição</label>
+                        <label className = "labelDescricao" htmlFor="descricao">Descrição</label>
                         <input name="descricao" placeholder="Carro preto" required></input>
                         <button type="submit">Enviar <IoSend className="iconStyle" />
                         </button>

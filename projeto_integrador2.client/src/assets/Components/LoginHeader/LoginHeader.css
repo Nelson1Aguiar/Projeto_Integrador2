@@ -9,16 +9,19 @@
     background-color: yellow;
 }
 
-.imgUFC {
+.imgUFCForLogin {
     display: flex;
     gap: 5%;
     background-color: transparent;
+    align-items: center;
+    justify-content: start;
+    margin-left: 10%;
 }
 
-.imgUFC img, h1{
+.imgUFCForLogin img, h1{
     background-color: transparent;
 }
 
-.imgUFC img {
-    width: 8%;
+.imgUFCForLogin img {
+    width: 3%;
 }
