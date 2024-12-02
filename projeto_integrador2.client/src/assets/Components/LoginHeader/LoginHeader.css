@@ -1,4 +1,4 @@
-.headerLogin{
+.headerLogin {
     width: 100%;
     position: absolute;
     align-self: start;
@@ -6,19 +6,31 @@
     height: 8%;
     display: flex;
     align-items: center;
-    background-color: yellow;
+    background-color: #ffc712;
 }
 
-.imgUFC {
+.imgUFCForLogin {
     display: flex;
     gap: 5%;
     background-color: transparent;
+    align-items: center;
+    justify-content: start;
+    margin-left: 10%;
 }
 
-.imgUFC img, h1{
+.imgUFCForLogin img, h1{
     background-color: transparent;
 }
 
-.imgUFC img {
-    width: 8%;
+.imgUFCForLogin img {
+    width: 3%;
+}
+@media (max-width: 768px) {
+    .imgUFCForLogin {
+        justify-content: center;
+        margin-left: 0;
+    }
+    .imgUFCForLogin img {
+        width: 8%;
+    }
 }

@@ -78,17 +78,17 @@ const LoginForm = ({ setPage, setLoginType, setUser }) => {
                     <input name="password" type="password" placeholder="***********" required></input>
                     <a>Esqueceu a senha?</a>
                 <button disabled={disableButtons} type="submit">Sign In</button>
-                </form>
-                <div className = "divider">
+                <div className="divider">
                     <span>ou</span>
                 </div>
 
-            <div className="defaultAccess">
-                <button disabled={disableButtons} onClick={() => changePage()}>
-                    <img src={anonimo} />
-                    Entrar como visitante
-                </button>
-            </div>
+                <div className="defaultAccess">
+                    <button type = "button" disabled={disableButtons} onClick={() => changePage()}>
+                        <img src={anonimo} />
+                        Entrar como visitante
+                    </button>
+                </div>
+                </form>
         </div>
     )
 }

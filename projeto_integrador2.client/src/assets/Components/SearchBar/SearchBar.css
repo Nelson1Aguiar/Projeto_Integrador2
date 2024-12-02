@@ -15,8 +15,6 @@
     background-color: transparent;
     font-size: 140%;
     margin-right: 2%;
-
-    
 }
 .icoSearch{
     background-color: white;
@@ -24,7 +22,6 @@
     font-size: 100%;
     color: #aaa;
     margin-top: 6px;
-   
 }
 
 .inputSearchBar {
@@ -32,8 +29,6 @@
     border: none;
     font-size: 130%;
     color: #aaa;
-
-    
 }
 
 .inputSearchBar:focus {
@@ -44,4 +39,17 @@
     color: #aaa;
     font-size: 100%;
     font-style: italic;
+}
+
+
+@media (max-width: 768px) 
+{
+    .inputSearchBar {
+        font-size: 100%;
+    }
+    .SearchBar {
+        width: 50%;
+        border-radius: 30px;
+        padding: 1%;
+    }
 }
