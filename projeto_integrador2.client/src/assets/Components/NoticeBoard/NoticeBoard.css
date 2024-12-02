@@ -1,16 +1,85 @@
-.noticeBoard{
-    height: 30%;
+*{
+    background-color: transparent;
+}
+
+.noticeBoard {
+    height: 65%;
     width: 100%;
     justify-content: center;
     text-align: center;
     align-items: center;
     display: flex;
     justify-content: center;
-    background-color: rgb(218, 221, 11);
+    overflow: hidden;
+    background-image: url('./Img/banner.svg');
+    background-size: 100%;
+    background-position-x: center;
+    background-position-y: 40%;
+    background-repeat:no-repeat;
+    overflow: hidden;
+}
+
+.display {
+    width: 55%;
+    height: 80%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.postSuggestion{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.textContainer{
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.suggestionForm {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 5%;
+}
+
+.suggestionForm label{
+    align-self: start;
+}
+
+.suggestionForm input{
+    width: 100%;
+    padding: 2%;
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.suggestionForm button{
+    width: 30%;
+    padding: 3px;
+    margin-top: 5%;
+    justify-self: end;
+    background-color: darkgrey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 @media (max-width: 768px) {
-   .noticeBoard{
+    .noticeBoard{
        height: 20%;
        margin-top: 10%;
    }
