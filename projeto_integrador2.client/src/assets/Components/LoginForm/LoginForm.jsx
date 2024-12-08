@@ -1,15 +1,26 @@
 import "./LoginForm.css"
 import anonimo from './Img/anonimo.png';
-import {useState} from 'React'
+import {useState, useRef} from 'React'
 import PropTypes from "prop-types"
 import { jwtDecode } from "jwt-decode";
 
 const LoginForm = ({ setPage, setLoginType, setUser }) => {
 
     const [disableButtons, setDisableButtons] = useState(false);
+    const formRef = useRef(null);
 
-    const changePage = () => {
+    const handleClear = () => {
+        formRef.current.reset();
+    };
+
+    const changePage = (type) => {
+        if (type === 'Anonymous')
+            setLoginType('Anonymous');
+        else
+            setLoginType('Authenticated');
+
         setPage("homePage");
+        handleClear();
     }
 
     const disableButton = () => {
@@ -57,9 +68,8 @@ const LoginForm = ({ setPage, setLoginType, setUser }) => {
                 UserId: decodedToken.userId
             }
 
-            changePage('homePage');
+            changePage('Authenticated');
             setUser(User);
-            setLoginType('Authenticated');
         }
         catch (error) {
             console.error('ERRO: ', error);
@@ -71,7 +81,7 @@ const LoginForm = ({ setPage, setLoginType, setUser }) => {
     return (
             <div className="containerLogin">
             <h1>Crie sua ideia!</h1>
-            <form onSubmit={validateLogin} className="formLogin">
+            <form onSubmit={validateLogin} className="formLogin" ref={formRef}>
                     <label htmlFor="email">E-mail</label>
                     <input name="email" type="email" placeholder="usuario@email.com" required></input>
                     <label htmlFor="password">Senha</label>
@@ -83,7 +93,7 @@ const LoginForm = ({ setPage, setLoginType, setUser }) => {
                 </div>
 
                 <div className="defaultAccess">
-                    <button type = "button" disabled={disableButtons} onClick={() => changePage()}>
+                    <button type="button" disabled={disableButtons} onClick={() => changePage("Anonymous")}>
                         <img src={anonimo} />
                         Entrar como visitante
                     </button>
