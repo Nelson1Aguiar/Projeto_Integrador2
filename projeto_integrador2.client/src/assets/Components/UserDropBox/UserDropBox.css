@@ -1,0 +1,63 @@
+*{
+    background-color: transparent;
+}
+
+.custom-select {
+    position: relative;
+    width: 70%;
+    cursor: pointer;
+}
+
+.selected-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ffc712;
+    padding: 6px;
+    border-radius: 5px;
+    background-color: #ffc712;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.selected-option img {
+    width: 15%;
+}
+
+.arrow-icon {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.arrow-icon.rotate {
+    transform: rotate(180deg);
+}
+
+.options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    z-index: 1000;
+    border: none;
+}
+
+.options .option {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.options .option:hover {
+    background-color: #f0f0f0;
+}
+
+.options .option img {
+    margin-right: 10px;
+}
