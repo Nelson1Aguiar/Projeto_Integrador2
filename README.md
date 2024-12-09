@@ -56,7 +56,7 @@ Confira o protótipo clicando no [link do protótipo](https://www.figma.com/desi
 ## 💻 Instalação e Uso
 1. Clone o repositório:  
    ```bash
-   git clone [https://github.com/seu-usuario/nome-do-projeto.git](https://github.com/Nelson1Aguiar/Projeto_Integrador2.git)
+   git clone https://github.com/Nelson1Aguiar/Projeto_Integrador2.git
 
 ## 🛠 Tecnologias Utilizadas
 - C#
