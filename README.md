@@ -60,6 +60,7 @@ Confira o protótipo clicando no [link do protótipo](https://www.figma.com/desi
 
 ## 🛠 Tecnologias Utilizadas
 - C#
-- SQL
+- MySQL
 - React
 - JavaScript
+- JWT
