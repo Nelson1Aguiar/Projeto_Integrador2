@@ -11,7 +11,7 @@ Impressões 3D.
 4. [Protótipo no Figma](#protótipo-no-figma)  
 5. [Instalação e Uso](#instalação-e-uso)  
 6. [Tecnologias Utilizadas](#tecnologias-utilizadas)  
-7. [Autores](#autores)
+
 
 ---
 
@@ -49,11 +49,17 @@ O projeto foi planejado usando o **Project Planning for Developers 1**, com a di
 
 ## 🎨 Protótipo no Figma
 O protótipo foi elaborado no **Figma** e contém todas as telas prontas.  
-Confira o protótipo clicando no [link do protótipo](#https://www.figma.com/design/3rk7d97o46vA0pPnbtEz7b/Projeto-Integrador-II?node-id=0-1&t=vxGeg5UvYGbrlgUC-1).
+Confira o protótipo clicando no [link do protótipo](https://www.figma.com/design/3rk7d97o46vA0pPnbtEz7b/Projeto-Integrador-II?node-id=0-1&t=vxGeg5UvYGbrlgUC-1).
 
 ---
 
 ## 💻 Instalação e Uso
 1. Clone o repositório:  
    ```bash
-   git clone https://github.com/seu-usuario/nome-do-projeto.git
+   git clone [https://github.com/seu-usuario/nome-do-projeto.git](https://github.com/Nelson1Aguiar/Projeto_Integrador2.git)
+
+## 🛠 Tecnologias Utilizadas
+- C#
+- SQL
+- React
+- JavaScript
