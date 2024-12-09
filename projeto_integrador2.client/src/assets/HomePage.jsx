@@ -36,10 +36,12 @@ HomePage.propTypes = {
 
     user: PropTypes.oneOfType([
         PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            email: PropTypes.string.isRequired,
+            Token: PropTypes.string.isRequired,
+            Name: PropTypes.string.isRequired,
+            Email: PropTypes.string.isRequired,
+            UserId: PropTypes.string.isRequired,
         }),
-        PropTypes.null
+        PropTypes.oneOf([null])
     ])
 };
 

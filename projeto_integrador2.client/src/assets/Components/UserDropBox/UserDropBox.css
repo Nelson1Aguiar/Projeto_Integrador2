@@ -61,3 +61,25 @@
 .options .option img {
     margin-right: 10px;
 }
+
+@media (max-width: 768px) {
+    .selected-option {
+        padding: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    .selected-option span{
+        display: none;
+    }
+
+    .selected-option img {
+        width: 30%;
+    }
+
+    .custom-select {
+        
+        width: 100%;
+    }
+}
