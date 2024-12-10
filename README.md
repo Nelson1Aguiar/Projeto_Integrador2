@@ -11,7 +11,7 @@ Impressões 3D.
 4. [Protótipo no Figma](#protótipo-no-figma)  
 5. [Instalação e Uso](#instalação-e-uso)  
 6. [Tecnologias Utilizadas](#tecnologias-utilizadas)  
-
+7. [Disponibilização e Acompanhamento](#disponibilização-e-acompanhamento)
 
 ---
 
@@ -64,3 +64,9 @@ Confira o protótipo clicando no [link do protótipo](https://www.figma.com/desi
 - React
 - JavaScript
 - JWT
+
+## 📆 Disponibilização e Acompanhamento
+- **21/10/2024** - Levantamento de requisitos junto ao coordenador do projeto.
+- **22/10/2024 - 30/10/2024** - Planejamento técnico.
+- **01/11/2024 - 30/10/2024** - Implementação  de protótipos de baixa e alta finalidade.
+- **01/10/2024 - 19/10/2024** - Refinamento de protótipo figma e documentação.
