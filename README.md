@@ -32,7 +32,7 @@ O projeto foi planejado usando o **Project Planning for Developers 1**, com a di
 - **Membro 3 - Nelson Sales Aguiar:** - BackEnd.
 - **Membro 4 - Igor Santana Sampaio:** - Figma.
 - **Membro 5 - Jorge Roniel De Paula Souza:** - FrontEnd. 
-- **Membro 6 - Aleksei:** - BackEnd. 
+- **Membro 6 - Aleksei Xavier Muniz:** - BackEnd. 
 
 ---
 
