@@ -1,6 +1,6 @@
 import "./LoginForm.css"
 import anonimo from './Img/anonimo.png';
-import {useState, useRef} from 'React'
+import {useState, useRef} from 'react'
 import PropTypes from "prop-types"
 import { jwtDecode } from "jwt-decode";
 
