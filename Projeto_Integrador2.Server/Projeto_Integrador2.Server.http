@@ -1,0 +1,6 @@
+@Projeto_Integrador2.Server_HostAddress = https://localhost:44307
+
+GET {{Projeto_Integrador2.Server_HostAddress}}/User/Teste
+Accept: application/json
+
+###
