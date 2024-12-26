@@ -87,13 +87,13 @@ const LoginForm = ({ setPage, setLoginType, setUser }) => {
                     <label htmlFor="password">Senha</label>
                     <input name="password" type="password" placeholder="***********" required></input>
                     <a>Esqueceu a senha?</a>
-                <button disabled={disableButtons} type="submit">Sign In</button>
+                <button className = "loginFormButton" disabled={disableButtons} type="submit">Sign In</button>
                 <div className="divider">
                     <span>ou</span>
                 </div>
 
                 <div className="defaultAccess">
-                    <button type="button" disabled={disableButtons} onClick={() => changePage("Anonymous")}>
+                    <button className= "loginFormButton" type="button" disabled={disableButtons} onClick={() => changePage("Anonymous")}>
                         <img src={anonimo} />
                         Entrar como visitante
                     </button>
