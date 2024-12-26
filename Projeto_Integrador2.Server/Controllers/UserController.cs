@@ -44,11 +44,11 @@ namespace Projeto_Integrador2.Server.Controllers
                 return BadRequest(new { Success = false, Message = "Não foi possível efetuar login" });
         }
 
-        [Authorize]
-        [HttpGet("teste")]
-        public IActionResult TestEndPointSecurity()
+        [HttpGet("Teste")]
+        [AllowAnonymous]
+        public IActionResult TestEndPoint()
         {
-            return Ok(new { message = "Endpoint seguro" });
+            return Ok(new { message = "API estável" });
         }
     }
 }
