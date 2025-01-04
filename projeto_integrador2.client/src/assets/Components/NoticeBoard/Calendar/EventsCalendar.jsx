@@ -2,6 +2,7 @@ import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import './EventsCalendar.css'
 
 const locales = {
     'pt-BR': ptBR,
@@ -46,7 +47,7 @@ const EventsCalendar = () => {
     ];
 
     return (
-        <div style={{ height: '80%', backgroundColor: "white" }}>
+        <div className="containerCalendar">
             <Calendar
                 localizer={localizer}
                 events={events}
@@ -54,7 +55,7 @@ const EventsCalendar = () => {
                 endAccessor="end"
                 culture="pt-BR"
                 messages={messages}
-                style={{ height: '100%' }}
+                className="calendarComponent"
             />
         </div>
     );

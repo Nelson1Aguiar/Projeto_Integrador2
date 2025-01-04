@@ -52,6 +52,12 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    transition: transform 0.3s ease;
+}
+
+.suggestionForm button:hover{
+    transform: scale(1.1);
+    background-color: #007bff;
 }
 
 .labelDescricao {
@@ -73,13 +79,19 @@
 }
 
 @media (max-width: 768px) {
+    .postSuggestion {
+        width: 80%;
+    }
+
     .textContainer {
-        font-size: 0.6rem;
+        font-size: 0.4rem;
+        flex-wrap: wrap;
     }
 
     .suggestionForm button {
-        width: 50%;
-        margin-top: 10%;
+        width: 70%;
+        padding: 0;
+        margin-top: 15%;
     }
 
     .suggestionForm label {
