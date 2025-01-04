@@ -1,7 +1,8 @@
 import './NoticeBoard.css';
-import Calendar from './Calendar/Calendar.jsx'
+import Suggestions from './Suggestions/Suggestions.jsx'
+import EventsCalendar from './Calendar/EventsCalendar.jsx'
 import { useState } from 'react'
-import { IoSend, IoChevronBack, IoChevronForward } from "react-icons/io5";
+import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 
 const NoticeBoard = () => {
 
@@ -27,23 +28,10 @@ const NoticeBoard = () => {
             </button>
             <div className="display">
                 {currentDisplay === "suggestion" && (
-                    <div className="postSuggestion">
-                        <div className="textContainer">
-                            <h1>Transforme sua ideia em arte!</h1>
-                            <h2>Envie seu projeto 3D e inspire outros a criar</h2>
-                        </div>
-                        <form className="suggestionForm">
-                            <label htmlFor="email">E-mail</label>
-                            <input type='email' name="email" placeholder="aluno@ufc.com.br" required></input>
-                            <label className="labelDescricao" htmlFor="descricao">Descrição</label>
-                            <input name="descricao" placeholder="Carro preto" required></input>
-                            <button className="sendSuggestion" type="submit">Enviar <IoSend className="iconStyle" />
-                            </button>
-                        </form>
-                    </div>
+                    <Suggestions />
                 )}
                 {currentDisplay === "calendar" && (
-                    <Calendar />
+                    <EventsCalendar />
                 )}
             </div>
             <button className="navButton nextButton" onClick={verifyNextDisplay}>
