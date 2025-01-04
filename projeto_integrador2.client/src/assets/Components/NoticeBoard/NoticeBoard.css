@@ -1,104 +1,15 @@
 .noticeBoard {
     height: 65%;
     width: 100%;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
     display: flex;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     overflow: hidden;
     background-image: url('./Img/banner.svg');
-    background-size: 100%;
-    background-position-x: center;
-    background-position-y: 40%;
-    background-repeat:no-repeat;
-}
-
-.sendSuggestion {
-    padding: 8% 15%;
-    font-size: 100%;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-}
-
-.display {
-    width: 55%;
-    height: 80%;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.postSuggestion {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    flex-direction: column;
-    overflow: hidden;
-    background-color: transparent;
-}
-
-.textContainer {
-    width: 100%;
-    font-size: 1rem;
-    margin-bottom: 0;
-    background-color: transparent;
-}
-
-.textContainer h2, h1{
-    background-color: transparent;
-}
-
-.labelDescricao{
-    margin-top: 5%;
-}
-
-.suggestionForm {
-    width: 40%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin-top: 5%;
-    background-color: transparent;
-}
-
-.suggestionForm label{
-    align-self: start;
-    background-color: transparent;
-}
-
-.suggestionForm input{
-    width: 100%;
-    padding: 2%;
-    outline: none;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
-}
-
-.suggestionForm button{
-    width: 30%;
-    padding: 3px;
-    margin-top: 5%;
-    justify-self: end;
-    background-color: darkgrey;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.iconStyle{
-    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .navButton {
@@ -107,51 +18,116 @@
     align-items: center;
     justify-content: center;
     border: none;
-    font-size: 5rem;
-    width: auto;
-    transition: transform 0.2s ease, color 0.2s ease;
+    font-size: 3rem;
     background-color: transparent;
     color: white;
     cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .navButton:hover {
     transform: scale(1.2);
-    background-color: transparent !important;
+    color: #f0f0f0; 
 }
 
 .prevButton {
-    margin-right: 6%;
+    margin-right: 2rem;
 }
 
 .nextButton {
-    margin-left: 6%;
+    margin-left: 2rem;
+}
+
+.noticeBoard .display {
+    width: 55%;
+    height: 80%;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.displayContainer {
+    display: flex;
+    width: 200%;
+    height: 100%;
+    transform: translateX(0);
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.disabledChangeDisplay{
+    cursor: not-allowed;
+    color: grey;
+}
+
+.disabledChangeDisplay:hover{
+    transform: scale(1);
+    color: grey;
+}
+
+@media (max-width: 1024px) {
+    .noticeBoard {
+        height: 50%;
+    }
+
+    .navButton {
+        font-size: 2.5rem;
+    }
+
+    .display {
+        width: 70%;
+        height: 75%;
+    }
 }
 
 @media (max-width: 768px) {
-    .noticeBoard{
-       height: 40%;
-       margin-top: 10%;
-       background-repeat: repeat;
-   }
+    .noticeBoard {
+        height: 40%;
+        margin-top: 10%;
+        background-repeat: repeat;
+    }
+
+    .navButton {
+        font-size: 2rem;
+    }
+
     .display {
         width: 90%;
         height: 80%;
     }
-    .textContainer {
-        font-size: 0.6rem;
+
+    .prevButton,
+    .nextButton {
+        margin: 0 1rem;
     }
-    .suggestionForm button{
-        width: 50%;
-        margin-top: 10%;
+}
+
+@media (max-width: 480px) {
+    .noticeBoard {
+        height: 35%;
     }
-    .suggestionForm label {
-        font-size: 0.8rem;
+
+    .navButton {
+        font-size: 1.8rem;
     }
-    .labelDescricao {
-        margin-top: 10%;
-    }
-    .suggestionForm {
-        width: 50%;
+
+    .display {
+        width: 95%;
+        height: 70%;
     }
 }
