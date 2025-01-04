@@ -1,6 +1,60 @@
 .containerCalendar {
     height: 80%;
-    background-color: white;
+    border: 0.19vw solid white;
+    background-color: rgba(255, 255, 255, 0.655);
+    padding: 1.5vw;
+    border-radius: 0.5vw;
+}
+.containerCalendar .rbc-event{
+    background-color: red;
+    font-size: 1vw;
+    transform: scale(1);
+}
+
+.rbc-button-link{
+    font-weight: bold;
+}
+.rbc-header{
+    background-color: rgba(255, 255, 255, 0.842);
+}
+.rbc-toolbar .rbc-btn-group button:nth-child(1), .rbc-toolbar .rbc-btn-group button:nth-child(3) {
+    background-color: #f0ad4e; 
+    transition: all 0.5s ease;
+}
+.rbc-toolbar .rbc-btn-group button:nth-child(2), .rbc-toolbar .rbc-btn-group button:nth-child(4) {
+    background-color: #f6c98b; 
+    transition: all 0.5s ease;
+}
+.rbc-toolbar .rbc-btn-group button:nth-child(1):hover, .rbc-toolbar .rbc-btn-group button:nth-child(3):hover,
+.rbc-toolbar .rbc-btn-group button:nth-child(2):hover, .rbc-toolbar .rbc-btn-group button:nth-child(4):hover {
+    background-color: #f07f4e;
+    transform: scale(1.1);
+    font-weight: bold;
+
+}
+.rbc-toolbar-label {
+    font-size: 1.1vw;
+    border: 0.08vw solid rgb(255, 255, 255);
+    border-radius: 0.3vw;
+    background-color: #f1a336;
+    padding: 1.5vw;
+    width: 10vw;
+    height: 2.5vw;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 0.2vw rgba(241, 163, 54, 0.8), 0 0 0.5vw #f07f4e;
+    filter: brightness(1);
+    transition: all 0.3s ease-in-out;
+
+}
+.rbc-toolbar-label:hover {
+    /* Efeito de brilho ao passar o mouse */
+    box-shadow: 0 0 0.4 rgba(241, 163, 54, 1), 0 0  rgba(241, 163, 54, 0.8);
+    filter: brightness(1.2);
+    font-weight: bold;
 }
 
 .calendarComponent{

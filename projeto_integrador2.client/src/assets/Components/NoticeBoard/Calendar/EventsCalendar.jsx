@@ -44,6 +44,11 @@ const EventsCalendar = () => {
             start: new Date(2025, 0, 15, 14, 0),
             end: new Date(2025, 0, 15, 16, 0),
         },
+        {
+            title:"Entrega final do projeto",
+            start: new Date(2025, 0, 20, 13, 0),
+            end: new Date(2025, 0,20, 15, 0)
+        }
     ];
 
     return (
