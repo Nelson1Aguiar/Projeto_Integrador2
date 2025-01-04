@@ -10,9 +10,12 @@
 
 .searchHeader {
     width: 33.3%;
+    height: 2.3rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
+    border-radius: 25px;
 }
 
 .imgUFC {
@@ -30,7 +33,7 @@
 }
 /* Estilos para cada div interna */
 .imgUFC img {
-    width: 12%; /* Ajuste o tamanho da imagem conforme necessário */
+    width: 10%; /* Ajuste o tamanho da imagem conforme necessário */
 }
 
 .searchHeader input {
@@ -43,6 +46,10 @@
     padding: 1.5% 2.5%;
     font-size: 100%;
     cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
 }
 
 @media (max-width: 768px) {

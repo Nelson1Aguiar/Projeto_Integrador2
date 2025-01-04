@@ -1,0 +1,36 @@
+.headerLogin {
+    width: 100%;
+    position: absolute;
+    align-self: start;
+    z-index: 11;
+    height: 8%;
+    display: flex;
+    align-items: center;
+    background-color: #ffc712;
+}
+
+.imgUFCForLogin {
+    display: flex;
+    gap: 5%;
+    background-color: transparent;
+    align-items: center;
+    justify-content: start;
+    margin-left: 10%;
+}
+
+.imgUFCForLogin img, h1{
+    background-color: transparent;
+}
+
+.imgUFCForLogin img {
+    width: 3%;
+}
+@media (max-width: 768px) {
+    .imgUFCForLogin {
+        justify-content: center;
+        margin-left: 0;
+    }
+    .imgUFCForLogin img {
+        width: 8%;
+    }
+}

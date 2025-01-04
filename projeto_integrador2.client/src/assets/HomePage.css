@@ -1,11 +1,4 @@
 .homePage {
-    width: 100vw;
-    height: 100vh;
-    transition: width 1s ease, height 1s ease, margin 1s;
-}
-
-.changeScale {
-    width: 30vw;
-    height: 20vh;
-    margin-left: 20%;
+    width: 100%;
+    height: 100%;
 }
