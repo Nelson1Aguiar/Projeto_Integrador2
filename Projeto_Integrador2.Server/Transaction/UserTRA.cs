@@ -15,7 +15,7 @@ namespace Projeto_Integrador2.Server.Transaction
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
     }

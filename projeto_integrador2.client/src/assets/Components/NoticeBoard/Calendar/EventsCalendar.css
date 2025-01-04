@@ -1,9 +1,11 @@
 .containerCalendar {
     height: 80%;
+    width: 80%;
     border: 0.19vw solid white;
     background-color: rgba(255, 255, 255, 0.655);
     padding: 1.5vw;
     border-radius: 0.5vw;
+    position: absolute;
 }
 .containerCalendar .rbc-event{
     background-color: red;
@@ -59,4 +61,47 @@
 
 .calendarComponent{
     height: 100%;
+}
+
+.refresh-button {
+    background-color: #f0ad4e;
+    border: none;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    position: relative;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.refresh-button:hover {
+    background-color: #e69a38;
+    transform: scale(1.1);
+}
+
+.refresh-button:active {
+    background-color: #d68b2d;
+}
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

@@ -3,6 +3,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import './EventsCalendar.css'
+import { useEffect, useState } from 'react';
 
 const locales = {
     'pt-BR': ptBR,
@@ -33,23 +34,66 @@ const messages = {
 };
 
 const EventsCalendar = () => {
-    const events = [
-        {
-            title: 'Reunião de Equipe',
-            start: new Date(2025, 0, 10, 10, 0),
-            end: new Date(2025, 0, 10, 12, 0),
-        },
-        {
-            title: 'Apresentação do Projeto',
-            start: new Date(2025, 0, 15, 14, 0),
-            end: new Date(2025, 0, 15, 16, 0),
-        },
-        {
-            title:"Entrega final do projeto",
-            start: new Date(2025, 0, 20, 13, 0),
-            end: new Date(2025, 0,20, 15, 0)
+
+    const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const GetAllEvents = async () => {
+        setLoading(true);
+        const apiUrlGetAllEvents = import.meta.env.VITE_API_URL_GETALLEVENTS;
+
+        const options = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         }
-    ];
+
+        try {
+            const response = await fetch(apiUrlGetAllEvents, options);
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.message);
+                throw new Error(data.message);
+            }
+
+            const mappedEvents = data.events.map(event => ({
+                title: event.title,
+                start: new Date(event.startDate),
+                end: new Date(event.endDate),
+                description: event.description,
+                location: event.location
+            }));
+
+            setEvents(mappedEvents);
+        }
+        catch (error) {
+            console.error('ERRO: ', error);
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        GetAllEvents();
+
+        const intervalId = setInterval(() => {
+            GetAllEvents();
+        }, 300000);
+
+        return () => clearInterval(intervalId);
+    }, []);
+
+    const eventComponent = ({ event }) => (
+        <div>
+            <strong>{event.title}</strong><br />
+            <small>Descrição: {event.description}</small><br />
+            <small>Local: {event.location}</small>
+        </div>
+    );
+
 
     return (
         <div className="containerCalendar">
@@ -61,7 +105,21 @@ const EventsCalendar = () => {
                 culture="pt-BR"
                 messages={messages}
                 className="calendarComponent"
+                components={{
+                    event: eventComponent
+                }}
             />
+            <button
+                className="refresh-button"
+                onClick={GetAllEvents}
+                disabled={loading}
+            >
+                {loading ? (
+                    <div className="spinner"></div>
+                ) : (
+                    'Atualizar'
+                )}
+            </button>
         </div>
     );
 };
