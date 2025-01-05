@@ -7,22 +7,22 @@ namespace Projeto_Integrador2.Server.Repository
     public class EventsRepository
     {
         private readonly IConnection _connectionProvider;
-        private readonly MySqlConnection mySqlConnection;
+        private readonly MySqlConnection _mySqlConnection;
         public EventsRepository(IConnection connection)
         {
             _connectionProvider = connection;
-            mySqlConnection = _connectionProvider.ProviderConnection();
+            _mySqlConnection = _connectionProvider.ProviderConnection();
         }
 
         public List<Event> GetAllEvents()
         {
-            if (mySqlConnection != null)
+            if (_mySqlConnection != null)
             {
                 try
                 {
-                    mySqlConnection.Open();
+                    _mySqlConnection.Open();
                     List<Event> events = new List<Event>();
-                    MySqlCommand command = new MySqlCommand("GetAllEvents", mySqlConnection);
+                    MySqlCommand command = new MySqlCommand("GetAllEvents", _mySqlConnection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     MySqlDataReader reader = command.ExecuteReader();
 
@@ -48,14 +48,37 @@ namespace Projeto_Integrador2.Server.Repository
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    throw;
                 }
                 finally
                 {
-                    mySqlConnection.Close();
+                    _mySqlConnection.Close();
                 }
             }
             throw new ApplicationException("Erro ao buscar eventos");
+        }
+
+        public void DeleteEvent(long id)
+        {
+            if (_mySqlConnection != null)
+            {
+                try
+                {
+                    _mySqlConnection.Open();
+                    MySqlCommand command = new MySqlCommand("DeleteEvent", _mySqlConnection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@p_EventId", id);
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                finally
+                {
+                    _mySqlConnection.Close();
+                }
+            }
         }
     }
 }

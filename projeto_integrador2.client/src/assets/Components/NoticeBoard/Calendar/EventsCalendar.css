@@ -96,6 +96,50 @@
     animation: spin 1s linear infinite;
 }
 
+.containerEventsInformations{
+    display: flex;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.containerTextInformations{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 0;
+}
+
+.containerButtonsActionsEvents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 5%;
+}
+
+.containerButtonsActionsEvents button{
+    padding: 10px;
+    border: none;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+
+.buttonDeleteEvent{
+    color: red;
+    font-size: 1.1rem;
+}
+
+.buttonEditEvent {
+    font-size: 1.1rem;
+}
+
+.containerButtonsActionsEvents button:hover {
+    transform: scale(1.2);
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);

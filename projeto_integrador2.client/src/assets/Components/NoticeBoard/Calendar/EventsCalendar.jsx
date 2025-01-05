@@ -4,6 +4,8 @@ import { format, parse, startOfWeek, getDay } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import './EventsCalendar.css'
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { FaTrash, FaEdit } from "react-icons/fa";
 
 const locales = {
     'pt-BR': ptBR,
@@ -33,10 +35,11 @@ const messages = {
     showMore: (count) => `+ Ver mais (${count})`,
 };
 
-const EventsCalendar = () => {
+const EventsCalendar = ({loginType}) => {
 
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [view, setView] = useState('month');
 
     const GetAllEvents = async () => {
         setLoading(true);
@@ -63,7 +66,8 @@ const EventsCalendar = () => {
                 start: new Date(event.startDate),
                 end: new Date(event.endDate),
                 description: event.description,
-                location: event.location
+                location: event.location,
+                eventId: event.eventId
             }));
 
             setEvents(mappedEvents);
@@ -73,6 +77,40 @@ const EventsCalendar = () => {
         }
         finally {
             setLoading(false);
+        }
+    }
+
+    const DeleteEvent = async (eventId) => {
+        const apiUrlDeleteEvent = import.meta.env.VITE_API_URL_DELETE_EVENT;
+        const token = sessionStorage.getItem('token');
+
+        if (!token) {
+            console.error("Token não encontrado.");
+            return;
+        }
+
+        const options = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: eventId,
+        }
+
+        try {
+            const response = await fetch(apiUrlDeleteEvent, options);
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.message);
+                throw new Error(data.message);
+            }
+
+            setEvents((prevEvents) => prevEvents.filter((event) => event.eventId !== eventId));
+        }
+        catch (error) {
+            console.error('Erro ao deletar evento:', error);
         }
     }
 
@@ -87,13 +125,33 @@ const EventsCalendar = () => {
     }, []);
 
     const eventComponent = ({ event }) => (
-        <div>
-            <strong>{event.title}</strong><br />
-            <small>Descrição: {event.description}</small><br />
-            <small>Local: {event.location}</small>
-        </div>
+        <>
+            {view !== 'agenda' && (
+                <div style={{width:'100%'} }>
+                    <strong style={{ fontSize: '0.7rem'}}>{event.title}</strong><br />
+                </div>
+            )}
+            {view === 'agenda' && (
+                <div className="containerEventsInformations">
+                    <div className="containerTextInformations">
+                        <strong>{event.title}</strong><br />
+                        <small>Descrição: {event.description}</small><br />
+                        <small>Local: {event.location}</small>
+                    </div>
+                    {loginType == 'Authenticated' && (
+                        <div className="containerButtonsActionsEvents">
+                            <button className="buttonDeleteEvent" title="Excluir" onClick={() => DeleteEvent(event.eventId)}><FaTrash /></button>
+                            <button className="buttonEditEvent" title="Editar"><FaEdit /></button>
+                        </div>
+                    )}
+                </div>
+            )}
+        </>
     );
 
+    const handleEventSelect = () => {
+        setView('agenda');
+    };
 
     return (
         <div className="containerCalendar">
@@ -108,6 +166,9 @@ const EventsCalendar = () => {
                 components={{
                     event: eventComponent
                 }}
+                onView={setView}
+                onSelectEvent={handleEventSelect}
+                view={view}
             />
             <button
                 className="refresh-button"
@@ -122,6 +183,10 @@ const EventsCalendar = () => {
             </button>
         </div>
     );
+};
+
+EventsCalendar.propTypes = {
+    loginType: PropTypes.string,
 };
 
 export default EventsCalendar;

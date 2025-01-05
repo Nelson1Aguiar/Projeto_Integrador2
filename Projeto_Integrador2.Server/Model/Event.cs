@@ -7,7 +7,7 @@
         public string Title { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
-        public int? EventId { get; set; }
-        public int? CreateUserId { get; set; }
+        public long? EventId { get; set; }
+        public long? CreateUserId { get; set; }
     }
 }
