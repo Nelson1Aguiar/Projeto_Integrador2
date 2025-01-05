@@ -11,12 +11,10 @@ namespace Projeto_Integrador2.Server.Controllers
     public class EventsController : ControllerBase
     {
         private readonly IConnection _connection;
-        private readonly ITokenService _tokenService;
 
-        public EventsController(IConnection connection, ITokenService tokenService)
+        public EventsController(IConnection connection)
         {
             _connection = connection;
-            _tokenService = tokenService;
         }
 
         [HttpGet("GetEvents")]
@@ -27,6 +25,25 @@ namespace Projeto_Integrador2.Server.Controllers
             {
                 List<Event> events = EventsTRA.GetAllEvents(_connection);
                 return Ok(new { Success = true, Message = "Eventos obtidos com sucesso", Events = events });
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { Success = false, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = "Erro interno do servidor: " + ex.Message });
+            }
+        }
+
+        [HttpPut("DeleteEvent")]
+        [Authorize]
+        public IActionResult DeleteEvent([FromBody] long id)
+        {
+            try
+            {
+                EventsTRA.DeleteEvent(_connection, id);
+                return Ok(new { Success = true, Message = "Evento excluído com sucesso"});
             }
             catch (ApplicationException ex)
             {

@@ -62,12 +62,12 @@ const LoginForm = ({ setPage, setLoginType, setUser }) => {
             const decodedToken = jwtDecode(data.token);
 
             const User = {
-                Token: data.token,
                 Name: decodedToken.name,
                 Email: decodedToken.email,
                 UserId: decodedToken.userId
             }
 
+            sessionStorage.setItem('token', data.token);
             changePage('Authenticated');
             setUser(User);
         }

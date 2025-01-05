@@ -3,8 +3,9 @@ import Suggestions from './Suggestions/Suggestions.jsx';
 import EventsCalendar from './Calendar/EventsCalendar.jsx';
 import { useState } from 'react';
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import PropTypes from 'prop-types';
 
-const NoticeBoard = () => {
+const NoticeBoard = ({ loginType }) => {
     const [currentDisplay, setCurrentDisplay] = useState(0);
 
     const allowChangeForNextDisplay = currentDisplay === 1 ? false : true;
@@ -36,7 +37,7 @@ const NoticeBoard = () => {
                         <Suggestions />
                     </div>
                     <div className="slide">
-                        <EventsCalendar />
+                        <EventsCalendar loginType={loginType} />
                     </div>
                 </div>
             </div>
@@ -45,6 +46,10 @@ const NoticeBoard = () => {
             </button>
         </div>
     );
+};
+
+NoticeBoard.propTypes = {
+    loginType: PropTypes.string,
 };
 
 export default NoticeBoard;

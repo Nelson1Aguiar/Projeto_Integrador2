@@ -1,5 +1,4 @@
-﻿using Projeto_Integrador2.Server.Infraestructure;
-using Projeto_Integrador2.Server.Interface;
+﻿using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
 using Projeto_Integrador2.Server.Repository;
 
@@ -16,6 +15,19 @@ namespace Projeto_Integrador2.Server.Transaction
                 return events;
             }
             catch (Exception ex) 
+            {
+                throw;
+            }
+        }
+
+        public static void DeleteEvent(IConnection connection, long id)
+        {
+            try
+            {
+                EventsRepository eventsBUS = new EventsRepository(connection);
+                eventsBUS.DeleteEvent(id);
+            }
+            catch (Exception ex)
             {
                 throw;
             }

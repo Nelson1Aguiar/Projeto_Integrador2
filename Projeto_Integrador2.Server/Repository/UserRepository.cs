@@ -8,21 +8,21 @@ namespace Projeto_Integrador2.Server.Repository
     public class UserRepository
     {
         private readonly IConnection _connectionProvider;
-        private readonly MySqlConnection mySqlConnection;
+        private readonly MySqlConnection _mySqlConnection;
         public UserRepository(IConnection connection)
         {
             _connectionProvider = connection;
-            mySqlConnection = _connectionProvider.ProviderConnection();
+            _mySqlConnection = _connectionProvider.ProviderConnection();
         }
 
         public void ValidateUserCredentials(User user)
         {
-            if (mySqlConnection != null)
+            if (_mySqlConnection != null)
             {
                 try
                 {
-                    mySqlConnection.Open();
-                    MySqlCommand command = new MySqlCommand("ValidateUserCredentials", mySqlConnection);
+                    _mySqlConnection.Open();
+                    MySqlCommand command = new MySqlCommand("ValidateUserCredentials", _mySqlConnection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@p_Email", user.Email);
                     MySqlDataReader reader = command.ExecuteReader();
@@ -44,7 +44,7 @@ namespace Projeto_Integrador2.Server.Repository
                 }
                 finally
                 {
-                    mySqlConnection.Close();
+                    _mySqlConnection.Close();
                 }
             }
         }

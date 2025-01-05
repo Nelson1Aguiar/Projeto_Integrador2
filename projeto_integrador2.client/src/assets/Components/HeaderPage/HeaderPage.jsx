@@ -45,7 +45,6 @@ HeaderPage.propTypes = {
 
     user: PropTypes.oneOfType([
         PropTypes.shape({
-            Token: PropTypes.string.isRequired,
             Name: PropTypes.string.isRequired,
             Email: PropTypes.string.isRequired,
             UserId: PropTypes.string.isRequired,

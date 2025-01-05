@@ -21,7 +21,7 @@ const HomePage = ({ setPage, page, loginType, user, setUser }) => {
     return (
         <div id="containerHomePage" className={`homePage ${scaled ? 'changeScale' : ''}`}>
             <Header setPage={setPage} loginType={loginType} user={user} setUser={setUser} />
-            <NoticeBoard />
+            <NoticeBoard loginType={loginType}/>
             <Grid page={page} />
             <Footer />
         </div>
@@ -36,7 +36,6 @@ HomePage.propTypes = {
 
     user: PropTypes.oneOfType([
         PropTypes.shape({
-            Token: PropTypes.string.isRequired,
             Name: PropTypes.string.isRequired,
             Email: PropTypes.string.isRequired,
             UserId: PropTypes.string.isRequired,
