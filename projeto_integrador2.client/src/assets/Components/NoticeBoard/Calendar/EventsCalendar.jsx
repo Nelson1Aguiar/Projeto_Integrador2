@@ -6,7 +6,7 @@ import './EventsCalendar.css';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FaTrash, FaEdit } from "react-icons/fa";
-import SelectionForm from '../../../SelectionForm';
+import EventsForm from './EventsForm/EventsForm.jsx';
 
 const locales = {
     'pt-BR': ptBR,
@@ -42,7 +42,7 @@ const EventsCalendar = ({ loginType }) => {
     const [loading, setLoading] = useState(false);
     const [view, setView] = useState('month');
     const [showCalendar, setShowCalendar] = useState(true);
-    const [showSelectionForm, setShowSelectionForm] = useState(false); // Estado para controlar a exibição do formulário
+    const [showSelectionForm, setShowSelectionForm] = useState(false);
 
     const GetAllEvents = async () => {
         setLoading(true);
@@ -81,11 +81,50 @@ const EventsCalendar = ({ loginType }) => {
         }
     };
 
-    useEffect(() => {
-        if (showCalendar) {
-            GetAllEvents();
+    const DeleteEvent = async (eventId) => {
+        const apiUrlDeleteEvent = import.meta.env.VITE_API_URL_DELETE_EVENT;
+        const token = sessionStorage.getItem('token');
+
+        if (!token) {
+            console.error("Token não encontrado.");
+            alert("Não foi possível  evento, tente novamente mais tarde");
+            return;
         }
-    }, [showCalendar]);
+
+        const options = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: eventId,
+        }
+
+        try {
+            const response = await fetch(apiUrlDeleteEvent, options);
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.message);
+                throw new Error(data.message);
+            }
+
+            setEvents((prevEvents) => prevEvents.filter((event) => event.eventId !== eventId));
+        }
+        catch (error) {
+            console.error('Erro ao deletar evento:', error);
+        }
+    }
+
+    useEffect(() => {
+        GetAllEvents();
+
+        const intervalId = setInterval(() => {
+            GetAllEvents();
+        }, 300000);
+
+        return () => clearInterval(intervalId);
+    }, []);
 
     const eventComponent = ({ event }) => (
         <>
@@ -98,8 +137,15 @@ const EventsCalendar = ({ loginType }) => {
                 <div className="containerEventsInformations">
                     <div className="containerTextInformations">
                         <strong>{event.title}</strong><br />
-                        <small>Descrição: {event.description}</small><br />
-                        <small>Local: {event.location}</small>
+                        {event.description != null &&
+                            <small>Descrição: {event.description}</small>
+                        }
+                        {event.location != null && (
+                            <>
+                                <br />
+                                <small>Local: {event.location}</small>
+                           </>
+                        )}
                     </div>
                     {loginType === 'Authenticated' && (
                         <div className="containerButtonsActionsEvents">
@@ -112,19 +158,19 @@ const EventsCalendar = ({ loginType }) => {
         </>
     );
 
-    const handleToggleCalendar = () => {
-        setShowCalendar((prev) => !prev);
-        setShowSelectionForm(false); // Fecha o formulário ao alternar o calendário
-    };
-
     const handleShowForm = () => {
         setShowSelectionForm(true);
-        setShowCalendar(false); // Fecha o calendário ao abrir o formulário
+        setShowCalendar(false);
+    };
+
+    const handleEventSelect = () => {
+        setView('agenda');
     };
 
     return (
+        <>
+        {showCalendar && (
         <div className="containerCalendar">
-            {showCalendar && (
                 <Calendar
                     localizer={localizer}
                     events={events}
@@ -136,40 +182,30 @@ const EventsCalendar = ({ loginType }) => {
                     components={{
                         event: eventComponent
                     }}
+                    onSelectEvent={handleEventSelect}
                     onView={setView}
                     view={view}
                 />
-            )}
-
-           
-            {/* Exibe o formulário de seleção apenas se showSelectionForm for true */}
-            {showSelectionForm && <SelectionForm />}
 
             <div className="actions">
-                {/* Botão para alternar entre o calendário e o formulário */}
-                
-                {!showSelectionForm ? (
-                    <button className='agendar-button' onClick={handleShowForm}>Agendar evento</button>
+                <button className='agendar-button' onClick={handleShowForm}>Agendar evento</button>
+                <button
+                    className="refresh-button"
+                    onClick={GetAllEvents}
+                    disabled={loading}
+                >
+                {loading ? (
+                    <div className="spinner"></div>
                 ) : (
-                    <button onClick={handleToggleCalendar}>Voltar ao Calendário</button>
-                )}
-
-                {/* Botão de atualização */}
-                {showCalendar && (
-                    <button
-                        className="refresh-button"
-                        onClick={GetAllEvents}
-                        disabled={loading}
-                    >
-                        {loading ? (
-                            <div className="spinner"></div>
-                        ) : (
-                            'Atualizar'
-                        )}
-                    </button>
-                )}
+                        'Atualizar'
+                    )}
+                </button>
             </div>
         </div>
+        )}
+
+            {showSelectionForm && <EventsForm setShowCalendar={setShowCalendar} setShowSelectionForm={setShowSelectionForm} setEvents={setEvents} />}
+    </>
     );
 };
 

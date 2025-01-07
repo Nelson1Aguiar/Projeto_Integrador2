@@ -27,7 +27,7 @@ namespace Projeto_Integrador2.Server.Repository
                     MySqlDataReader reader = command.ExecuteReader();
 
                     if (!reader.HasRows)
-                        throw new ApplicationException("Nenhum evento cadastrado");
+                        return new List<Event>();
 
                     while (reader.Read())
                     {
@@ -68,6 +68,34 @@ namespace Projeto_Integrador2.Server.Repository
                     MySqlCommand command = new MySqlCommand("DeleteEvent", _mySqlConnection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@p_EventId", id);
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                finally
+                {
+                    _mySqlConnection.Close();
+                }
+            }
+        }
+
+        public void InsertNewEvent(Event newEvent)
+        {
+            if (_mySqlConnection != null)
+            {
+                try
+                {
+                    _mySqlConnection.Open();
+                    MySqlCommand command = new MySqlCommand("InsertNewEvent", _mySqlConnection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@p_Title", newEvent.Title);
+                    command.Parameters.AddWithValue("@p_StartDate", newEvent.StartDate);
+                    command.Parameters.AddWithValue("@p_EndDate", newEvent.EndDate);
+                    command.Parameters.AddWithValue("@p_Description", newEvent.Description);
+                    command.Parameters.AddWithValue("@p_Location", newEvent.Location);
+                    command.Parameters.AddWithValue("@p_CreateUserId", newEvent.CreateUserId);
                     command.ExecuteNonQuery();
                 }
                 catch (Exception ex)

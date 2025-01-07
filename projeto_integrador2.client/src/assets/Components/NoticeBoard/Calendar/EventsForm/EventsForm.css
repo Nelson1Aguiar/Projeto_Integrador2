@@ -9,7 +9,8 @@
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 50vw; /* Reduz o tamanho do formulário */
+    width: 80%;
+    height: 80%;/* Reduz o tamanho do formulário */
     margin: 0 auto; /* Centraliza na página */
 }
 
@@ -17,7 +18,7 @@
     font-size: 1.2rem; /* Tamanho menor para o título */
     margin-bottom: 0.5rem;
     width: 100%; /* Garante que fique alinhado com os inputs */
-    text-align: left;
+    text-align: center;
 }
 
 .input-container {
@@ -25,22 +26,6 @@
     flex-direction: column;
     flex: 1; /* Faz com que ocupe espaço proporcional */
     gap: 1rem; /* Espaçamento entre os inputs */
-}
-
-.calendar-container {
-    flex: 1; /* Faz o calendário ocupar espaço proporcional */
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Alinha ao topo */
-}
-
-.react-calendar {
-    width: 100%;
-    max-width: 100%;
-    border: none;
-    font-family: Arial, sans-serif;
-    line-height: 1.125em;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .button-group {
@@ -69,6 +54,36 @@
 .EventForm .btn-cancel {
     background-color: #f6c98b;
     color: black;
+}
+
+.containerEventsForm{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+
+.containerEventsForm form{
+    display: flex;
+    align-items: center;
+    width: 50%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.calendar-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 80%;
+}
+
+.custom-calendar {
+    width: 100%;
+    height: 80%;
+    max-width: 100%;
 }
 
 /* Responsividade */

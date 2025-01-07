@@ -32,5 +32,18 @@ namespace Projeto_Integrador2.Server.Transaction
                 throw;
             }
         }
+
+        public static void InsertNewEvent(IConnection connection, Event newEvent)
+        {
+            try
+            {
+                EventsRepository eventsBUS = new EventsRepository(connection);
+                eventsBUS.InsertNewEvent(newEvent);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
