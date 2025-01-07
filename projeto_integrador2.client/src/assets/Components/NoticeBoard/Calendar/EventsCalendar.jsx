@@ -34,13 +34,15 @@ const messages = {
     event: 'Evento',
     noEventsInRange: 'Nenhum evento neste período.',
     showMore: (count) => `+ Ver mais (${count})`,
+    
 };
 
 const EventsCalendar = ({ loginType }) => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
     const [view, setView] = useState('month');
-    const [showCalendar, setShowCalendar] = useState(false); // Estado para controlar a exibição do calendário
+    const [showCalendar, setShowCalendar] = useState(true);
+    const [showSelectionForm, setShowSelectionForm] = useState(false); // Estado para controlar a exibição do formulário
 
     const GetAllEvents = async () => {
         setLoading(true);
@@ -79,50 +81,10 @@ const EventsCalendar = ({ loginType }) => {
         }
     };
 
-    const DeleteEvent = async (eventId) => {
-        const apiUrlDeleteEvent = import.meta.env.VITE_API_URL_DELETE_EVENT;
-        const token = sessionStorage.getItem('token');
-
-        if (!token) {
-            console.error("Token não encontrado.");
-            return;
-        }
-
-        const options = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: eventId,
-        };
-
-        try {
-            const response = await fetch(apiUrlDeleteEvent, options);
-            const data = await response.json();
-
-            if (!response.ok) {
-                alert(data.message);
-                throw new Error(data.message);
-            }
-
-            setEvents((prevEvents) => prevEvents.filter((event) => event.eventId !== eventId));
-        } catch (error) {
-            console.error('Erro ao deletar evento:', error);
-        }
-    };
-
     useEffect(() => {
         if (showCalendar) {
             GetAllEvents();
         }
-        const intervalId = setInterval(() => {
-            if (showCalendar) {
-                GetAllEvents();
-            }
-        }, 300000);
-
-        return () => clearInterval(intervalId);
     }, [showCalendar]);
 
     const eventComponent = ({ event }) => (
@@ -150,13 +112,18 @@ const EventsCalendar = ({ loginType }) => {
         </>
     );
 
-    const handleEventSelect = () => {
-        setView('agenda');
+    const handleToggleCalendar = () => {
+        setShowCalendar((prev) => !prev);
+        setShowSelectionForm(false); // Fecha o formulário ao alternar o calendário
+    };
+
+    const handleShowForm = () => {
+        setShowSelectionForm(true);
+        setShowCalendar(false); // Fecha o calendário ao abrir o formulário
     };
 
     return (
         <div className="containerCalendar">
-            {/* Exibe o calendário apenas se showCalendar for true */}
             {showCalendar && (
                 <Calendar
                     localizer={localizer}
@@ -170,30 +137,38 @@ const EventsCalendar = ({ loginType }) => {
                         event: eventComponent
                     }}
                     onView={setView}
-                    onSelectEvent={handleEventSelect}
                     view={view}
                 />
             )}
 
-            {/* Botão para exibir o calendário */}
-            <button onClick={() => setShowCalendar(!showCalendar)}>
-                {showCalendar ? 'Agendar evento' :'Fechar Calendário' }
-                {showCalendar && <SelectionForm />}
-            </button>
-            
+           
+            {/* Exibe o formulário de seleção apenas se showSelectionForm for true */}
+            {showSelectionForm && <SelectionForm />}
 
-            {/* Botão de atualização */}
-            <button
-                className="refresh-button"
-                onClick={GetAllEvents}
-                disabled={loading}
-            >
-                {loading ? (
-                    <div className="spinner"></div>
+            <div className="actions">
+                {/* Botão para alternar entre o calendário e o formulário */}
+                
+                {!showSelectionForm ? (
+                    <button className='agendar-button' onClick={handleShowForm}>Agendar evento</button>
                 ) : (
-                    'Atualizar'
+                    <button onClick={handleToggleCalendar}>Voltar ao Calendário</button>
                 )}
-            </button>
+
+                {/* Botão de atualização */}
+                {showCalendar && (
+                    <button
+                        className="refresh-button"
+                        onClick={GetAllEvents}
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <div className="spinner"></div>
+                        ) : (
+                            'Atualizar'
+                        )}
+                    </button>
+                )}
+            </div>
         </div>
     );
 };

@@ -1,51 +1,93 @@
 .EventForm {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
+    flex-direction: row; /* Coloca os elementos lado a lado */
+    justify-content: space-between;
+    align-items: flex-start; /* Alinha os elementos no topo */
+    gap: 8rem; /* Espaçamento entre os inputs e o calendário */
+    padding: 1rem;
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 50vw; /* Reduz o tamanho do formulário */
+    margin: 0 auto; /* Centraliza na página */
 }
 
 .EventForm h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 1.2rem; /* Tamanho menor para o título */
+    margin-bottom: 0.5rem;
+    width: 100%; /* Garante que fique alinhado com os inputs */
+    text-align: left;
 }
 
-.EventForm label {
-    font-size: 16px;
-    margin-bottom: 5px;
+.input-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Faz com que ocupe espaço proporcional */
+    gap: 1rem; /* Espaçamento entre os inputs */
 }
 
-.EventForm input {
+.calendar-container {
+    flex: 1; /* Faz o calendário ocupar espaço proporcional */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinha ao topo */
+}
+
+.react-calendar {
     width: 100%;
-    max-width: 300px;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    max-width: 100%;
+    border: none;
+    font-family: Arial, sans-serif;
+    line-height: 1.125em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 1rem;
 }
 
 .EventForm .btn-submit,
 .EventForm .btn-cancel {
-    padding: 10px 20px;
+    flex: 1;
+    padding: 0.5rem;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
 }
 
 .EventForm .btn-submit {
     background-color: #f0ad4e;
     color: black;
-    font-weight: bold;
 }
 
 .EventForm .btn-cancel {
-    
     background-color: #f6c98b;
     color: black;
-    font-weight: bold;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .EventForm {
+        flex-direction: column; /* Volta para coluna em telas pequenas */
+        max-width: 90%;
+    }
+
+    .calendar-container {
+        margin-top: 1rem; /* Adiciona espaço no topo */
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .EventForm .btn-submit,
+    .EventForm .btn-cancel {
+        margin: 0.5rem 0;
+    }
 }
