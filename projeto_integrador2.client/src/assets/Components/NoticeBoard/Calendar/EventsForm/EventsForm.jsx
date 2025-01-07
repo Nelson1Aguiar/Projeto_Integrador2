@@ -43,7 +43,6 @@ const EventsForm = ({ setShowCalendar, setShowSelectionForm, setEvents}) => {
         }
 
         const decodedToken = jwtDecode(token);
-        console.log(token);
 
         const request =
         {
