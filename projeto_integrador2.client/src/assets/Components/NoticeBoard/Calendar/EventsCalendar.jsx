@@ -2,10 +2,11 @@ import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
-import './EventsCalendar.css'
+import './EventsCalendar.css';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FaTrash, FaEdit } from "react-icons/fa";
+import SelectionForm from '../../../SelectionForm';
 
 const locales = {
     'pt-BR': ptBR,
@@ -35,11 +36,11 @@ const messages = {
     showMore: (count) => `+ Ver mais (${count})`,
 };
 
-const EventsCalendar = ({loginType}) => {
-
+const EventsCalendar = ({ loginType }) => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
     const [view, setView] = useState('month');
+    const [showCalendar, setShowCalendar] = useState(false); // Estado para controlar a exibição do calendário
 
     const GetAllEvents = async () => {
         setLoading(true);
@@ -50,7 +51,7 @@ const EventsCalendar = ({loginType}) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }
+        };
 
         try {
             const response = await fetch(apiUrlGetAllEvents, options);
@@ -67,18 +68,16 @@ const EventsCalendar = ({loginType}) => {
                 end: new Date(event.endDate),
                 description: event.description,
                 location: event.location,
-                eventId: event.eventId
+                eventId: event.eventId,
             }));
 
             setEvents(mappedEvents);
-        }
-        catch (error) {
+        } catch (error) {
             console.error('ERRO: ', error);
-        }
-        finally {
+        } finally {
             setLoading(false);
         }
-    }
+    };
 
     const DeleteEvent = async (eventId) => {
         const apiUrlDeleteEvent = import.meta.env.VITE_API_URL_DELETE_EVENT;
@@ -96,7 +95,7 @@ const EventsCalendar = ({loginType}) => {
                 'Authorization': `Bearer ${token}`,
             },
             body: eventId,
-        }
+        };
 
         try {
             const response = await fetch(apiUrlDeleteEvent, options);
@@ -108,27 +107,29 @@ const EventsCalendar = ({loginType}) => {
             }
 
             setEvents((prevEvents) => prevEvents.filter((event) => event.eventId !== eventId));
-        }
-        catch (error) {
+        } catch (error) {
             console.error('Erro ao deletar evento:', error);
         }
-    }
+    };
 
     useEffect(() => {
-        GetAllEvents();
-
-        const intervalId = setInterval(() => {
+        if (showCalendar) {
             GetAllEvents();
+        }
+        const intervalId = setInterval(() => {
+            if (showCalendar) {
+                GetAllEvents();
+            }
         }, 300000);
 
         return () => clearInterval(intervalId);
-    }, []);
+    }, [showCalendar]);
 
     const eventComponent = ({ event }) => (
         <>
             {view !== 'agenda' && (
-                <div style={{width:'100%'} }>
-                    <strong style={{ fontSize: '0.7rem'}}>{event.title}</strong><br />
+                <div style={{ width: '100%' }}>
+                    <strong style={{ fontSize: '0.7rem' }}>{event.title}</strong><br />
                 </div>
             )}
             {view === 'agenda' && (
@@ -138,7 +139,7 @@ const EventsCalendar = ({loginType}) => {
                         <small>Descrição: {event.description}</small><br />
                         <small>Local: {event.location}</small>
                     </div>
-                    {loginType == 'Authenticated' && (
+                    {loginType === 'Authenticated' && (
                         <div className="containerButtonsActionsEvents">
                             <button className="buttonDeleteEvent" title="Excluir" onClick={() => DeleteEvent(event.eventId)}><FaTrash /></button>
                             <button className="buttonEditEvent" title="Editar"><FaEdit /></button>
@@ -155,21 +156,33 @@ const EventsCalendar = ({loginType}) => {
 
     return (
         <div className="containerCalendar">
-            <Calendar
-                localizer={localizer}
-                events={events}
-                startAccessor="start"
-                endAccessor="end"
-                culture="pt-BR"
-                messages={messages}
-                className="calendarComponent"
-                components={{
-                    event: eventComponent
-                }}
-                onView={setView}
-                onSelectEvent={handleEventSelect}
-                view={view}
-            />
+            {/* Exibe o calendário apenas se showCalendar for true */}
+            {showCalendar && (
+                <Calendar
+                    localizer={localizer}
+                    events={events}
+                    startAccessor="start"
+                    endAccessor="end"
+                    culture="pt-BR"
+                    messages={messages}
+                    className="calendarComponent"
+                    components={{
+                        event: eventComponent
+                    }}
+                    onView={setView}
+                    onSelectEvent={handleEventSelect}
+                    view={view}
+                />
+            )}
+
+            {/* Botão para exibir o calendário */}
+            <button onClick={() => setShowCalendar(!showCalendar)}>
+                {showCalendar ? 'Agendar evento' :'Fechar Calendário' }
+                {showCalendar && <SelectionForm />}
+            </button>
+            
+
+            {/* Botão de atualização */}
             <button
                 className="refresh-button"
                 onClick={GetAllEvents}

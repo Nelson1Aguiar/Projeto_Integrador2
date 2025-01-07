@@ -11,6 +11,8 @@
     position: relative;
 }
 
+
+/*Alterar width*/
 .Pages {
     display: flex;
     width: 200%;

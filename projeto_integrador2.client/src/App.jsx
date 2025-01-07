@@ -2,7 +2,7 @@ import './App.css';
 import { useState} from 'react';
 import HomePage from './assets/HomePage';
 import LoginPage from './assets/LoginPage';
-
+import SelectionForm from './assets/SelectionForm';
 function App() {
     const [page, setPage] = useState('homePage');
     const [loginType, setLoginType] = useState('Anonymous');
@@ -19,6 +19,9 @@ function App() {
                 <div className="Page">
                     <LoginPage setPage={setPage} setLoginType={setLoginType} setUser={setUser} />
                 </div>
+                {/*<div className="Page OverflowSelectionForm">
+                    <SelectionForm setPage={setPage} user={user} />
+                </div>*/}
             </div>
         </div>
     ); 
