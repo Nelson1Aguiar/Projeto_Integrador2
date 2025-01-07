@@ -13,6 +13,7 @@ const UserDropBox = ({ user, setUser, setPage}) => {
             setPage("login");
             setSelectedOption(null);
             setUser(null);
+            sessionStorage.removeItem('token');
         }
     }, [selectedOption, setUser, setPage]);
 

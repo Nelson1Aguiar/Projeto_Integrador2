@@ -54,5 +54,29 @@ namespace Projeto_Integrador2.Server.Controllers
                 return StatusCode(500, new { Success = false, Message = "Erro interno do servidor: " + ex.Message });
             }
         }
+
+        [HttpPost("CreateEvent")]
+        [Authorize]
+        public IActionResult CreateEvent([FromBody] Event newEvent)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    EventsTRA.InsertNewEvent(_connection, newEvent);
+                    return Ok(new { Success = true, Message = "Evento criado com sucesso" });
+                }
+                catch (ApplicationException ex)
+                {
+                    return BadRequest(new { Success = false, Message = ex.Message });
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, new { Success = false, Message = "Erro interno do servidor: " + ex.Message });
+                }
+            }
+            else
+                return BadRequest(new { Success = false, Message = "Dados inválidos", Errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)) });
+        }
     }
 }

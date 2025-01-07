@@ -2,10 +2,11 @@ import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
-import './EventsCalendar.css'
+import './EventsCalendar.css';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FaTrash, FaEdit } from "react-icons/fa";
+import EventsForm from './EventsForm/EventsForm.jsx';
 
 const locales = {
     'pt-BR': ptBR,
@@ -33,13 +34,15 @@ const messages = {
     event: 'Evento',
     noEventsInRange: 'Nenhum evento neste período.',
     showMore: (count) => `+ Ver mais (${count})`,
+    
 };
 
-const EventsCalendar = ({loginType}) => {
-
+const EventsCalendar = ({ loginType }) => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
     const [view, setView] = useState('month');
+    const [showCalendar, setShowCalendar] = useState(true);
+    const [showSelectionForm, setShowSelectionForm] = useState(false);
 
     const GetAllEvents = async () => {
         setLoading(true);
@@ -50,7 +53,7 @@ const EventsCalendar = ({loginType}) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }
+        };
 
         try {
             const response = await fetch(apiUrlGetAllEvents, options);
@@ -67,18 +70,16 @@ const EventsCalendar = ({loginType}) => {
                 end: new Date(event.endDate),
                 description: event.description,
                 location: event.location,
-                eventId: event.eventId
+                eventId: event.eventId,
             }));
 
             setEvents(mappedEvents);
-        }
-        catch (error) {
+        } catch (error) {
             console.error('ERRO: ', error);
-        }
-        finally {
+        } finally {
             setLoading(false);
         }
-    }
+    };
 
     const DeleteEvent = async (eventId) => {
         const apiUrlDeleteEvent = import.meta.env.VITE_API_URL_DELETE_EVENT;
@@ -86,6 +87,7 @@ const EventsCalendar = ({loginType}) => {
 
         if (!token) {
             console.error("Token não encontrado.");
+            alert("Não foi possível  evento, tente novamente mais tarde");
             return;
         }
 
@@ -127,18 +129,25 @@ const EventsCalendar = ({loginType}) => {
     const eventComponent = ({ event }) => (
         <>
             {view !== 'agenda' && (
-                <div style={{width:'100%'} }>
-                    <strong style={{ fontSize: '0.7rem'}}>{event.title}</strong><br />
+                <div style={{ width: '100%' }}>
+                    <strong style={{ fontSize: '0.7rem' }}>{event.title}</strong><br />
                 </div>
             )}
             {view === 'agenda' && (
                 <div className="containerEventsInformations">
                     <div className="containerTextInformations">
                         <strong>{event.title}</strong><br />
-                        <small>Descrição: {event.description}</small><br />
-                        <small>Local: {event.location}</small>
+                        {event.description != null &&
+                            <small>Descrição: {event.description}</small>
+                        }
+                        {event.location != null && (
+                            <>
+                                <br />
+                                <small>Local: {event.location}</small>
+                           </>
+                        )}
                     </div>
-                    {loginType == 'Authenticated' && (
+                    {loginType === 'Authenticated' && (
                         <div className="containerButtonsActionsEvents">
                             <button className="buttonDeleteEvent" title="Excluir" onClick={() => DeleteEvent(event.eventId)}><FaTrash /></button>
                             <button className="buttonEditEvent" title="Editar"><FaEdit /></button>
@@ -149,39 +158,54 @@ const EventsCalendar = ({loginType}) => {
         </>
     );
 
+    const handleShowForm = () => {
+        setShowSelectionForm(true);
+        setShowCalendar(false);
+    };
+
     const handleEventSelect = () => {
         setView('agenda');
     };
 
     return (
+        <>
+        {showCalendar && (
         <div className="containerCalendar">
-            <Calendar
-                localizer={localizer}
-                events={events}
-                startAccessor="start"
-                endAccessor="end"
-                culture="pt-BR"
-                messages={messages}
-                className="calendarComponent"
-                components={{
-                    event: eventComponent
-                }}
-                onView={setView}
-                onSelectEvent={handleEventSelect}
-                view={view}
-            />
-            <button
-                className="refresh-button"
-                onClick={GetAllEvents}
-                disabled={loading}
-            >
+                <Calendar
+                    localizer={localizer}
+                    events={events}
+                    startAccessor="start"
+                    endAccessor="end"
+                    culture="pt-BR"
+                    messages={messages}
+                    className="calendarComponent"
+                    components={{
+                        event: eventComponent
+                    }}
+                    onSelectEvent={handleEventSelect}
+                    onView={setView}
+                    view={view}
+                />
+
+            <div className="actions">
+                <button className='agendar-button' onClick={handleShowForm}>Agendar evento</button>
+                <button
+                    className="refresh-button"
+                    onClick={GetAllEvents}
+                    disabled={loading}
+                >
                 {loading ? (
                     <div className="spinner"></div>
                 ) : (
-                    'Atualizar'
-                )}
-            </button>
+                        'Atualizar'
+                    )}
+                </button>
+            </div>
         </div>
+        )}
+
+            {showSelectionForm && <EventsForm setShowCalendar={setShowCalendar} setShowSelectionForm={setShowSelectionForm} setEvents={setEvents} />}
+    </>
     );
 };
 
