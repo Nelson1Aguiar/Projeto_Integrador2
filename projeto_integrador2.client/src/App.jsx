@@ -18,9 +18,6 @@ function App() {
                 <div className="Page">
                     <LoginPage setPage={setPage} setLoginType={setLoginType} setUser={setUser} />
                 </div>
-                {/*<div className="Page OverflowSelectionForm">
-                    <SelectionForm setPage={setPage} user={user} />
-                </div>*/}
             </div>
         </div>
     ); 
