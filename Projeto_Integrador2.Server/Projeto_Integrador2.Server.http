@@ -1,6 +1,6 @@
-@Projeto_Integrador2.Server_HostAddress = http://localhost:5293
+@Projeto_Integrador2.Server_HostAddress = https://localhost:44307
 
-GET {{Projeto_Integrador2.Server_HostAddress}}/weatherforecast/
+GET {{Projeto_Integrador2.Server_HostAddress}}/User/Teste
 Accept: application/json
 
 ###

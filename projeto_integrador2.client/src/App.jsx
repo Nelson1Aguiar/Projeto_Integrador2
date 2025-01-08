@@ -1,18 +1,24 @@
 import './App.css';
-import Header from './assets/Components/HeaderPage/HeaderPage'
-import NoticeBoard from './assets/Components/NoticeBoard/NoticeBoard'
-import Grid from './assets/Components/Grid/Grid';
-import Footer from './assets/Components/Footer/Footer'
-
-
-
+import { useState} from 'react';
+import HomePage from './assets/HomePage';
+import LoginPage from './assets/LoginPage';
 function App() {
+    const [page, setPage] = useState('homePage');
+    const [loginType, setLoginType] = useState('Anonymous');
+    const [user, setUser] = useState(null);
+
+    const pageIsLogin = page === 'login' ? true : false;
+
     return (
-        <div>
-            <Header/>
-            <NoticeBoard/>
-            <Grid/>
-            <Footer/>
+        <div className="App">
+            <div className={`Pages ${pageIsLogin ? 'slide-to-login' : 'slide-to-home'}`}>
+                <div className="Page OverflowHomePage">
+                    <HomePage setPage={setPage} page={page} loginType={loginType} user={user} setUser={setUser} />
+                </div>
+                <div className="Page">
+                    <LoginPage setPage={setPage} setLoginType={setLoginType} setUser={setUser} />
+                </div>
+            </div>
         </div>
     ); 
 }

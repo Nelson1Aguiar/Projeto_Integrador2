@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
   }
   
@@ -29,22 +30,36 @@
     gap: 10px;
     margin-top: 10px;
   }
-  
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
+
+.navButtonGrid {
+    display: flex;
+    padding: 0.5rem;
+    align-items: center;
+    justify-content: center;
     border: none;
-    border-radius: 4px;
+    font-size: 5rem;
+    width: auto;
+    transition: transform 0.2s ease;
+    background-color: transparent;
+    color: black;
     cursor: pointer;
-    background-color: #007bff;
-    color: white;
-  }
-  
-  button:disabled {
-    background-color: #ccc;
+}
+
+.navButtonGrid:hover{
+    transform: scale(1.2);
+}
+
+.navButtonGrid:disabled{
+    color: grey;
     cursor: not-allowed;
-  }
-  
-  button:hover:not(:disabled) {
-    background-color: #0056b3;
-  }
+}
+
+.navButtonGrid:hover:disabled{
+    transform: scale(1);
+}
+
+@media (max-width: 768px) {
+    .gallery-container{
+        height: 40%;
+    }
+}

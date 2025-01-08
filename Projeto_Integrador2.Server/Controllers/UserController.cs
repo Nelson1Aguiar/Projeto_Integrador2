@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
@@ -10,13 +11,16 @@ namespace Projeto_Integrador2.Server.Controllers
     public class UserController : ControllerBase
     {
         private readonly IConnection _connection;
+        private readonly ITokenService _tokenService;
 
-        public UserController(IConnection connection)
+        public UserController(IConnection connection, ITokenService tokenService)
         {
             _connection = connection;
+            _tokenService = tokenService;
         }
 
         [HttpPost("Login")]
+        [AllowAnonymous]
         public IActionResult Login([FromBody] User user)
         {
             if (user != null)
@@ -24,20 +28,27 @@ namespace Projeto_Integrador2.Server.Controllers
                 try
                 {
                     UserTRA.ValidateLogin(user,_connection);
-                    return Ok(new { status = "success", message = "Conta criada com sucesso!" });
+                    string token = _tokenService.GenerateToken(user);
+                    return Ok(new { Success = true, Message = "Login validado com sucesso", Token = token });
                 }
                 catch (ApplicationException ex)
                 {
-                    return BadRequest(new {success = false, message = ex});
+                    return BadRequest(new { Success = false, Message = ex.Message});
                 }
                 catch (Exception ex) 
                 {
-                    return StatusCode(500, new {success = false, message = "Erro interno do servidor: " + ex.Message });
+                    return StatusCode(500, new { Success = false, Message = "Erro interno do servidor: " + ex.Message });
                 }
             }
             else
-                return BadRequest(new { success = false, message = "Não foi possível efetuar login" });
+                return BadRequest(new { Success = false, Message = "Não foi possível efetuar login" });
         }
 
+        [HttpGet("Teste")]
+        [AllowAnonymous]
+        public IActionResult TestEndPoint()
+        {
+            return Ok(new { message = "API estável" });
+        }
     }
 }

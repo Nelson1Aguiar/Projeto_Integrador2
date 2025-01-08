@@ -1,0 +1,108 @@
+.EventForm {
+    display: flex;
+    flex-direction: row; /* Coloca os elementos lado a lado */
+    justify-content: space-between;
+    align-items: flex-start; /* Alinha os elementos no topo */
+    gap: 8rem; /* Espaçamento entre os inputs e o calendário */
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    height: 80%;/* Reduz o tamanho do formulário */
+    margin: 0 auto; /* Centraliza na página */
+}
+
+.EventForm h2 {
+    font-size: 1.2rem; /* Tamanho menor para o título */
+    margin-bottom: 0.5rem;
+    width: 100%; /* Garante que fique alinhado com os inputs */
+    text-align: center;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Faz com que ocupe espaço proporcional */
+    gap: 1rem; /* Espaçamento entre os inputs */
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.EventForm .btn-submit,
+.EventForm .btn-cancel {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.EventForm .btn-submit {
+    background-color: #f0ad4e;
+    color: black;
+}
+
+.EventForm .btn-cancel {
+    background-color: #f6c98b;
+    color: black;
+}
+
+.containerEventsForm{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+
+.containerEventsForm form{
+    display: flex;
+    align-items: center;
+    width: 50%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.calendar-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 80%;
+}
+
+.custom-calendar {
+    width: 100%;
+    height: 80%;
+    max-width: 100%;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .EventForm {
+        flex-direction: column; /* Volta para coluna em telas pequenas */
+        max-width: 90%;
+    }
+
+    .calendar-container {
+        margin-top: 1rem; /* Adiciona espaço no topo */
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .EventForm .btn-submit,
+    .EventForm .btn-cancel {
+        margin: 0.5rem 0;
+    }
+}

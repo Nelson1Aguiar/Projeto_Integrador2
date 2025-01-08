@@ -2,12 +2,12 @@
 using Projeto_Integrador2.Server.Helper;
 using Projeto_Integrador2.Server.Interface;
 
-namespace Projeto_Integrador2.Server.Service
+namespace Projeto_Integrador2.Server.Infraestructure
 {
     public class Connection : IConnection
     {
         private readonly string _connectionString;
-        public Connection() 
+        public Connection()
         {
             _connectionString = ConfigurationHelper.GetConnectionString("SqlConnection");
         }
