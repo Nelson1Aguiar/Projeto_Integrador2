@@ -64,7 +64,7 @@ namespace Projeto_Integrador2.Server.Controllers
                 try
                 {
                     EventsTRA.InsertNewEvent(_connection, newEvent);
-                    return Ok(new { Success = true, Message = "Evento criado com sucesso" });
+                    return Ok(new { Success = true, Message = "Evento criado com sucesso", Id = newEvent.EventId });
                 }
                 catch (ApplicationException ex)
                 {

@@ -90,13 +90,21 @@ namespace Projeto_Integrador2.Server.Repository
                     _mySqlConnection.Open();
                     MySqlCommand command = new MySqlCommand("InsertNewEvent", _mySqlConnection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
+
                     command.Parameters.AddWithValue("@p_Title", newEvent.Title);
                     command.Parameters.AddWithValue("@p_StartDate", newEvent.StartDate);
                     command.Parameters.AddWithValue("@p_EndDate", newEvent.EndDate);
                     command.Parameters.AddWithValue("@p_Description", newEvent.Description);
                     command.Parameters.AddWithValue("@p_Location", newEvent.Location);
                     command.Parameters.AddWithValue("@p_CreateUserId", newEvent.CreateUserId);
+
+                    MySqlParameter outputEventId = new MySqlParameter("@p_EventId", MySqlDbType.Int32);
+                    outputEventId.Direction = System.Data.ParameterDirection.Output;
+                    command.Parameters.Add(outputEventId);
+
                     command.ExecuteNonQuery();
+
+                    newEvent.EventId = Convert.ToInt32(outputEventId.Value);
                 }
                 catch (Exception ex)
                 {

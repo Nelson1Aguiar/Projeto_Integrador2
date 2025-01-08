@@ -54,8 +54,6 @@ const EventsForm = ({ setShowCalendar, setShowSelectionForm, setEvents}) => {
             CreateUserId: decodedToken.userId
         }
 
-        console.log(JSON.stringify(request));
-
         const apiUrlCreateEvent = import.meta.env.VITE_API_URL_CREATE_EVENT;
 
         const options = {
@@ -83,6 +81,7 @@ const EventsForm = ({ setShowCalendar, setShowSelectionForm, setEvents}) => {
                 end: request.EndDate,
                 description: request.Description,
                 location: request.Location,
+                eventId: data.id,
             };
 
             alert("Evento criado com sucesso!");
