@@ -70,8 +70,13 @@ const EventsForm = ({ setShowCalendar, setShowSelectionForm, setEvents}) => {
             const data = await response.json();
 
             if (!response.ok) {
-                alert(data.message);
-                throw new Error(data.message);
+                if (data.errors) {
+                    const errorMessages = Object.values(data.errors).flat();
+                    alert(errorMessages.join('\n'));
+                } else if (data.message) {
+                    alert(data.message);
+                }
+                throw new Error(data.message || 'Erro desconhecido');
             }
 
             const event =
