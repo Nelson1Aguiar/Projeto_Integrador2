@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
-using Projeto_Integrador2.Server.Transaction;
 
 namespace Projeto_Integrador2.Server.Controllers
 {
@@ -10,11 +9,11 @@ namespace Projeto_Integrador2.Server.Controllers
     [Route("[controller]")]
     public class EventsController : ControllerBase
     {
-        private readonly IConnection _connection;
+        private readonly IRepository<Event> _eventsRepository;
 
-        public EventsController(IConnection connection)
+        public EventsController(IRepository<Event> repository)
         {
-            _connection = connection;
+            _eventsRepository = repository;
         }
 
         [HttpGet("GetEvents")]
@@ -23,7 +22,7 @@ namespace Projeto_Integrador2.Server.Controllers
         {
             try
             {
-                List<Event> events = EventsTRA.GetAllEvents(_connection);
+                List<Event> events = _eventsRepository.GetAll();
                 return Ok(new { Success = true, Message = "Eventos obtidos com sucesso", Events = events });
             }
             catch (ApplicationException ex)
@@ -42,7 +41,7 @@ namespace Projeto_Integrador2.Server.Controllers
         {
             try
             {
-                EventsTRA.DeleteEvent(_connection, id);
+                _eventsRepository.Delete(id);
                 return Ok(new { Success = true, Message = "Evento excluído com sucesso"});
             }
             catch (ApplicationException ex)
@@ -63,7 +62,7 @@ namespace Projeto_Integrador2.Server.Controllers
             {
                 try
                 {
-                    EventsTRA.InsertNewEvent(_connection, newEvent);
+                    _eventsRepository.Create(newEvent);
                     return Ok(new { Success = true, Message = "Evento criado com sucesso", Id = newEvent.EventId });
                 }
                 catch (ApplicationException ex)
