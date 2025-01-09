@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Projeto_Integrador2.Server.Annotation
 {
-    public class ValidateMailAttribute : ValidationAttribute
+    public class ValidateEmailAttribute : ValidationAttribute
     {
         private const string EmailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 

@@ -25,7 +25,7 @@ namespace Projeto_Integrador2.Server.Repository
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
                     command.Parameters.AddWithValue("@p_Suggestion", entity.SuggestionToSend);
-                    command.Parameters.AddWithValue("@p_Mail", entity.Mail);
+                    command.Parameters.AddWithValue("@p_Mail", entity.Email);
 
                     MySqlParameter outputSuggestionId = new MySqlParameter("@p_SuggestionId", MySqlDbType.Int32);
                     outputSuggestionId.Direction = System.Data.ParameterDirection.Output;
