@@ -4,7 +4,7 @@ using Projeto_Integrador2.Server.Model;
 
 namespace Projeto_Integrador2.Server.Repository
 {
-    public class SuggestionRepository
+    public class SuggestionRepository : IRepository<Suggestion>
     {
         private readonly IConnection _connectionProvider;
         private readonly MySqlConnection _mySqlConnection;
@@ -14,7 +14,7 @@ namespace Projeto_Integrador2.Server.Repository
             _mySqlConnection = _connectionProvider.ProviderConnection();
         }
 
-        public void SendSuggestion(Suggestion suggestion)
+        public void Create(Suggestion entity)
         {
             if (_mySqlConnection != null)
             {
@@ -24,8 +24,8 @@ namespace Projeto_Integrador2.Server.Repository
                     MySqlCommand command = new MySqlCommand("SendSuggestion", _mySqlConnection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    command.Parameters.AddWithValue("@p_Suggestion", suggestion.SuggestionToSend);
-                    command.Parameters.AddWithValue("@p_Mail", suggestion.Mail);
+                    command.Parameters.AddWithValue("@p_Suggestion", entity.SuggestionToSend);
+                    command.Parameters.AddWithValue("@p_Mail", entity.Mail);
 
                     MySqlParameter outputSuggestionId = new MySqlParameter("@p_SuggestionId", MySqlDbType.Int32);
                     outputSuggestionId.Direction = System.Data.ParameterDirection.Output;
@@ -33,7 +33,7 @@ namespace Projeto_Integrador2.Server.Repository
 
                     command.ExecuteNonQuery();
 
-                    suggestion.SuggestionId = Convert.ToInt32(outputSuggestionId.Value);
+                    entity.SuggestionId = Convert.ToInt32(outputSuggestionId.Value);
                 }
                 catch (Exception ex)
                 {
@@ -44,6 +44,26 @@ namespace Projeto_Integrador2.Server.Repository
                     _mySqlConnection.Close();
                 }
             }
+        }
+
+        public void Update(Suggestion entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Suggestion> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GetOne(Suggestion entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }
