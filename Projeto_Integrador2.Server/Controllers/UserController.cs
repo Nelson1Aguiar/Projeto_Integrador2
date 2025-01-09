@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
-using Projeto_Integrador2.Server.Transaction;
 
 namespace Projeto_Integrador2.Server.Controllers
 {
@@ -10,12 +9,12 @@ namespace Projeto_Integrador2.Server.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IConnection _connection;
         private readonly ITokenService _tokenService;
+        private readonly IRepository<User> _userRepository;
 
-        public UserController(IConnection connection, ITokenService tokenService)
+        public UserController(IRepository<User> repository, ITokenService tokenService)
         {
-            _connection = connection;
+            _userRepository = repository;
             _tokenService = tokenService;
         }
 
@@ -27,7 +26,7 @@ namespace Projeto_Integrador2.Server.Controllers
             {
                 try
                 {
-                    UserTRA.ValidateLogin(user,_connection);
+                    _userRepository.GetOne(user);
                     string token = _tokenService.GenerateToken(user);
                     return Ok(new { Success = true, Message = "Login validado com sucesso", Token = token });
                 }

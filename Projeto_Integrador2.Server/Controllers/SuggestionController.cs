@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
-using Projeto_Integrador2.Server.Transaction;
 
 namespace Projeto_Integrador2.Server.Controllers
 {
@@ -10,11 +9,11 @@ namespace Projeto_Integrador2.Server.Controllers
     [Route("[controller]")]
     public class SuggestionController : ControllerBase
     {
-        private readonly IConnection _connection;
+        private readonly IRepository<Suggestion> _suggestionRepository;
 
-        public SuggestionController(IConnection connection)
+        public SuggestionController(IRepository<Suggestion> repository)
         {
-            _connection = connection;
+            _suggestionRepository = repository;
         }
 
         [HttpPost("SendSuggestion")]
@@ -25,7 +24,7 @@ namespace Projeto_Integrador2.Server.Controllers
             {
                 try
                 {
-                    SuggestionTRA.SendSuggestion(_connection, suggestion);
+                    _suggestionRepository.Create(suggestion);
                     return Ok(new { Success = true, Message = "Sugestão enviada", Id = suggestion.SuggestionId });
                 }
                 catch (ApplicationException ex)
