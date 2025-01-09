@@ -64,10 +64,11 @@
 }
 
 .refresh-button {
-    background-color: #f0ad4e;
+    background-color: #f6c98b;
     border: none;
-    color: white;
-    padding: 8px;
+    color: black;
+    font-weight: bold;
+    padding: 0.3vw;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -76,6 +77,7 @@
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
+
 }
 
 .refresh-button:hover {
@@ -89,19 +91,26 @@
 }
 
 .agendar-button{
-    background-color: #020202;
+    background-color: #f0ad4e;
     border: none;
-    color: #d68b2d;
-    padding: 8px;
+    color: black;
+    font-weight: bold;
+    padding: 0.3vw;    
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 1rem;
     position: relative;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
 }
+.actions {
+    display: flex;
+    gap: 10px; /* Espaçamento entre os botões */
+    justify-content: center;
+}
+
 .agendar-button:hover{
     background-color: #e69a38;
     transform: scale(1.1);

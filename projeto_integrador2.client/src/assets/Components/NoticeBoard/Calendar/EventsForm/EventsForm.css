@@ -73,9 +73,9 @@
 }
 
 .containerEventsFormInput {
-    width: 100%;
-    border: none;
-    padding: 8px;
+    width: 90%;
+    border: 1px solid black;
+    padding: 4px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
 }
@@ -84,8 +84,9 @@
     margin-top: 2%;
     align-self: start;
     font-size: 0.8rem;
-    margin-left: 3%;
+    margin-left: 6%;
     font-weight: bold;
+    margin-bottom: 0.5%;
 }
 
 .rdrDateDisplayWrapper {
@@ -120,6 +121,8 @@
     height: 80%;
     max-width: 100%;
 }
+
+
 
 @media (max-width: 1025px) {
     .EventForm {
