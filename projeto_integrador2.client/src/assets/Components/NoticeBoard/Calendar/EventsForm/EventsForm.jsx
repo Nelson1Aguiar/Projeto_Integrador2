@@ -116,8 +116,9 @@ const EventsForm = ({ setShowCalendar, setShowSelectionForm, setEvents}) => {
             <div className="containerEventsForm">
             <form onSubmit={handleSubmit}>
                 <h2>Agendar Evento</h2>
-                <label htmlFor="eventName">Nome do Evento:</label>
+                <label className='containerEventsFormLabel' htmlFor="eventName">Nome do Evento:</label>
                 <input
+                    className='containerEventsFormInput'
                     type="text"
                     id="eventName"
                     value={eventName}
@@ -126,8 +127,9 @@ const EventsForm = ({ setShowCalendar, setShowSelectionForm, setEvents}) => {
                     required
                 />
 
-                <label htmlFor='eventLocal'>Local do Evento:</label>
-                <input
+                <label className='containerEventsFormLabel' htmlFor='eventLocal'>Local do Evento:</label>
+                <input 
+                    className='containerEventsFormInput'
                     type='text'
                     id='eventLocal'
                     value={eventLocal}
@@ -135,8 +137,9 @@ const EventsForm = ({ setShowCalendar, setShowSelectionForm, setEvents}) => {
                     placeholder="Digite o local do evento"              
                 />
 
-                <label htmlFor="eventDescription">Descrição do evento:</label>
+                <label className='containerEventsFormLabel' htmlFor="eventDescription">Descrição do evento:</label>
                 <input 
+                    className='containerEventsFormInput'
                     type="text"
                     id='eventDescription'
                     value={eventDescription}
