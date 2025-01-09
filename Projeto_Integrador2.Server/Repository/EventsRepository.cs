@@ -119,7 +119,32 @@ namespace Projeto_Integrador2.Server.Repository
 
         public void Update(Event entity)
         {
-            throw new NotImplementedException();
+            if (_mySqlConnection != null)
+            {
+                try
+                {
+                    _mySqlConnection.Open();
+                    MySqlCommand command = new MySqlCommand("UpdateEvent", _mySqlConnection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@p_Title", entity.Title);
+                    command.Parameters.AddWithValue("@p_StartDate", entity.StartDate);
+                    command.Parameters.AddWithValue("@p_EndDate", entity.EndDate);
+                    command.Parameters.AddWithValue("@p_Description", entity.Description);
+                    command.Parameters.AddWithValue("@p_Location", entity.Location);
+                    command.Parameters.AddWithValue("@p_EventId", entity.EventId);
+
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                finally
+                {
+                    _mySqlConnection.Close();
+                }
+            }
         }
 
         public void GetOne(Event entity)

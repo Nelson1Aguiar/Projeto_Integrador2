@@ -77,5 +77,29 @@ namespace Projeto_Integrador2.Server.Controllers
             else
                 return BadRequest(new { Success = false, Message = "Dados inválidos", Errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)) });
         }
+
+        [HttpPut("UpdateEvent")]
+        [Authorize]
+        public IActionResult UpdateEvent([FromBody] Event newEvent)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _eventsRepository.Update(newEvent);
+                    return Ok(new { Success = true, Message = "Evento atualizado com sucesso", Event = newEvent });
+                }
+                catch (ApplicationException ex)
+                {
+                    return BadRequest(new { Success = false, Message = ex.Message });
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, new { Success = false, Message = "Erro interno do servidor: " + ex.Message });
+                }
+            }
+            else
+                return BadRequest(new { Success = false, Message = "Dados inválidos", Errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)) });
+        }
     }
 }
