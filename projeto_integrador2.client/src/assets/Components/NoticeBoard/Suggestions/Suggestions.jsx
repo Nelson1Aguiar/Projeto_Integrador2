@@ -53,8 +53,8 @@ const Suggestions = () => {
               <h2>Envie seu projeto 3D e inspire outros a criar</h2>
           </div>
           <form className="suggestionForm" onSubmit={(event) => handleSubmit(event)}>
-              <label htmlFor="Mail">E-mail</label>
-              <input type='email' name="Mail" placeholder="aluno@ufc.com.br" required></input>
+              <label htmlFor="Email">E-mail</label>
+              <input type='email' name="Email" placeholder="aluno@ufc.com.br" required></input>
               <label className="labelDescricao" htmlFor="SuggestionToSend">Descrição</label>
               <input name="SuggestionToSend" placeholder="Carro preto" required></input>
               <button className="sendSuggestion" type="submit">Enviar <IoSend className="iconStyle" />
