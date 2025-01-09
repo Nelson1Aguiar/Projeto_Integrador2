@@ -4,7 +4,7 @@ using Projeto_Integrador2.Server.Model;
 
 namespace Projeto_Integrador2.Server.Repository
 {
-    public class EventsRepository
+    public class EventsRepository : IRepository<Event>
     {
         private readonly IConnection _connectionProvider;
         private readonly MySqlConnection _mySqlConnection;
@@ -14,7 +14,7 @@ namespace Projeto_Integrador2.Server.Repository
             _mySqlConnection = _connectionProvider.ProviderConnection();
         }
 
-        public List<Event> GetAllEvents()
+        public List<Event> GetAll()
         {
             if (_mySqlConnection != null)
             {
@@ -58,7 +58,7 @@ namespace Projeto_Integrador2.Server.Repository
             throw new ApplicationException("Erro ao buscar eventos");
         }
 
-        public void DeleteEvent(long id)
+        public void Delete(long id)
         {
             if (_mySqlConnection != null)
             {
@@ -81,7 +81,7 @@ namespace Projeto_Integrador2.Server.Repository
             }
         }
 
-        public void InsertNewEvent(Event newEvent)
+        public void Create(Event entity)
         {
             if (_mySqlConnection != null)
             {
@@ -91,12 +91,12 @@ namespace Projeto_Integrador2.Server.Repository
                     MySqlCommand command = new MySqlCommand("InsertNewEvent", _mySqlConnection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    command.Parameters.AddWithValue("@p_Title", newEvent.Title);
-                    command.Parameters.AddWithValue("@p_StartDate", newEvent.StartDate);
-                    command.Parameters.AddWithValue("@p_EndDate", newEvent.EndDate);
-                    command.Parameters.AddWithValue("@p_Description", newEvent.Description);
-                    command.Parameters.AddWithValue("@p_Location", newEvent.Location);
-                    command.Parameters.AddWithValue("@p_CreateUserId", newEvent.CreateUserId);
+                    command.Parameters.AddWithValue("@p_Title", entity.Title);
+                    command.Parameters.AddWithValue("@p_StartDate", entity.StartDate);
+                    command.Parameters.AddWithValue("@p_EndDate", entity.EndDate);
+                    command.Parameters.AddWithValue("@p_Description", entity.Description);
+                    command.Parameters.AddWithValue("@p_Location", entity.Location);
+                    command.Parameters.AddWithValue("@p_CreateUserId", entity.CreateUserId);
 
                     MySqlParameter outputEventId = new MySqlParameter("@p_EventId", MySqlDbType.Int32);
                     outputEventId.Direction = System.Data.ParameterDirection.Output;
@@ -104,7 +104,7 @@ namespace Projeto_Integrador2.Server.Repository
 
                     command.ExecuteNonQuery();
 
-                    newEvent.EventId = Convert.ToInt32(outputEventId.Value);
+                    entity.EventId = Convert.ToInt32(outputEventId.Value);
                 }
                 catch (Exception ex)
                 {
@@ -115,6 +115,16 @@ namespace Projeto_Integrador2.Server.Repository
                     _mySqlConnection.Close();
                 }
             }
+        }
+
+        public void Update(Event entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GetOne(Event entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }
