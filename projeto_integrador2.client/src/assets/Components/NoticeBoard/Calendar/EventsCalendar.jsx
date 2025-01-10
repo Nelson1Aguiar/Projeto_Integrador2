@@ -43,6 +43,8 @@ const EventsCalendar = ({ loginType }) => {
     const [view, setView] = useState('month');
     const [showCalendar, setShowCalendar] = useState(true);
     const [showSelectionForm, setShowSelectionForm] = useState(false);
+    const [actionEvent, setActionEvent] = useState('create');
+    const [updateEvent, setUpdateEvent] = useState({});
 
     const GetAllEvents = async () => {
         setLoading(true);
@@ -160,7 +162,7 @@ const EventsCalendar = ({ loginType }) => {
                     {loginType === 'Authenticated' && (
                         <div className="containerButtonsActionsEvents">
                             <button className="buttonDeleteEvent" title="Excluir" onClick={() => DeleteEvent(event.eventId)}><FaTrash /></button>
-                            <button className="buttonEditEvent" title="Editar"><FaEdit /></button>
+                            <button className="buttonEditEvent" title="Editar" onClick={() => handleEditEvent(event)}><FaEdit /></button>
                         </div>
                     )}
                 </div>
@@ -171,6 +173,17 @@ const EventsCalendar = ({ loginType }) => {
     const handleShowForm = () => {
         setShowSelectionForm(true);
         setShowCalendar(false);
+    };
+
+    const handleEditEvent = (event) => {
+        setUpdateEvent(event);
+        setActionEvent('edit');
+        handleShowForm();
+    };
+
+    const handleCreateEvent = () => {
+        setActionEvent('create');
+        handleShowForm();
     };
 
     const handleEventSelect = () => {
@@ -198,7 +211,7 @@ const EventsCalendar = ({ loginType }) => {
                 />
 
             <div className="actions">
-                <button className='agendar-button' onClick={handleShowForm}>Agendar evento</button>
+                        {loginType === 'Authenticated' && <button className='agendar-button' onClick={handleCreateEvent}>Agendar evento</button> }
                 <button
                     className="refresh-button"
                     onClick={GetAllEvents}
@@ -214,7 +227,7 @@ const EventsCalendar = ({ loginType }) => {
         </div>
         )}
 
-            {showSelectionForm && <EventsForm setShowCalendar={setShowCalendar} setShowSelectionForm={setShowSelectionForm} setEvents={setEvents} />}
+            {showSelectionForm && <EventsForm setShowCalendar={setShowCalendar} setShowSelectionForm={setShowSelectionForm} setEvents={setEvents} actionEvent={actionEvent} updateEvent={updateEvent} />}
     </>
     );
 };

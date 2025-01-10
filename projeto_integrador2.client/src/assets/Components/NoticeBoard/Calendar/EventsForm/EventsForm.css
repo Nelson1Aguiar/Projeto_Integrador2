@@ -73,7 +73,8 @@
 }
 
 .containerEventsFormInput {
-    width: 90%;
+    width: 70%;
+    display: flex;
     border: 1px solid black;
     padding: 4px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(0, 0, 0, 0.1);
@@ -81,10 +82,10 @@
 }
 
 .containerEventsFormLabel {
-    margin-top: 2%;
+    margin-top: 5%;
     align-self: start;
     font-size: 0.8rem;
-    margin-left: 6%;
+    margin-left: 16%;
     font-weight: bold;
     margin-bottom: 0.5%;
 }
