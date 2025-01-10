@@ -1,31 +1,31 @@
 .EventForm {
     display: flex;
-    flex-direction: row; /* Coloca os elementos lado a lado */
+    flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start; /* Alinha os elementos no topo */
-    gap: 8rem; /* Espaçamento entre os inputs e o calendário */
+    align-items: flex-start;
+    gap: 4rem;
     padding: 1rem;
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    height: 80%;/* Reduz o tamanho do formulário */
-    margin: 0 auto; /* Centraliza na página */
+    width: 95%;
+    height: 90%;
+    margin: 0 auto;
 }
 
 .EventForm h2 {
-    font-size: 1.2rem; /* Tamanho menor para o título */
+    font-size: 1.2rem;
     margin-bottom: 0.5rem;
-    width: 100%; /* Garante que fique alinhado com os inputs */
+    width: 100%;
     text-align: center;
 }
 
 .input-container {
     display: flex;
     flex-direction: column;
-    flex: 1; /* Faz com que ocupe espaço proporcional */
-    gap: 1rem; /* Espaçamento entre os inputs */
+    flex: 1;
+    gap: 1rem;
 }
 
 .button-group {
@@ -56,7 +56,7 @@
     color: black;
 }
 
-.containerEventsForm{
+.containerEventsForm {
     display: flex;
     width: 100%;
     align-items: center;
@@ -64,7 +64,7 @@
     flex-direction: row-reverse;
 }
 
-.containerEventsForm form{
+.containerEventsForm form {
     display: flex;
     align-items: center;
     width: 50%;
@@ -72,7 +72,44 @@
     justify-content: center;
 }
 
-.calendar-container{
+.containerEventsFormInput {
+    width: 70%;
+    display: flex;
+    border: 1px solid black;
+    padding: 4px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+
+.containerEventsFormLabel {
+    margin-top: 5%;
+    align-self: start;
+    font-size: 0.8rem;
+    margin-left: 16%;
+    font-weight: bold;
+    margin-bottom: 0.5%;
+}
+
+.rdrDateDisplayWrapper {
+    width: 100%;
+    font-size: 1px;
+    padding-bottom: 1px;
+}
+
+.rdrDateDisplayItem input {
+    padding: 4px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.rdrDateDisplay {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.calendar-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -86,23 +123,97 @@
     max-width: 100%;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
+
+
+@media (max-width: 1025px) {
     .EventForm {
-        flex-direction: column; /* Volta para coluna em telas pequenas */
-        max-width: 90%;
+        flex-direction: column;
+        gap: 2rem;
+        width: 90%;
+    }
+
+    .containerEventsForm {
+        flex-direction: column;
+    }
+
+    .containerEventsForm form {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .input-container {
+        gap: 1.5rem;
     }
 
     .calendar-container {
-        margin-top: 1rem; /* Adiciona espaço no topo */
+        height: 70%;
     }
 
-    .button-group {
+    .rdrDateDisplay {
         flex-direction: column;
+        gap: 0.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .EventForm {
+        flex-direction: column;
+        gap: 2rem;
+        width: 90%;
+        padding: 1rem;
+    }
+
+    .containerEventsForm {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .containerEventsForm form {
+        width: 100%;
+    }
+
+    .input-container {
+        gap: 1.5rem;
+    }
+
+    .calendar-container {
+        height: 60%;
+    }
+
+    .rdrDateDisplay {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .EventForm {
+        padding: 0.5rem;
+    }
+
+    .EventForm h2 {
+        font-size: 1rem;
     }
 
     .EventForm .btn-submit,
     .EventForm .btn-cancel {
-        margin: 0.5rem 0;
+        font-size: 0.8rem;
+        padding: 0.4rem;
+    }
+
+    .containerEventsForm {
+        padding: 1rem;
+    }
+
+    .containerEventsForm form {
+        width: 100%;
+    }
+
+    .input-container {
+        gap: 1.5rem;
+    }
+
+    .calendar-container {
+        height: 50%;
     }
 }
