@@ -20,3 +20,14 @@
     font-size: 1.3rem;
     background-color: transparent;
 }
+
+@media (max-width: 768px) {
+    .TextAreaLogin h1{
+        color: black;
+        font-size: 2rem;
+        background-color: transparent;
+    }
+    .TextAreaLogin p {
+        font-size: 1.2rem;
+    }
+}

@@ -1,0 +1,110 @@
+.postSuggestion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+.textContainer {
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 0;
+    background-color: transparent;
+}
+
+.textContainer h2, h1{
+    background-color: transparent;
+}
+
+.suggestionForm {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 5%;
+    background-color: transparent;
+}
+
+.suggestionForm label{
+    align-self: start;
+    background-color: transparent;
+    font-weight: bold;
+}
+
+.suggestionForm input{
+    width: 100%;
+    padding: 2%;
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 30px;
+}
+
+.suggestionForm button{
+    width: 30%;
+    padding: 3px;
+    margin-top: 5%;
+    justify-self: end;
+    background-color: darkgrey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.3s ease;
+}
+
+.suggestionForm button:hover{
+    transform: scale(1.1);
+    background-color: #007bff;
+}
+
+.labelDescricao {
+    margin-top: 5%;
+}
+
+.sendSuggestion {
+    padding: 8% 15%;
+    font-size: 100%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+}
+
+.iconStyle {
+    background-color: transparent;
+}
+
+@media (max-width: 768px) {
+    .postSuggestion {
+        width: 80%;
+    }
+
+    .textContainer {
+        font-size: 0.4rem;
+        flex-wrap: wrap;
+    }
+
+    .suggestionForm button {
+        width: 70%;
+        padding: 0;
+        margin-top: 15%;
+    }
+
+    .suggestionForm label {
+        font-size: 0.8rem;
+    }
+
+    .labelDescricao {
+        margin-top: 10%;
+    }
+
+    .suggestionForm {
+        width: 50%;
+    }
+}

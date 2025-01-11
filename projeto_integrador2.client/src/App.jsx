@@ -1,8 +1,7 @@
 import './App.css';
-import { useState } from 'react';
+import { useState} from 'react';
 import HomePage from './assets/HomePage';
 import LoginPage from './assets/LoginPage';
-
 function App() {
     const [page, setPage] = useState('homePage');
     const [loginType, setLoginType] = useState('Anonymous');

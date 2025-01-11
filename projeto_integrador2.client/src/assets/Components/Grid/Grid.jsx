@@ -1,5 +1,6 @@
 import "./Grid.css";
 import { useState } from 'react';
+import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 
 const Grid = () => {
   const imagens = [
@@ -39,8 +40,12 @@ const Grid = () => {
         ))}
       </div>
       <div className="button-container">
-              <button onClick={handlePrevious} disabled={currentIndex === 0}>Anterior</button>
-              <button onClick={handleNext} disabled={currentIndex + imagesPerPage >= imagens.length}>Próxima</button>
+              <button className="navButtonGrid prevButton" onClick={handlePrevious} disabled={currentIndex === 0}>
+                  <IoChevronBack className="prevIcon" />
+              </button>
+              <button className="navButtonGrid nextButton" onClick={handleNext} disabled={currentIndex + imagesPerPage >= imagens.length}>
+                  <IoChevronForward />
+              </button>
       </div>
     </div>
   );

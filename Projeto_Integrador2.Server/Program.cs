@@ -1,8 +1,9 @@
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Projeto_Integrador2.Server.Infraestructure;
 using Projeto_Integrador2.Server.Interface;
+using Projeto_Integrador2.Server.Model;
+using Projeto_Integrador2.Server.Repository;
 using Projeto_Integrador2.Server.Services;
 using System.Text;
 
@@ -46,6 +47,9 @@ namespace Projeto_Integrador2.Server
 
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<IRepository<User>, UserRepository>();
+            builder.Services.AddScoped<IRepository<Event>, EventsRepository>();
+            builder.Services.AddScoped<IRepository<Suggestion>, SuggestionRepository>();
 
             builder.Services.AddCors(options =>
             {

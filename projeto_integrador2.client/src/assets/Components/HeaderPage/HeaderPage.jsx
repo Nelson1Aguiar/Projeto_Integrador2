@@ -1,14 +1,20 @@
 import './HeaderPage.css';
 import PropTypes from 'prop-types';
 import SearchBar from '../SearchBar/SearchBar';
+import UserDropBox from '../UserDropBox/UserDropBox';
+import { useEffect, useState } from 'react';
 
 const HeaderPage = ({ setPage, loginType, user, setUser }) => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    const isAuthenticated = loginType === "Authenticated" ? true : false
-
-    const getFirstName = () => {
-        return user.Name.split(' ')[0];
-    }
+    useEffect(() => {
+        if (loginType === "Authenticated") {
+            setIsAuthenticated(true);
+        }
+        else {
+            setIsAuthenticated(false);
+        }
+    }, [loginType])
 
     return (
         <div className = "header">
@@ -25,7 +31,7 @@ const HeaderPage = ({ setPage, loginType, user, setUser }) => {
                     </button>
                 )}
                 {isAuthenticated && (
-                    <h1>Bem-vindo, {getFirstName()}!</h1>
+                    <UserDropBox user={user} setUser={setUser} setPage={setPage} />
                 )}
             </div>
         </div>
@@ -39,10 +45,11 @@ HeaderPage.propTypes = {
 
     user: PropTypes.oneOfType([
         PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            email: PropTypes.string.isRequired,
+            Name: PropTypes.string.isRequired,
+            Email: PropTypes.string.isRequired,
+            UserId: PropTypes.string.isRequired,
         }),
-        PropTypes.null
+        PropTypes.oneOf([null])
     ])
 };
 
