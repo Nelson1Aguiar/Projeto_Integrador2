@@ -39,5 +39,43 @@ namespace Projeto_Integrador2.Server.Controllers
             else
                 return BadRequest(new { Success = false, Message = "Dados inválidos", Errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)) });
         }
+
+        [HttpGet("GetAllSuggestions")]
+        [Authorize]
+        public IActionResult GetAllSuggestions()
+        {
+            try
+            {
+                List<Suggestion> suggestions = _suggestionRepository.GetAll();
+                return Ok(new { Success = true, Suggestions = suggestions });
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { Success = false, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = "Erro interno do servidor: " + ex.Message });
+            }
+        }
+
+        [HttpDelete("DeleteSuggestion")]
+        [Authorize]
+        public IActionResult DeleteSuggestion([FromBody] long id)
+        {
+            try
+            {
+                _suggestionRepository.Delete(id);
+                return Ok(new { Success = true, Message = "Sugestão excluída com sucesso" });
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { Success = false, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = "Erro interno do servidor: " + ex.Message });
+            }
+        }
     }
 }

@@ -1,0 +1,7 @@
+function ViewAllSuggestions() {
+  return (
+    <p>Hello world!</p>
+  );
+}
+
+export default ViewAllSuggestions;
