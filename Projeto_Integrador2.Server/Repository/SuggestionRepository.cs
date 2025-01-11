@@ -53,12 +53,65 @@ namespace Projeto_Integrador2.Server.Repository
 
         public void Delete(long id)
         {
-            throw new NotImplementedException();
+            if (_mySqlConnection != null)
+            {
+                try
+                {
+                    _mySqlConnection.Open();
+                    MySqlCommand command = new MySqlCommand("DeleteSuggestion", _mySqlConnection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@p_SuggestionId", id);
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                finally
+                {
+                    _mySqlConnection.Close();
+                }
+            }
         }
 
         public List<Suggestion> GetAll()
         {
-            throw new NotImplementedException();
+            if (_mySqlConnection != null)
+            {
+                try
+                {
+                    _mySqlConnection.Open();
+                    List<Suggestion> suggestions = new List<Suggestion>();
+                    MySqlCommand command = new MySqlCommand("GetAllSuggestions", _mySqlConnection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    if (!reader.HasRows)
+                        return new List<Suggestion>();
+
+                    while (reader.Read())
+                    {
+                        Suggestion suggestion = new Suggestion
+                        {
+                            SuggestionId = reader.GetInt32("SuggestionId"),
+                            SuggestionToSend = reader.GetString("Suggestion"),
+                            Email = reader.GetString("Mail"),
+                        };
+                        suggestions.Add(suggestion);
+                    }
+
+                    return suggestions;
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                finally
+                {
+                    _mySqlConnection.Close();
+                }
+            }
+            throw new ApplicationException("Erro ao buscar sugestões");
         }
 
         public void GetOne(Suggestion entity)
