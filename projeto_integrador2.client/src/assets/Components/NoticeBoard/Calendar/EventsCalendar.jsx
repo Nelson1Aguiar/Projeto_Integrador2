@@ -99,7 +99,7 @@ const EventsCalendar = ({ loginType }) => {
         }
 
         const options = {
-            method: 'PUT',
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,

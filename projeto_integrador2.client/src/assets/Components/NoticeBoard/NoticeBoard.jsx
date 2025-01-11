@@ -1,14 +1,23 @@
 import './NoticeBoard.css';
 import Suggestions from './Suggestions/Suggestions.jsx';
 import EventsCalendar from './Calendar/EventsCalendar.jsx';
-import { useState } from 'react';
+import ViewAllSuggestions from './Suggestions/ViewAllSuggestions.jsx';
+import { useState, useEffect } from 'react';
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import PropTypes from 'prop-types';
 
 const NoticeBoard = ({ loginType }) => {
     const [currentDisplay, setCurrentDisplay] = useState(0);
+    const [lastPage, setLastPage] = useState(1);
 
-    const allowChangeForNextDisplay = currentDisplay === 1 ? false : true;
+    useEffect(() => {
+        if (loginType === 'Authenticated')
+            setLastPage(2);
+        else
+            setLastPage(1);
+    }, [loginType]);
+
+    const allowChangeForNextDisplay = currentDisplay === lastPage ? false : true;
     const allowChangeForPrevDisplay = currentDisplay === 0 ? false : true;  
 
     const nextDisplay = () => {
@@ -39,6 +48,11 @@ const NoticeBoard = ({ loginType }) => {
                     <div className="slide">
                         <EventsCalendar loginType={loginType} />
                     </div>
+                    {lastPage === 2 && (
+                        <div className="slide">
+                            <ViewAllSuggestions />
+                        </div>
+                    )}
                 </div>
             </div>
             <button className={`navButton nextButton ${!allowChangeForNextDisplay ? 'disabledChangeDisplay' : ''}`} onClick={nextDisplay} style={allowChangeForNextDisplay ? {} : { color: "grey", cursor: "not-allowed"}}>
