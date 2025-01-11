@@ -35,7 +35,7 @@ namespace Projeto_Integrador2.Server.Controllers
             }
         }
 
-        [HttpPut("DeleteEvent")]
+        [HttpDelete("DeleteEvent")]
         [Authorize]
         public IActionResult DeleteEvent([FromBody] long id)
         {
