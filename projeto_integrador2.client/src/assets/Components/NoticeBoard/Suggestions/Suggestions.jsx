@@ -22,8 +22,6 @@ const Suggestions = () => {
             body: JSON.stringify(formObject),
         }
 
-        console.log(options.body);
-
         try {
             const response = await fetch(apiUrl, options);
             const data = await response.json();
