@@ -1,6 +1,7 @@
 import './ViewAllSuggestions.css';
 import { useState, useEffect } from 'react';
 import { FaTrash } from "react-icons/fa";
+import { IoPersonCircleOutline } from "react-icons/io5";
 
 function ViewAllSuggestions() {
     const [suggestions, setSuggestions] = useState([]);
@@ -34,18 +35,14 @@ function ViewAllSuggestions() {
             const data = await response.json();
 
             if (!response.ok) {
-                if (data.errors) {
-                    const errorMessages = Object.values(data.errors).flat();
-                    alert(errorMessages.join('\n'));
-                } else if (data.message) {
-                    alert(data.message);
-                }
-                throw new Error(data.message || 'Erro desconhecido');
+                const message = data.message || 'Erro desconhecido';
+                alert(message);
+                throw new Error(message);
             }
 
             const mappedSuggestions = data.suggestions.map(item => ({
                 suggestion: item.suggestionToSend,
-                Email: item.email,
+                email: item.email,
                 suggestionId: item.suggestionId,
             }));
 
@@ -62,8 +59,7 @@ function ViewAllSuggestions() {
         const token = sessionStorage.getItem('token');
 
         if (!token) {
-            console.error("Token n�o encontrado.");
-            alert("N�o foi poss�vel  evento, tente novamente mais tarde");
+            alert("Não foi possível realizar a ação, tente novamente mais tarde.");
             return;
         }
 
@@ -73,55 +69,62 @@ function ViewAllSuggestions() {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
-            body: suggestionId,
-        }
+            body: JSON.stringify( suggestionId ),
+        };
 
         try {
             const response = await fetch(apiUrlDeleteSuggestion, options);
             const data = await response.json();
 
             if (!response.ok) {
-                if (data.errors) {
-                    const errorMessages = Object.values(data.errors).flat();
-                    alert(errorMessages.join('\n'));
-                } else if (data.message) {
-                    alert(data.message);
-                }
-                throw new Error(data.message || 'Erro desconhecido');
+                const message = data.message || 'Erro desconhecido';
+                alert(message);
+                throw new Error(message);
             }
 
-            setSuggestions((prevSuggestions) => prevSuggestions.filter((suggestion) => suggestion.suggestionId !== suggestionId));
+            alert('Sugestão excluída com sucesso!');
+            setSuggestions((prevSuggestions) =>
+                prevSuggestions.filter((suggestion) => suggestion.suggestionId !== suggestionId)
+            );
+        } catch (error) {
+            console.error('Erro ao deletar sugestão:', error);
         }
-        catch (error) {
-            console.error('Erro ao deletar sugest�o:', error);
-        }
-    }
+    };
 
-  return (
-      <div>
-          <ul>
-              {suggestions.map((item, index) => (
-                  <li key={index}>
-                      <div>
-                          <h1>{item.suggestion}</h1>
-                          <button title="Excluir" onClick={() => DeleteSuggestion(item.suggestionId)}><FaTrash /></button>
-                      </div>
-                  </li>
-              ))}
-          </ul>
-          <button
-              className="refresh-button"
-              onClick={GetAllSuggestions}
-              disabled={loading}
-          >
-              {loading ? (
-                  <div className="spinner"></div>
-              ) : (
-                  'Atualizar'
-              )}
-          </button>
-      </div>
-  );
+    return (
+        <div className="mainContainerSuggestions">
+            <h1 className="titleSuggestions">Sugestões</h1>
+            <ul className="listSuggestions">
+                {suggestions.map((item) => (
+                    <li className="suggestionContainerItemList" key={item.suggestionId}>
+                        <div className="suggestionContainer">
+                            <div className="userContainer">
+                                <IoPersonCircleOutline className="userIcon" />
+                                <h2>{item.email}</h2>
+                            </div>
+                            <div className="textSuggestionsContainer">
+                                <p>{item.suggestion}</p>
+                            </div>
+                        </div>
+                        <button
+                            title="Excluir"
+                            className="deleteSuggestionButton"
+                            onClick={() => DeleteSuggestion(item.suggestionId)}
+                        >
+                            <FaTrash className="deleteSuggestionIcon" />
+                        </button>
+                    </li>
+                ))}
+            </ul>
+            <button
+                className="refresh-button updateSuggestion"
+                onClick={GetAllSuggestions}
+                disabled={loading}
+            >
+                {loading ? <div className="spinner"></div> : 'Atualizar'}
+            </button>
+        </div>
+    );
 }
 
 export default ViewAllSuggestions;
