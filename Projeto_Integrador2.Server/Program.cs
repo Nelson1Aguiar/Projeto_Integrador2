@@ -50,6 +50,7 @@ namespace Projeto_Integrador2.Server
             builder.Services.AddScoped<IRepository<User>, UserRepository>();
             builder.Services.AddScoped<IRepository<Event>, EventsRepository>();
             builder.Services.AddScoped<IRepository<Suggestion>, SuggestionRepository>();
+            builder.Services.AddScoped<IRepository<FileSTL>, FilesRepository>();
 
             builder.Services.AddCors(options =>
             {

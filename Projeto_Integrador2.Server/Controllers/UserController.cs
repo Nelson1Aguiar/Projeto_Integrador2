@@ -20,13 +20,13 @@ namespace Projeto_Integrador2.Server.Controllers
 
         [HttpPost("Login")]
         [AllowAnonymous]
-        public IActionResult Login([FromBody] User user)
+        public async Task<IActionResult> Login([FromBody] User user)
         {
             if (user != null)
             {
                 try
                 {
-                    _userRepository.GetOne(user);
+                    await _userRepository.GetOne(user);
                     string token = _tokenService.GenerateToken(user);
                     return Ok(new { Success = true, Message = "Login validado com sucesso", Token = token });
                 }

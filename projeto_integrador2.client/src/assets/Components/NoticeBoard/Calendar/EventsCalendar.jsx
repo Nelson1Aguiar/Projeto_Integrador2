@@ -94,7 +94,7 @@ const EventsCalendar = ({ loginType }) => {
 
         if (!token) {
             console.error("Token não encontrado.");
-            alert("Não foi possível  evento, tente novamente mais tarde");
+            alert("Não foi possível deletar evento, tente novamente mais tarde");
             return;
         }
 
