@@ -18,6 +18,13 @@ namespace Projeto_Integrador2.Server.Model
             this.Thumbnail = ThumbnailService.GenerateThumbnail();
         }
 
+        public FileSTL(long id, byte[] thumbnail, string name)
+        {
+            this.FileId = id;
+            this.Thumbnail = thumbnail;
+            this.Name = name;
+        }
+
         private static byte[] GetFileBytes(IFormFile file)
         {
             using (var stream = new MemoryStream())

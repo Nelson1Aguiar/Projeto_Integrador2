@@ -3,6 +3,7 @@ using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
 using System.Data;
 using System.Data.Common;
+using System.Xml.Linq;
 
 namespace Projeto_Integrador2.Server.Repository
 {
@@ -39,14 +40,9 @@ namespace Projeto_Integrador2.Server.Repository
                         {
                             int fileId = reader.IsDBNull(reader.GetOrdinal("FileId")) ? 0 : reader.GetInt32("FileId");
 
-                            byte[] fileData = reader.IsDBNull(reader.GetOrdinal("File")) ? null : (byte[])reader["File"];
+                            byte[] thumbnail = reader.IsDBNull(reader.GetOrdinal("Thumbnail")) ? null : (byte[])reader["Thumbnail"];
 
-                            FileSTL file = new FileSTL
-                            {
-                                FileId = fileId,
-                                Name = reader.GetString("Name"),
-                                File = fileData
-                            };
+                            FileSTL file = new FileSTL(fileId, thumbnail, reader.GetString("Name"));
 
                             files.Add(file);
                         }
