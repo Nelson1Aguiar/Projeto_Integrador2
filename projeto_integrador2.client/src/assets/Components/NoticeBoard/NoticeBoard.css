@@ -10,6 +10,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    
 }
 
 .navButton {
@@ -36,6 +37,9 @@
 
 .nextButton {
     margin-left: 2rem;
+}
+.containerEventsForm form{
+    background-color: white;
 }
 
 .noticeBoard .display {
@@ -129,5 +133,19 @@
     .display {
         width: 95%;
         height: 70%;
+        
     }
+    .rdrDateDisplay{
+    }
+     .rdrMonthsVertical{
+        font-size: 8.2px;
+        align-items: center;
+        background-color: white;
+        font-weight: bold;   
+        
+     }
+     .rdrWeekDays{
+        font-size: 12px;
+     }
+     
 }

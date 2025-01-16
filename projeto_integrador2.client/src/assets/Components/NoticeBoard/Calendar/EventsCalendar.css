@@ -206,7 +206,7 @@
         width: auto;
         padding-left: 10%;
         padding-right: 10%;
-        font-size: 12px;
+        font-size: 15px;
         padding: 1px 1px 1px 1px;
     }
     .rbc-toolbar span {
@@ -223,14 +223,15 @@
     }
     
     .rbc-header {
-        text-align: center;
-        padding: 2px 2px;
+        text-align: start;
+        padding: 2px 1px;
         font-size: 10px;
         white-space: nowrap;
     }
     .rbc-row.rbc-month-header {
         display: flex;
         align-items: start;
+        
     }
     .rbc-header span {
         display: inline-block;
@@ -243,4 +244,12 @@
     .refresh-button {
         font-size: 13px;
     }
+    .agendar-button{
+        font-size: 13px;
+    }
+
+    .containerCalendar{
+        width: 72%;
+    }
+    
 }
