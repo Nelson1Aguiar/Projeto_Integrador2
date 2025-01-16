@@ -3,7 +3,6 @@ using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
 using System.Data;
 using System.Data.Common;
-using System.Xml.Linq;
 
 namespace Projeto_Integrador2.Server.Repository
 {

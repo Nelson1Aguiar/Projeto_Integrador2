@@ -37,18 +37,16 @@ namespace Projeto_Integrador2.Server.Controllers
 
         [HttpPost("UploadFile")]
         [Authorize]
-        public async Task<IActionResult> UploadFile([FromForm] IFormFile file, [FromForm] string name)
+        public async Task<IActionResult> UploadFile([FromBody] FileSTL file)
         {
             try
             {
-                if (file == null || file.Length == 0 || string.IsNullOrEmpty(name))
+                if (file == null || file.File!.Length == 0 || string.IsNullOrEmpty(file.Name))
                 {
                     return BadRequest(new { message = "Arquivo ou nome inválido." });
                 }
 
-                FileSTL fileSTL = new FileSTL(file, name);
-
-                await _filesRepository.Create(fileSTL);
+                await _filesRepository.Create(file);
                 return Ok(new { Success = true, Message = "Arquivo publicado com sucesso" });
             }
             catch (ApplicationException ex)
