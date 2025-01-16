@@ -223,7 +223,7 @@ const EventsCalendar = ({ loginType }) => {
                         view={view}
                     />
 
-                    {/* Botão para exibir a navegação em dispositivos móveis */}
+                    {/* Botão para exibir a navegação em dispositivos móveis 
                     {isMobile && (
                         <div className="calendar-navigation">
                             <button onClick={() => setShowNavigation(!showNavigation)}>
@@ -239,7 +239,7 @@ const EventsCalendar = ({ loginType }) => {
                             )}
                         </div>
                     )}
-
+                    */}
                     <div className="actions">
                         {loginType === 'Authenticated' && <button className='agendar-button' onClick={handleCreateEvent}>Agendar evento</button> }
                         <button

@@ -184,3 +184,64 @@
         transform: rotate(360deg);
     }
 }
+
+@media (max-width: 1568px){
+    .rbc-toolbar-label{
+        width: 12%;
+    }
+}
+
+@media (max-width: 742px)
+
+{
+    .rbc-toolbar {
+        display: flex;
+        justify-content: flex-start; /* Alinha todos os itens à esquerda */
+        align-items: center; /* Centraliza verticalmente os itens, se necessário */
+        gap: 10px; /* Adiciona espaço entre os grupos, opcional */
+      }
+      .rbc-btn-group {
+        display: flex;
+        gap: 5px; /* Espaçamento entre os botões dentro do grupo */
+      }
+    .rbc-toolbar button{
+        width: auto;
+        padding-left: 10%;
+        padding-right: 10%;
+        font-size: 12px;
+        padding: 0px 1px 0px 1px;
+      
+    }
+    .rbc-toolbar-label  {
+        display: inline-block;
+        width: auto;
+        font-size: 14px;
+        padding: 100px 200px;
+        text-align: center;
+        
+    }
+    .rbc-header {
+        text-align: center; 
+        padding: 2px 2px; 
+        font-size: 12px; 
+        white-space: nowrap;  
+      }
+      
+      .rbc-row.rbc-month-header {
+        display: flex; 
+        align-items: start;
+      }
+      
+      .rbc-header span {
+        display: inline-block; 
+        width: auto;
+      }
+      .actions{
+        width: auto;
+        padding: 8px 3px 1px 3px;
+      }
+      .refresh-button{
+        font-size: 13px;
+      }
+      
+}
