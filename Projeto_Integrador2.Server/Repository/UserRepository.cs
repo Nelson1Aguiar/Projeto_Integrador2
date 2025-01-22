@@ -2,6 +2,7 @@
 using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
 using Projeto_Integrador2.Server.Services;
+using System.Data.Common;
 
 namespace Projeto_Integrador2.Server.Repository
 {
@@ -15,56 +16,65 @@ namespace Projeto_Integrador2.Server.Repository
             _mySqlConnection = _connectionProvider.ProviderConnection();
         }
 
-        public void GetOne(User entity)
+        public async Task GetOne(User entity)
         {
             if (_mySqlConnection != null)
             {
                 try
                 {
-                    _mySqlConnection.Open();
-                    MySqlCommand command = new MySqlCommand("ValidateUserCredentials", _mySqlConnection);
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    await _mySqlConnection.OpenAsync();
+                    MySqlCommand command = new MySqlCommand("ValidateUserCredentials", _mySqlConnection)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
                     command.Parameters.AddWithValue("@p_Email", entity.Email);
-                    MySqlDataReader reader = command.ExecuteReader();
 
-                    if (!reader.HasRows)
-                        throw new ApplicationException("Login inválido!");
+                    using (DbDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        if (!reader.HasRows)
+                            throw new ApplicationException("Login inválido!");
 
-                    reader.Read();
+                        await reader.ReadAsync();
 
-                    if(!HashService.PasswordCompare(reader.GetString("Password"), entity.Password))
-                        throw new ApplicationException("Login inválido!");
+                        if (!HashService.PasswordCompare(reader.GetString(reader.GetOrdinal("Password")), entity.Password))
+                            throw new ApplicationException("Login inválido!");
 
-                    entity.UserId = reader.GetInt32("UserId");
-                    entity.Name = reader.GetString("Name");
+                        entity.UserId = reader.GetInt32(reader.GetOrdinal("UserId"));
+                        entity.Name = reader.GetString(reader.GetOrdinal("Name"));
+                    }
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    throw new ApplicationException("Erro ao validar usuário", ex);
                 }
                 finally
                 {
-                    _mySqlConnection.Close();
+                    await _mySqlConnection.CloseAsync();
                 }
+            }
+            else
+            {
+                throw new ApplicationException("Conexão com o banco de dados não disponível.");
             }
         }
 
-        public List<User> GetAll()
+
+        public Task<List<User>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public void Create(User entity)
+        public Task Create(User entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(User entity)
+        public Task Update(User entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(long id)
+        public Task Delete(long id)
         {
             throw new NotImplementedException();
         }
