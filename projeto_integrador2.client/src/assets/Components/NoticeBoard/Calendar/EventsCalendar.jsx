@@ -1,4 +1,3 @@
-
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
@@ -35,6 +34,7 @@ const messages = {
     event: 'Evento',
     noEventsInRange: 'Nenhum evento neste período.',
     showMore: (count) => `+ Ver mais (${count})`,
+
 };
 
 const EventsCalendar = ({ loginType }) => {
@@ -45,19 +45,6 @@ const EventsCalendar = ({ loginType }) => {
     const [showSelectionForm, setShowSelectionForm] = useState(false);
     const [actionEvent, setActionEvent] = useState('create');
     const [updateEvent, setUpdateEvent] = useState({});
-    const [isMobile, setIsMobile] = useState(false);  // Novo estado para detectar dispositivos móveis
-    const [showNavigation, setShowNavigation] = useState(false); // Controlar a visibilidade da navegação
-
-    // Detecta se o dispositivo é mobile
-    useEffect(() => {
-        const checkSize = () => {
-            setIsMobile(window.innerWidth < 768); // Ajuste conforme necessário
-        };
-
-        checkSize();
-        window.addEventListener('resize', checkSize);
-        return () => window.removeEventListener('resize', checkSize);
-    }, []);
 
     const GetAllEvents = async () => {
         setLoading(true);
@@ -107,7 +94,7 @@ const EventsCalendar = ({ loginType }) => {
 
         if (!token) {
             console.error("Token não encontrado.");
-            alert("Não foi possível excluir o evento, tente novamente mais tarde");
+            alert("Não foi possível deletar evento, tente novamente mais tarde");
             return;
         }
 
@@ -139,10 +126,11 @@ const EventsCalendar = ({ loginType }) => {
         catch (error) {
             console.error('Erro ao deletar evento:', error);
         }
-    };
+    }
 
     useEffect(() => {
         GetAllEvents();
+
         const intervalId = setInterval(() => {
             GetAllEvents();
         }, 300000);
@@ -206,7 +194,6 @@ const EventsCalendar = ({ loginType }) => {
         <>
             {showCalendar && (
                 <div className="containerCalendar">
-                    {/* Calendário */}
                     <Calendar
                         localizer={localizer}
                         events={events}
@@ -223,25 +210,8 @@ const EventsCalendar = ({ loginType }) => {
                         view={view}
                     />
 
-                    {/* Botão para exibir a navegação em dispositivos móveis 
-                    {isMobile && (
-                        <div className="calendar-navigation">
-                            <button onClick={() => setShowNavigation(!showNavigation)}>
-                                Navegação
-                            </button>
-                            {showNavigation && (
-                                <div className="navigation-content">
-                                    <button onClick={() => setView('month')}>Mês</button>
-                                    <button onClick={() => setView('week')}>Semana</button>
-                                    <button onClick={() => setView('day')}>Dia</button>
-                                    <button onClick={() => setView('agenda')}>Agenda</button>
-                                </div>
-                            )}
-                        </div>
-                    )}
-                    */}
                     <div className="actions">
-                        {loginType === 'Authenticated' && <button className='agendar-button' onClick={handleCreateEvent}>Agendar evento</button> }
+                        {loginType === 'Authenticated' && <button className='agendar-button' onClick={handleCreateEvent}>Agendar evento</button>}
                         <button
                             className="refresh-button"
                             onClick={GetAllEvents}
