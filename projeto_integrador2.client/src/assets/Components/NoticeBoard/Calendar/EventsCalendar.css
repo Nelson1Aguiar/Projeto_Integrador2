@@ -1,255 +1,294 @@
 .containerCalendar {
-    height: 80%;
-    width: 80%;
-    border: 0.19vw solid white;
-    background-color: rgba(255, 255, 255, 0.655);
-    padding: 1.5vw;
-    border-radius: 0.5vw;
-    position: absolute;
+  height: 80%;
+  width: 80%;
+  border: 0.19vw solid white;
+  background-color: rgba(255, 255, 255, 0.655);
+  padding: 1.5vw;
+  border-radius: 0.5vw;
+  position: absolute;
 }
-.containerCalendar .rbc-event{
-    background-color: red;
-    font-size: 1vw;
-    transform: scale(1);
+.containerCalendar .rbc-event {
+  background-color: red;
+  font-size: 1vw;
+  transform: scale(1);
 }
 
-.rbc-button-link{
-    font-weight: bold;
+.rbc-button-link {
+  font-weight: bold;
 }
-.rbc-header{
-    background-color: rgba(255, 255, 255, 0.842);
+.rbc-header {
+  background-color: rgba(255, 255, 255, 0.842);
 }
-.rbc-toolbar .rbc-btn-group button:nth-child(1), .rbc-toolbar .rbc-btn-group button:nth-child(3) {
-    background-color: #f0ad4e; 
-    transition: all 0.5s ease;
+.rbc-toolbar .rbc-btn-group button:nth-child(1),
+.rbc-toolbar .rbc-btn-group button:nth-child(3) {
+  background-color: #f0ad4e;
+  transition: all 0.5s ease;
 }
-.rbc-toolbar .rbc-btn-group button:nth-child(2), .rbc-toolbar .rbc-btn-group button:nth-child(4) {
-    background-color: #f6c98b; 
-    transition: all 0.5s ease;
+.rbc-toolbar .rbc-btn-group button:nth-child(2),
+.rbc-toolbar .rbc-btn-group button:nth-child(4) {
+  background-color: #f6c98b;
+  transition: all 0.5s ease;
 }
-.rbc-toolbar .rbc-btn-group button:nth-child(1):hover, .rbc-toolbar .rbc-btn-group button:nth-child(3):hover,
-.rbc-toolbar .rbc-btn-group button:nth-child(2):hover, .rbc-toolbar .rbc-btn-group button:nth-child(4):hover {
-    background-color: #f07f4e;
-    transform: scale(1.1);
-    font-weight: bold;
-
+.rbc-toolbar .rbc-btn-group button:nth-child(1):hover,
+.rbc-toolbar .rbc-btn-group button:nth-child(3):hover,
+.rbc-toolbar .rbc-btn-group button:nth-child(2):hover,
+.rbc-toolbar .rbc-btn-group button:nth-child(4):hover {
+  background-color: #f07f4e;
+  transform: scale(1.1);
+  font-weight: bold;
 }
 .rbc-toolbar-label {
-    font-size: 1.1vw;
-    border: 0.08vw solid rgb(255, 255, 255);
-    border-radius: 0.3vw;
-    background-color: #f1a336;
-    padding: 1.5vw;
-    width: 10vw;
-    height: 2.5vw;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    box-shadow: 0 0 0.2vw rgba(241, 163, 54, 0.8), 0 0 0.5vw #f07f4e;
-    filter: brightness(1);
-    transition: all 0.3s ease-in-out;
-
+  font-size: 1.1vw;
+  border: 0.08vw solid rgb(255, 255, 255);
+  border-radius: 0.3vw;
+  background-color: #f1a336;
+  padding: 1.5vw;
+  width: 10vw;
+  height: 2.5vw;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 0 0.2vw rgba(241, 163, 54, 0.8), 0 0 0.5vw #f07f4e;
+  filter: brightness(1);
+  transition: all 0.3s ease-in-out;
 }
 .rbc-toolbar-label:hover {
-    /* Efeito de brilho ao passar o mouse */
-    box-shadow: 0 0 0.4 rgba(241, 163, 54, 1), 0 0  rgba(241, 163, 54, 0.8);
-    filter: brightness(1.2);
-    font-weight: bold;
+  /* Efeito de brilho ao passar o mouse */
+  box-shadow: 0 0 0.4 rgba(241, 163, 54, 1), 0 0 rgba(241, 163, 54, 0.8);
+  filter: brightness(1.2);
+  font-weight: bold;
 }
 
-.calendarComponent{
-    height: 100%;
+.calendarComponent {
+  height: 100%;
 }
 
 .refresh-button {
-    background-color: #f6c98b;
-    border: none;
-    color: black;
-    font-weight: bold;
-    padding: 0.3vw;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1rem;
-    position: relative;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-
+  background-color: #f6c98b;
+  border: none;
+  color: black;
+  font-weight: bold;
+  padding: 0.3vw;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  position: relative;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .refresh-button:hover {
-    background-color: #020202;
-    transform: scale(1.1);
-    color: white;
+  background-color: #020202;
+  transform: scale(1.1);
+  color: white;
 }
 
 .refresh-button:active {
-    background-color: #d68b2d;
+  background-color: #d68b2d;
 }
 
-.agendar-button{
-    background-color: #f0ad4e;
-    border: none;
-    color: black;
-    font-weight: bold;
-    padding: 0.3vw;    
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1rem;
-    position: relative;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+.agendar-button {
+  background-color: #f0ad4e;
+  border: none;
+  color: black;
+  font-weight: bold;
+  padding: 0.3vw;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  position: relative;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
 }
 .actions {
-    display: flex;
-    gap: 10px; /* Espaçamento entre os botões */
-    justify-content: center;
+  display: flex;
+  gap: 10px; /* Espaçamento entre os botões */
+  justify-content: center;
 }
 
-.agendar-button:hover{
-    background-color: #e69a38;
-    transform: scale(1.1);
-    color: white;
+.agendar-button:hover {
+  background-color: #e69a38;
+  transform: scale(1.1);
+  color: white;
 }
 
-.agendar-button:active{
-    background-color: #d68b2d;
-
+.agendar-button:active {
+  background-color: #d68b2d;
 }
 
 .spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 1s linear infinite;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
 }
 
-.containerEventsInformations{
-    display: flex;
-    margin: 0;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+.containerEventsInformations {
+  display: flex;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
-.containerTextInformations{
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    gap: 0;
+.containerTextInformations {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: 0;
 }
 
 .containerButtonsActionsEvents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 5%;
+}
+
+.containerButtonsActionsEvents button {
+  padding: 10px;
+  border: none;
+  transition: transform 0.5s ease;
+  cursor: pointer;
+}
+
+.buttonDeleteEvent {
+  color: red;
+  font-size: 1.1rem;
+}
+
+.buttonEditEvent {
+  font-size: 1.1rem;
+}
+
+.containerButtonsActionsEvents button:hover {
+  transform: scale(1.2);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .calendarComponent {
+    height: 90%;
+  }
+  .containerCalendar {
+    width: 100%;
+    height: 100%;
+  }
+  .rbc-toolbar {
+    height: 10vh;
+    width: 50vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    width: 5%;
+
+    flex-wrap: wrap;
+  }
+
+  .rbc-btn-group {
+    height: 2.5vh;
+    flex-wrap: wrap;
+  }
+
+  .rbc-toolbar .rbc-btn-group button:nth-child(1),
+  .rbc-toolbar .rbc-btn-group button:nth-child(2),
+  .rbc-toolbar .rbc-btn-group button:nth-child(3),
+  .rbc-toolbar .rbc-btn-group button:nth-child(4) {
+    height: 30px;
+    margin-bottom: 5px;
+  }
+
+  .rbc-toolbar :nth-child(2) {
+    order: 3;
+  }
+
+  .rbc-toolbar :nth-child(1) {
+    margin-bottom: 5px;
+  }
+
+  .rbc-toolbar-label {
+    font-size: 2vw;
+    width: 100%;
+    height: 2.3vh;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+
+  .refresh-button {
+    width: 100%;
+  }
+
+  .agendar-button {
+    width: 100%;
+  }
+
+  .actions {
+    margin-top: 7px;
+    gap: 5px;
+  }
 }
 
-.containerButtonsActionsEvents button{
-    padding: 10px;
-    border: none;
-    transition: transform 0.5s ease;
-    cursor: pointer;
-}
+@media (max-width: 495px) {
+  .calendarComponent {
+    width: 100%;
+    height: 90%;
+  }
+  .rbc-btn-group {
+    position: relative;
+    right: 50px;
+    width: 100%;
+    flex-shrink: 1;
+  }
 
-.buttonDeleteEvent{
-    color: red;
-    font-size: 1.1rem;
-}
+  .rbc-toolbar-label {
+    height: 1vh;
+    margin-top: 30px;
+    margin-right: 100px;
+    font-size: 3vw;
+  }
 
-.buttonEditEvent {
-    font-size: 1.1rem;
-}
+  .rbc-toolbar .rbc-btn-group button:nth-child(1),
+  .rbc-toolbar .rbc-btn-group button:nth-child(2),
+  .rbc-toolbar .rbc-btn-group button:nth-child(3),
+  .rbc-toolbar .rbc-btn-group button:nth-child(4) {
+    height: 3.1vh;
+    font-size: 0.7rem;
+  }
 
-.containerButtonsActionsEvents button:hover {
-    transform: scale(1.2);
-}
+  .rbc-toolbar :nth-child(1) {
+    margin-bottom: 16px;
+    height: 1vh;
+  }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
+  .rbc-toolbar :nth-child(3) {
+    height: 0.1vh;
+  }
 
-    100% {
-        transform: rotate(360deg);
-    }
-}
+  .rbc-toolbar .rbc-btn-group button:nth-child(4) {
+    display: none;
+  }
 
-@media (max-width: 1568px){
-    .rbc-toolbar-label{
-        width: 12%;
-    }
-}
-@media (max-width: 742px) {
-    .rbc-toolbar {
-        width: auto;
-        display: flex;
-        justify-content: flex-start; /* Alinha todos os itens à esquerda */
-        align-items: center; /* Centraliza verticalmente os itens, se necessário */
-    }
-    .rbc-btn-group {
-        display: flex;
-        gap: 5px; /* Espaçamento entre os botões dentro do grupo */
-        padding: 5px 1px;
-    }
-    .rbc-toolbar button {
-        width: auto;
-        padding-left: 10%;
-        padding-right: 10%;
-        font-size: 15px;
-        padding: 1px 1px 1px 1px;
-    }
-    .rbc-toolbar span {
-        width: auto;
-        display: flex;
-        padding: 2%;
-    }
-    .rbc-toolbar-label {
-        display: flex;
-        width: auto;
-        font-size: 14px; /* Tamanho maior para o texto */
-        padding: 30px; /* Aumenta o fundo ao redor do texto */
-        border-radius: 5px; /* Opcional: arredondar os cantos */
-    }
-    
-    .rbc-header {
-        text-align: start;
-        padding: 2px 1px;
-        font-size: 10px;
-        white-space: nowrap;
-    }
-    .rbc-row.rbc-month-header {
-        display: flex;
-        align-items: start;
-        
-    }
-    .rbc-header span {
-        display: inline-block;
-        width: auto;
-    }
-    .actions {
-        width: auto;
-        padding: 8px 3px 1px 3px;
-    }
-    .refresh-button {
-        font-size: 13px;
-    }
-    .agendar-button{
-        font-size: 13px;
-    }
-
-    .containerCalendar{
-        width: 72%;
-    }
-    
+  .agendar-button,
+  .refresh-button {
+    font-size: 0.7rem;
+  }
 }
