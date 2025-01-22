@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
+using System.IO;
+using System.Text;
 
 namespace Projeto_Integrador2.Server.Controllers
 {
@@ -23,7 +25,55 @@ namespace Projeto_Integrador2.Server.Controllers
             try
             {
                 List<FileSTL> files = await _filesRepository.GetAll();
+
+                foreach (FileSTL file in files)
+                {
+                    string extension = Path.GetExtension(file.ThumbnailPath).ToLower();
+
+                    if (extension == ".png" || extension == ".jpg" || extension == ".jpeg")
+                    {
+                        byte[] imageBytes = System.IO.File.ReadAllBytes(file.ThumbnailPath);
+                        file.Thumbnail = imageBytes;
+                    }
+                }
+
                 return Ok(new { Success = true, Message = "Arquivos obtidos com sucesso", Files = files });
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { Success = false, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = "Erro interno do servidor: " + ex.Message });
+            }
+        }
+
+        [HttpGet("GetFileBytes")]
+        [AllowAnonymous]
+        public IActionResult GetFileBytes()
+        {
+            try
+            {
+                if (!Request.Headers.TryGetValue("Path", out var path))
+                {
+                    return BadRequest(new { Success = false, Message = "Caminho não fornecido" });
+                }
+
+                if (string.IsNullOrWhiteSpace(path))
+                {
+                    return BadRequest(new { Success = false, Message = "Caminho inválido" });
+                }
+
+                if (!System.IO.File.Exists(path))
+                {
+                    return NotFound(new { Success = false, Message = "Arquivo não encontrado" });
+                }
+
+                byte[] fileBytes = System.IO.File.ReadAllBytes(path);
+
+
+                return Ok(new { Success = true, Message = "Arquivo obtido com sucesso", Base64 = fileBytes });
             }
             catch (ApplicationException ex)
             {
@@ -41,13 +91,13 @@ namespace Projeto_Integrador2.Server.Controllers
         {
             try
             {
-                if (file == null || file.File!.Length == 0 || string.IsNullOrEmpty(file.Name))
+                if (file.File == null || file.File.Count() < 1)
                 {
-                    return BadRequest(new { message = "Arquivo ou nome inválido." });
+                    return BadRequest(new { message = "Arquivo inválido." });
                 }
 
                 await _filesRepository.Create(file);
-                return Ok(new { Success = true, Message = "Arquivo publicado com sucesso" });
+                return Ok(new { Success = true, Message = "Arquivo publicado com sucesso", Thumbnail = file.Thumbnail!, Name = file.Name! });
             }
             catch (ApplicationException ex)
             {

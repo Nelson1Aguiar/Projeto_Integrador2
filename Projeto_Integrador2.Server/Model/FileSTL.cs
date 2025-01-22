@@ -7,13 +7,9 @@ namespace Projeto_Integrador2.Server.Model
         public long? FileId { get; set; }
         public string Name { get; set; }
         public byte[]? Thumbnail { get; set; }
-        public byte[]? File { get; set; }
-
-        public FileSTL(long id, byte[] thumbnail, string name)
-        {
-            this.FileId = id;
-            this.Thumbnail = thumbnail;
-            this.Name = name;
-        }
+        public List<byte>? File { get; set; }
+        public string? FilePath { get; set; }
+        public string? ThumbnailPath { get; set; }
+        public string? Extension { get; set; }
     }
 }

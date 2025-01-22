@@ -2,29 +2,36 @@ import { useState } from "react";
 
 function SendFiles() {
     const [file, setFile] = useState(null);
-    const [name, setName] = useState("");
+    const [fileName, setFileName] = useState("");
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     };
 
     const handleNameChange = (e) => {
-        setName(e.target.value);
+        setFileName(e.target.value);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!file || !name) {
+        if (!file || !fileName) {
             alert("Por favor, selecione um arquivo e defina um nome.");
             return;
         }
 
         const apiUrlUploadFile = import.meta.env.VITE_API_URL_UPLOAD_FILE;
 
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("name", name);
+        const fileExtension = file.name.split('.').pop();
+        const arrayBuffer = await file.arrayBuffer();
+        const byteArray = new Uint8Array(arrayBuffer);
+        const byteArrayList = Array.from(byteArray);
+
+        const request = {
+            name: fileName,
+            file: byteArrayList,
+            extension: fileExtension
+        };
 
         const token = sessionStorage.getItem('token');
 
@@ -40,7 +47,7 @@ function SendFiles() {
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${token}`,
             },
-            body: formData
+            body: JSON.stringify(request),
         };
 
         try {
@@ -72,6 +79,7 @@ function SendFiles() {
                         id="file"
                         accept=".stl"
                         onChange={handleFileChange}
+                        required
                     />
                 </div>
                 <div>
@@ -79,9 +87,10 @@ function SendFiles() {
                     <input
                         type="text"
                         id="name"
-                        value={name}
+                        value={fileName}
                         onChange={handleNameChange}
                         placeholder="Nome do arquivo"
+                        required
                     />
                 </div>
                 <button type="submit">Enviar</button>

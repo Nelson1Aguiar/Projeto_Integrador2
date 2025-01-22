@@ -6,6 +6,22 @@
     justify-content: center;
     width: 100%;
   }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Escurecer o fundo */
+    z-index: 999; /* Um nível abaixo do modal */
+    display: none; /* Ocultar quando não estiver ativo */
+}
+
+    /* Quando o modal está ativo, mostra o overlay */
+    .overlay.active {
+        display: block;
+    }
   
   /* Grid para as imagens */
   .image-grid {
@@ -15,21 +31,74 @@
     width: 80%;
     margin: 20px auto;
   }
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+    height: 85vh;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Conteúdo do modal */
+.modal-content {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+
+.close-modal {
+    position: absolute;
+    top: 4%;
+    right: 3%;
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+}
+
+.close-modal:hover {
+    color: #ff0000;
+}
   
   .gallery-image {
     width: 100%;
     height: auto;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.5s ease; 
   }
-  
-  /* Container dos botões */
-  .button-container {
+
+  .gallery-image:hover{
+      transform: scale(1.05);
+  }
+
+/* Container dos botões */
+.button-container {
     display: flex;
     justify-content: center;
     gap: 10px;
     margin-top: 10px;
-  }
+}
 
 .navButtonGrid {
     display: flex;

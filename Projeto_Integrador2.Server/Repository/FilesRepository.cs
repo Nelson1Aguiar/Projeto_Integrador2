@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
+using Projeto_Integrador2.Server.Services;
 using System.Data;
 using System.Data.Common;
 
@@ -25,7 +26,7 @@ namespace Projeto_Integrador2.Server.Repository
                     await _mySqlConnection.OpenAsync();
                     List<FileSTL> files = new List<FileSTL>();
 
-                    MySqlCommand command = new MySqlCommand("GetAllFiles", _mySqlConnection)
+                    MySqlCommand command = new MySqlCommand("GetAllFilePath", _mySqlConnection)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };
@@ -33,15 +34,17 @@ namespace Projeto_Integrador2.Server.Repository
                     using (DbDataReader reader = await command.ExecuteReaderAsync())
                     {
                         if (!reader.HasRows)
-                            return new List<FileSTL>();
+                            return files;
 
                         while (await reader.ReadAsync())
                         {
-                            int fileId = reader.IsDBNull(reader.GetOrdinal("FileId")) ? 0 : reader.GetInt32("FileId");
-
-                            byte[] thumbnail = reader.IsDBNull(reader.GetOrdinal("Thumbnail")) ? null : (byte[])reader["Thumbnail"];
-
-                            FileSTL file = new FileSTL(fileId, thumbnail, reader.GetString("Name"));
+                            FileSTL file = new FileSTL()
+                            {
+                                FileId = reader.IsDBNull(reader.GetOrdinal("FileId")) ? 0 : reader.GetInt32("FileId"),
+                                ThumbnailPath = reader.GetString("ThumbnailPath"),
+                                FilePath = reader.GetString("FilePath"),
+                                Name = reader.GetString("Name")
+                            };
 
                             files.Add(file);
                         }
@@ -67,13 +70,13 @@ namespace Projeto_Integrador2.Server.Repository
             {
                 try
                 {
-                    await _mySqlConnection.OpenAsync();
+                    FileStorageService fileStorageService = new FileStorageService();
+                    fileStorageService.Save3DModelAndThumbnail(entity);
 
-                    #region MOCK
-                    string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "dragonSTL.stl");
-                    byte[] fileBytes = await File.ReadAllBytesAsync(filePath);
-                    entity.File = fileBytes;
-                    #endregion
+                    if (string.IsNullOrEmpty(entity.FilePath) || string.IsNullOrEmpty(entity.ThumbnailPath))
+                        throw new ApplicationException("Não foi possível enviar o arquivo");
+
+                    await _mySqlConnection.OpenAsync();
 
                     MySqlCommand command = new MySqlCommand("InsertNewFile", _mySqlConnection)
                     {
@@ -81,8 +84,8 @@ namespace Projeto_Integrador2.Server.Repository
                     };
 
                     command.Parameters.AddWithValue("@p_Name", entity.Name);
-                    command.Parameters.AddWithValue("@p_File", entity.File);
-                    command.Parameters.AddWithValue("@p_Thumbnail", entity.Thumbnail);
+                    command.Parameters.AddWithValue("@p_FilePath", entity.FilePath);
+                    command.Parameters.AddWithValue("@p_ThumbnailPath", entity.ThumbnailPath);
 
                     MySqlParameter outputFileId = new MySqlParameter("@p_FileId", MySqlDbType.Int32)
                     {
