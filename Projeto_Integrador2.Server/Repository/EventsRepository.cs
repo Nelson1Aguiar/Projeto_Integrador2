@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
+using System.Data.Common;
 
 namespace Projeto_Integrador2.Server.Repository
 {
@@ -14,82 +15,98 @@ namespace Projeto_Integrador2.Server.Repository
             _mySqlConnection = _connectionProvider.ProviderConnection();
         }
 
-        public List<Event> GetAll()
+        public async Task<List<Event>> GetAll()
         {
             if (_mySqlConnection != null)
             {
                 try
                 {
-                    _mySqlConnection.Open();
+                    await _mySqlConnection.OpenAsync();
                     List<Event> events = new List<Event>();
-                    MySqlCommand command = new MySqlCommand("GetAllEvents", _mySqlConnection);
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    MySqlDataReader reader = command.ExecuteReader();
-
-                    if (!reader.HasRows)
-                        return new List<Event>();
-
-                    while (reader.Read())
+                    MySqlCommand command = new MySqlCommand("GetAllEvents", _mySqlConnection)
                     {
-                        Event ev = new Event
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
+
+                    using (DbDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        if (!reader.HasRows)
+                            return new List<Event>();
+
+                        while (await reader.ReadAsync())
                         {
-                            EventId = reader.GetInt32("EventId"),
-                            Title = reader.GetString("Title"),
-                            StartDate = reader.GetDateTime("StartDate"),
-                            EndDate = reader.GetDateTime("EndDate"),
-                            Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString("Description"),
-                            Location = reader.IsDBNull(reader.GetOrdinal("Location")) ? null : reader.GetString("Location"),
-                            CreateUserId = reader.GetInt32("CreateUserId")
-                        };
-                        events.Add(ev);
+                            Event ev = new Event
+                            {
+                                EventId = reader.GetInt32(reader.GetOrdinal("EventId")),
+                                Title = reader.GetString(reader.GetOrdinal("Title")),
+                                StartDate = reader.GetDateTime(reader.GetOrdinal("StartDate")),
+                                EndDate = reader.GetDateTime(reader.GetOrdinal("EndDate")),
+                                Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString(reader.GetOrdinal("Description")),
+                                Location = reader.IsDBNull(reader.GetOrdinal("Location")) ? null : reader.GetString(reader.GetOrdinal("Location")),
+                                CreateUserId = reader.GetInt32(reader.GetOrdinal("CreateUserId"))
+                            };
+                            events.Add(ev);
+                        }
                     }
 
                     return events;
                 }
                 catch (Exception ex)
                 {
-                    throw;
+                    throw new ApplicationException("Erro ao buscar eventos", ex);
                 }
                 finally
                 {
-                    _mySqlConnection.Close();
+                    await _mySqlConnection.CloseAsync();
                 }
             }
-            throw new ApplicationException("Erro ao buscar eventos");
+
+            throw new ApplicationException("Erro ao buscar eventos. Conexão não disponível.");
         }
 
-        public void Delete(long id)
+        public async Task Delete(long id)
         {
             if (_mySqlConnection != null)
             {
                 try
                 {
-                    _mySqlConnection.Open();
-                    MySqlCommand command = new MySqlCommand("DeleteEvent", _mySqlConnection);
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    await _mySqlConnection.OpenAsync();
+                    MySqlCommand command = new MySqlCommand("DeleteEvent", _mySqlConnection)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
+
                     command.Parameters.AddWithValue("@p_EventId", id);
-                    command.ExecuteNonQuery();
+
+                    await command.ExecuteNonQueryAsync();
                 }
                 catch (Exception ex)
                 {
-                    throw;
+                    throw new ApplicationException("Erro ao deletar evento", ex);
                 }
                 finally
                 {
-                    _mySqlConnection.Close();
+                    await _mySqlConnection.CloseAsync();
                 }
+            }
+            else
+            {
+                throw new ApplicationException("Conexão com o banco de dados não disponível.");
             }
         }
 
-        public void Create(Event entity)
+
+        public async Task Create(Event entity)
         {
             if (_mySqlConnection != null)
             {
                 try
                 {
-                    _mySqlConnection.Open();
-                    MySqlCommand command = new MySqlCommand("InsertNewEvent", _mySqlConnection);
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    await _mySqlConnection.OpenAsync();
+                    MySqlCommand command = new MySqlCommand("InsertNewEvent", _mySqlConnection)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
 
                     command.Parameters.AddWithValue("@p_Title", entity.Title);
                     command.Parameters.AddWithValue("@p_StartDate", entity.StartDate);
@@ -98,34 +115,42 @@ namespace Projeto_Integrador2.Server.Repository
                     command.Parameters.AddWithValue("@p_Location", entity.Location);
                     command.Parameters.AddWithValue("@p_CreateUserId", entity.CreateUserId);
 
-                    MySqlParameter outputEventId = new MySqlParameter("@p_EventId", MySqlDbType.Int32);
-                    outputEventId.Direction = System.Data.ParameterDirection.Output;
+                    MySqlParameter outputEventId = new MySqlParameter("@p_EventId", MySqlDbType.Int32)
+                    {
+                        Direction = System.Data.ParameterDirection.Output
+                    };
                     command.Parameters.Add(outputEventId);
 
-                    command.ExecuteNonQuery();
+                    await command.ExecuteNonQueryAsync();
 
                     entity.EventId = Convert.ToInt32(outputEventId.Value);
                 }
                 catch (Exception ex)
                 {
-                    throw;
+                    throw new ApplicationException("Erro ao criar evento", ex);
                 }
                 finally
                 {
-                    _mySqlConnection.Close();
+                    await _mySqlConnection.CloseAsync();
                 }
+            }
+            else
+            {
+                throw new ApplicationException("Conexão com o banco de dados não disponível.");
             }
         }
 
-        public void Update(Event entity)
+        public async Task Update(Event entity)
         {
             if (_mySqlConnection != null)
             {
                 try
                 {
-                    _mySqlConnection.Open();
-                    MySqlCommand command = new MySqlCommand("UpdateEvent", _mySqlConnection);
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    await _mySqlConnection.OpenAsync();
+                    MySqlCommand command = new MySqlCommand("UpdateEvent", _mySqlConnection)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
 
                     command.Parameters.AddWithValue("@p_Title", entity.Title);
                     command.Parameters.AddWithValue("@p_StartDate", entity.StartDate);
@@ -134,20 +159,24 @@ namespace Projeto_Integrador2.Server.Repository
                     command.Parameters.AddWithValue("@p_Location", entity.Location);
                     command.Parameters.AddWithValue("@p_EventId", entity.EventId);
 
-                    command.ExecuteNonQuery();
+                    await command.ExecuteNonQueryAsync();
                 }
                 catch (Exception ex)
                 {
-                    throw;
+                    throw new ApplicationException("Erro ao atualizar evento", ex);
                 }
                 finally
                 {
-                    _mySqlConnection.Close();
+                    await _mySqlConnection.CloseAsync();
                 }
+            }
+            else
+            {
+                throw new ApplicationException("Conexão com o banco de dados não disponível.");
             }
         }
 
-        public void GetOne(Event entity)
+        public Task GetOne(Event entity)
         {
             throw new NotImplementedException();
         }

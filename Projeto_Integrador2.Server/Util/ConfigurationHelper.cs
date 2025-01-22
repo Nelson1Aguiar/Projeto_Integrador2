@@ -27,11 +27,35 @@ namespace Projeto_Integrador2.Server.Helper
             }
         }
 
-        public static string GetKey(string key)
+        private static string GetKey(string key)
         {
             try
             {
-                return _configuration[$"appSettings:{key}"];
+                return _configuration[$"AppSettings:{key}"];
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
+
+        public static string DefaultStlDirectory()
+        {
+            try
+            {
+                return GetKey("DefaultStlDirectory");
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
+
+        public static string DefaultThumbnailDirectory()
+        {
+            try
+            {
+                return GetKey("DefaultThumbnailDirectory");
             }
             catch (Exception)
             {

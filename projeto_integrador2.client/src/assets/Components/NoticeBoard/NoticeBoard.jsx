@@ -2,6 +2,7 @@ import './NoticeBoard.css';
 import Suggestions from './Suggestions/Suggestions.jsx';
 import EventsCalendar from './Calendar/EventsCalendar.jsx';
 import ViewAllSuggestions from './Suggestions/ViewAllSuggestions.jsx';
+import SendFiles from './SendFiles/SendFiles.jsx'
 import { useState, useEffect } from 'react';
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import PropTypes from 'prop-types';
@@ -12,7 +13,7 @@ const NoticeBoard = ({ loginType }) => {
 
     useEffect(() => {
         if (loginType === 'Authenticated')
-            setLastPage(2);
+            setLastPage(3);
         else
             setLastPage(1);
     }, [loginType]);
@@ -48,10 +49,16 @@ const NoticeBoard = ({ loginType }) => {
                     <div className="slide">
                         <EventsCalendar loginType={loginType} />
                     </div>
-                    {lastPage === 2 && (
-                        <div className="slide">
-                            <ViewAllSuggestions />
-                        </div>
+                    {lastPage === 3 && (
+                        <>
+                            <div className="slide">
+                                <ViewAllSuggestions />
+                            </div>
+
+                            <div className="slide">
+                                <SendFiles />
+                            </div>
+                        </>
                     )}
                 </div>
             </div>

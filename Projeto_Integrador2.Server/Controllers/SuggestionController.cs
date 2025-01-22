@@ -18,13 +18,13 @@ namespace Projeto_Integrador2.Server.Controllers
 
         [HttpPost("SendSuggestion")]
         [AllowAnonymous]
-        public IActionResult SendSuggestion([FromBody] Suggestion suggestion)
+        public async Task<IActionResult> SendSuggestion([FromBody] Suggestion suggestion)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _suggestionRepository.Create(suggestion);
+                    await _suggestionRepository.Create(suggestion);
                     return Ok(new { Success = true, Message = "Sugestão enviada", Id = suggestion.SuggestionId });
                 }
                 catch (ApplicationException ex)
@@ -42,11 +42,11 @@ namespace Projeto_Integrador2.Server.Controllers
 
         [HttpGet("GetAllSuggestions")]
         [Authorize]
-        public IActionResult GetAllSuggestions()
+        public async Task<IActionResult> GetAllSuggestions()
         {
             try
             {
-                List<Suggestion> suggestions = _suggestionRepository.GetAll();
+                List<Suggestion> suggestions = await _suggestionRepository.GetAll();
                 return Ok(new { Success = true, Suggestions = suggestions });
             }
             catch (ApplicationException ex)
@@ -61,11 +61,11 @@ namespace Projeto_Integrador2.Server.Controllers
 
         [HttpDelete("DeleteSuggestion")]
         [Authorize]
-        public IActionResult DeleteSuggestion([FromBody] long id)
+        public async Task<IActionResult> DeleteSuggestion([FromBody] long id)
         {
             try
             {
-                _suggestionRepository.Delete(id);
+                await _suggestionRepository.Delete(id);
                 return Ok(new { Success = true, Message = "Sugestão excluída com sucesso" });
             }
             catch (ApplicationException ex)

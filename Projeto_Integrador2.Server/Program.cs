@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.IdentityModel.Tokens;
 using Projeto_Integrador2.Server.Infraestructure;
 using Projeto_Integrador2.Server.Interface;
@@ -50,6 +51,12 @@ namespace Projeto_Integrador2.Server
             builder.Services.AddScoped<IRepository<User>, UserRepository>();
             builder.Services.AddScoped<IRepository<Event>, EventsRepository>();
             builder.Services.AddScoped<IRepository<Suggestion>, SuggestionRepository>();
+            builder.Services.AddScoped<IRepository<FileSTL>, FilesRepository>();
+
+            builder.Services.Configure<FormOptions>(options =>
+            {
+                options.MultipartBodyLengthLimit = 100 * 1024 * 1024;
+            });
 
             builder.Services.AddCors(options =>
             {
@@ -79,7 +86,7 @@ namespace Projeto_Integrador2.Server
             app.UseAuthentication();
             app.UseAuthorization();
 
-
+            app.UseStaticFiles();
             app.MapControllers();
 
             app.MapFallbackToFile("/index.html");
