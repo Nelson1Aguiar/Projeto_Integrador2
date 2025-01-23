@@ -40,14 +40,17 @@ const Grid = () => {
                 throw new Error(message);
             }
 
-            const mappedFiles = data.files.map(file => ({
-                FileId: file.fileId,
-                Name: file.name,
-                FilePath: file.filePath,
-                Thumbnail: file.thumbnail ? GenerateThumbnailByBase64(file.thumbnail) : null
-            }));
+            if (data.files.length > 0) {
 
-            setFiles(mappedFiles);
+                const mappedFiles = data.files.map(file => ({
+                    FileId: file.fileId,
+                    Name: file.name,
+                    FilePath: file.filePath,
+                    Thumbnail: file.thumbnail ? GenerateThumbnailByBase64(file.thumbnail) : null
+                }));
+
+                setFiles(mappedFiles);
+            }
         }
         catch (error) {
             console.error("Erro ao carregar imagem:", error);
