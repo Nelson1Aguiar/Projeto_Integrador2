@@ -18,11 +18,11 @@ namespace Projeto_Integrador2.Server.Controllers
 
         [HttpGet("GetEvents")]
         [AllowAnonymous]
-        public IActionResult GetEvents()
+        public async Task<IActionResult> GetEvents()
         {
             try
             {
-                List<Event> events = _eventsRepository.GetAll();
+                List<Event> events = await _eventsRepository.GetAll();
                 return Ok(new { Success = true, Message = "Eventos obtidos com sucesso", Events = events });
             }
             catch (ApplicationException ex)
@@ -37,11 +37,11 @@ namespace Projeto_Integrador2.Server.Controllers
 
         [HttpDelete("DeleteEvent")]
         [Authorize]
-        public IActionResult DeleteEvent([FromBody] long id)
+        public async Task<IActionResult> DeleteEvent([FromBody] long id)
         {
             try
             {
-                _eventsRepository.Delete(id);
+                await _eventsRepository.Delete(id);
                 return Ok(new { Success = true, Message = "Evento excluído com sucesso"});
             }
             catch (ApplicationException ex)
@@ -56,13 +56,13 @@ namespace Projeto_Integrador2.Server.Controllers
 
         [HttpPost("CreateEvent")]
         [Authorize]
-        public IActionResult CreateEvent([FromBody] Event newEvent)
+        public async Task<IActionResult> CreateEvent([FromBody] Event newEvent)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _eventsRepository.Create(newEvent);
+                    await _eventsRepository.Create(newEvent); 
                     return Ok(new { Success = true, Message = "Evento criado com sucesso", Id = newEvent.EventId });
                 }
                 catch (ApplicationException ex)
@@ -80,13 +80,13 @@ namespace Projeto_Integrador2.Server.Controllers
 
         [HttpPut("UpdateEvent")]
         [Authorize]
-        public IActionResult UpdateEvent([FromBody] Event newEvent)
+        public async Task<IActionResult> UpdateEvent([FromBody] Event newEvent)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _eventsRepository.Update(newEvent);
+                    await _eventsRepository.Update(newEvent);
                     return Ok(new { Success = true, Message = "Evento atualizado com sucesso", Event = newEvent });
                 }
                 catch (ApplicationException ex)
