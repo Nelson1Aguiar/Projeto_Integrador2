@@ -76,6 +76,8 @@ const STLViewer = ({ stlData }) => {
         // Cleanup ao desmontar o componente
         return () => {
             renderer.dispose();
+            geometry.dispose();
+            material.dispose();
             controls.dispose();
         };
     }, [stlData]);
