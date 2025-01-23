@@ -26,13 +26,16 @@ namespace Projeto_Integrador2.Server.Controllers
             {
                 List<FileSTL> files = await _filesRepository.GetAll();
 
+                files.RemoveAll(file => !System.IO.File.Exists(file.ThumbnailPath));
+
                 foreach (FileSTL file in files)
                 {
                     string extension = Path.GetExtension(file.ThumbnailPath).ToLower();
 
                     if (extension == ".png" || extension == ".jpg" || extension == ".jpeg")
                     {
-                        byte[] imageBytes = System.IO.File.ReadAllBytes(file.ThumbnailPath);
+                        byte[]? imageBytes = System.IO.File.ReadAllBytes(file.ThumbnailPath);
+                        
                         file.Thumbnail = imageBytes;
                     }
                 }
