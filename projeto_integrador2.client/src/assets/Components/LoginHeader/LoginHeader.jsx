@@ -3,10 +3,11 @@ import "./LoginHeader.css"
 const LoginHeader = () => {
     return (
         <div className="headerLogin">
-            <div className='imgUFCForLogin'>
-                <img src="src\assets\Components\HeaderPage\img\ufcSymbol.png" alt="UFC.Symbol.Header" />
-                <h1>Projeto</h1>
+            <div className='imgLeximForLogin'>
+                <img src="src\assets\Icons\noname.png" alt="Lexim.Symbol.Header" />
+                <h1>Lexim</h1>
             </div>
+            <img src="src\assets\Icons\ufcSymbol.png" width="2.5%" alt="UFC.Symbol.Header" />
         </div>
     );
 }

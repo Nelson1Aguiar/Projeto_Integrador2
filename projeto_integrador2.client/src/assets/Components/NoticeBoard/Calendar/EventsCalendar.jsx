@@ -191,24 +191,24 @@ const EventsCalendar = ({ loginType }) => {
     };
 
     return (
-        <>
-            {showCalendar && (
-                <div className="containerCalendar">
-                    <Calendar
-                        localizer={localizer}
-                        events={events}
-                        startAccessor="start"
-                        endAccessor="end"
-                        culture="pt-BR"
-                        messages={messages}
-                        className="calendarComponent"
-                        components={{
-                            event: eventComponent
-                        }}
-                        onSelectEvent={handleEventSelect}
-                        onView={setView}
-                        view={view}
-                    />
+        <div style={{ width: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {showCalendar && (
+        <div className="containerCalendar">
+                <Calendar
+                    localizer={localizer}
+                    events={events}
+                    startAccessor="start"
+                    endAccessor="end"
+                    culture="pt-BR"
+                    messages={messages}
+                    className="calendarComponent"
+                    components={{
+                        event: eventComponent
+                    }}
+                    onSelectEvent={handleEventSelect}
+                    onView={setView}
+                    view={view}
+                />
 
                     <div className="actions">
                         {loginType === 'Authenticated' && <button className='agendar-button' onClick={handleCreateEvent}>Agendar evento</button>}
@@ -228,7 +228,7 @@ const EventsCalendar = ({ loginType }) => {
             )}
 
             {showSelectionForm && <EventsForm setShowCalendar={setShowCalendar} setShowSelectionForm={setShowSelectionForm} setEvents={setEvents} actionEvent={actionEvent} updateEvent={updateEvent} />}
-        </>
+    </div>
     );
 };
 

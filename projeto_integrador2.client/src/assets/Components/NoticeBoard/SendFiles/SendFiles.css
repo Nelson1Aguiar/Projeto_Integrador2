@@ -1,7 +1,92 @@
-function SendFiles() {
-  return (
-    <p>Hello world!</p>
-  );
+.containerSendFile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5%;
+    max-width: 50%;
+    margin: 0 auto;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-export default SendFiles;
+h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 5%;
+}
+
+/* Formulário */
+.sendFileForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos para os grupos de input */
+.inputGroup {
+    margin-bottom: 7%;
+}
+
+.inputLabel {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 3%;
+    display: block;
+}
+
+/* Input de texto */
+.textInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+    .textInput:focus {
+        border-color: #4caf50;
+    }
+
+/* Input de arquivo */
+.fileInput {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Botão de envio */
+.submitButton {
+    background-color: #4caf50;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .submitButton:hover {
+        background-color: #45a049;
+    }
+
+    .submitButton:focus {
+        outline: none;
+    }
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .containerSendFile {
+        padding: 20px;
+    }
+
+    .submitButton {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+}

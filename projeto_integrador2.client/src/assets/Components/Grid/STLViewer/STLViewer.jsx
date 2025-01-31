@@ -1,88 +1,152 @@
 import { useEffect, useRef } from 'react';
+import './STLViewer.css';
 import * as THREE from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { AiOutlineZoomIn, AiOutlineZoomOut } from 'react-icons/ai';
 import PropTypes from 'prop-types';
 
 const STLViewer = ({ stlData }) => {
     const canvasRef = useRef(null);
+    const sceneRef = useRef(null);
+    const cameraRef = useRef(null);
+    const controlsRef = useRef(null);
+    const rendererRef = useRef(null);
+    const meshRef = useRef(null);
+    const mountedRef = useRef(true);
 
-    useEffect(() => {
-        if (!stlData) return;
-
-        // Configuração básica
+    const initializeScene = () => {
         const scene = new THREE.Scene();
+        sceneRef.current = scene;
+        scene.background = new THREE.Color(0xffffff);
+
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, antialias: true });
+        cameraRef.current = camera;
+
+        const renderer = new THREE.WebGLRenderer({
+            canvas: canvasRef.current,
+            antialias: true,
+            powerPreference: "high-performance"
+        });
         renderer.setSize(window.innerWidth, window.innerHeight);
+        rendererRef.current = renderer;
 
-        // Adicionar iluminação
-        const ambientLight = new THREE.AmbientLight(0x404040); // Luz ambiente
-        scene.add(ambientLight);
+        // Configuração de iluminação
+        [5, -5].forEach(x => {
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(x, 5, 5);
+            scene.add(light);
+        });
+        scene.add(new THREE.AmbientLight(0x404040, 1));
 
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(5, 5, 5).normalize();
-        scene.add(directionalLight);
-
-        // Adicionar OrbitControls
+        // Controles de órbita
         const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true; // Ativar damping (inércia suave ao mover)
-        controls.dampingFactor = 0.1; // Ajustar suavidade
-        controls.enableZoom = true; // Permitir zoom
-        controls.autoRotate = false; // Desativar rotação automática
-        controls.target.set(0, 0, 0); // Focar no centro da cena
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.1;
+        controlsRef.current = controls;
 
-        // Carregar o modelo STL
-        const loader = new STLLoader();
-        const geometry = loader.parse(atob(stlData)); // Decodificar Base64
+        // Loop de animação controlado por mountedRef
+        const animate = () => {
+            if (!mountedRef.current) return;
+            controls.update();
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        };
+        animate();
+    };
 
-        // Calcular bounding box e centralizar
-        geometry.computeBoundingBox();
-        const boundingBox = geometry.boundingBox;
-
-        if (!boundingBox) {
-            console.error("Bounding box não foi calculado corretamente.");
-            return;
+    const loadSTLModel = (stlData) => {
+        if (meshRef.current) {
+            sceneRef.current.remove(meshRef.current);
+            disposeMesh(meshRef.current);
         }
 
-        const size = new THREE.Vector3();
-        boundingBox.getSize(size); // Dimensões do modelo
+        const geometry = new STLLoader().parse(atob(stlData));
+        geometry.computeBoundingBox();
+
         const center = new THREE.Vector3();
-        boundingBox.getCenter(center);
+        geometry.boundingBox.getCenter(center);
+        geometry.translate(-center.x, -center.y, -center.z);
 
-        geometry.translate(-center.x, -center.y, -center.z); // Centralizar no (0, 0, 0)
+        const mesh = new THREE.Mesh(
+            geometry,
+            new THREE.MeshStandardMaterial({ color: 0x777777 })
+        );
+        sceneRef.current.add(mesh);
+        meshRef.current = mesh;
 
-        // Adicionar o modelo na cena
-        const material = new THREE.MeshStandardMaterial({ color: 0x777777 });
-        const mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
+        adjustCameraPosition(geometry);
+    };
 
-        // Ajustar posição da câmera
-        const fovInRadians = THREE.MathUtils.degToRad(camera.fov);
-        const modelSize = Math.max(size.x, size.y, size.z);
-        const distance = modelSize / (2 * Math.tan(fovInRadians / 2));
-        camera.position.set(0, 0, distance * 1.5); // Margem adicional
-        camera.lookAt(0, 0, 0);
+    const adjustCameraPosition = (geometry) => {
+        const size = new THREE.Vector3();
+        geometry.boundingBox.getSize(size);
+        const fov = THREE.MathUtils.degToRad(cameraRef.current.fov);
+        const distance = Math.max(...size.toArray()) / (2 * Math.tan(fov / 2));
+        cameraRef.current.position.set(0, 0, distance * 1.5);
+        cameraRef.current.lookAt(0, 0, 0);
+    };
 
-        // Função de animação
-        const animate = () => {
-            requestAnimationFrame(animate);
-            controls.update(); // Atualiza os controles
-            renderer.render(scene, camera);
-        };
+    const disposeMesh = (mesh) => {
+        mesh.geometry.dispose();
+        if (Array.isArray(mesh.material)) {
+            mesh.material.forEach(m => m.dispose());
+        } else {
+            mesh.material.dispose();
+        }
+    };
 
-        animate();
+    const cleanUpResources = () => {
+        if (sceneRef.current) {
+            sceneRef.current.traverse(child => {
+                if (child.isMesh) disposeMesh(child);
+            });
+            sceneRef.current.clear();
+        }
+        if (controlsRef.current) controlsRef.current.dispose();
+        if (rendererRef.current) rendererRef.current.dispose();
+    };
 
-        // Cleanup ao desmontar o componente
+    useEffect(() => {
+        mountedRef.current = true;
+        if (!rendererRef.current) initializeScene();
+        if (stlData) loadSTLModel(stlData);
+
         return () => {
-            renderer.dispose();
-            geometry.dispose();
-            material.dispose();
-            controls.dispose();
+            mountedRef.current = false;
+            cleanUpResources();
+            sceneRef.current = null;
+            cameraRef.current = null;
+            controlsRef.current = null;
+            rendererRef.current = null;
+            meshRef.current = null;
         };
     }, [stlData]);
 
-    return <canvas ref={canvasRef} />;
+    const handleZoom = (factor) => () => {
+        if (cameraRef.current) {
+            cameraRef.current.zoom = THREE.MathUtils.clamp(
+                cameraRef.current.zoom * factor,
+                0.5,
+                2.5
+            );
+            cameraRef.current.updateProjectionMatrix();
+        }
+    };
+
+    return (
+        <div className="mainContainerStl">
+            <canvas className="renderElement" ref={canvasRef} />
+            <div className="containerButtonsZoomStl">
+                <button onClick={handleZoom(1.1)}>
+                    <AiOutlineZoomIn size={20} color="#fff" />
+                </button>
+                <button onClick={handleZoom(1 / 1.1)}>
+                    <AiOutlineZoomOut size={20} color="#fff" />
+                </button>
+            </div>
+        </div>
+    );
 };
 
 STLViewer.propTypes = {
