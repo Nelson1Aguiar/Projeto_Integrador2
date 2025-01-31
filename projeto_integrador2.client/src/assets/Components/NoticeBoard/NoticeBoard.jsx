@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import PropTypes from 'prop-types';
 
-const NoticeBoard = ({ loginType }) => {
+const NoticeBoard = ({ loginType, setFiles, setUpdateFileList }) => {
     const [currentDisplay, setCurrentDisplay] = useState(0);
     const [lastPage, setLastPage] = useState(1);
 
@@ -15,7 +15,11 @@ const NoticeBoard = ({ loginType }) => {
         if (loginType === 'Authenticated')
             setLastPage(3);
         else
+        {
             setLastPage(1);
+            setCurrentDisplay(0);
+        }
+
     }, [loginType]);
 
     const allowChangeForNextDisplay = currentDisplay === lastPage ? false : true;
@@ -56,7 +60,7 @@ const NoticeBoard = ({ loginType }) => {
                             </div>
 
                             <div className="slide">
-                                <SendFiles />
+                                <SendFiles setFiles={setFiles} setUpdateFileList={setUpdateFileList} />
                             </div>
                         </>
                     )}
@@ -71,6 +75,8 @@ const NoticeBoard = ({ loginType }) => {
 
 NoticeBoard.propTypes = {
     loginType: PropTypes.string,
+    setFiles: PropTypes.func.isRequired,
+    setUpdateFileList: PropTypes.func.isRequired
 };
 
 export default NoticeBoard;

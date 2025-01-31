@@ -26,10 +26,59 @@ namespace Projeto_Integrador2.Server.Repository
                     await _mySqlConnection.OpenAsync();
                     List<FileSTL> files = new List<FileSTL>();
 
+                    MySqlCommand command = new MySqlCommand("GetAllFilesNames", _mySqlConnection)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure
+                    };
+
+                    using (DbDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        if (!reader.HasRows)
+                            return files;
+
+                        while (await reader.ReadAsync())
+                        {
+                            FileSTL file = new FileSTL()
+                            {
+                                FileId = reader.IsDBNull(reader.GetOrdinal("FileId")) ? 0 : reader.GetInt32("FileId"),
+                                Name = reader.GetString("Name"),
+                                FilePath = reader.GetString("FilePath")
+                            };
+
+                            files.Add(file);
+                        }
+                    }
+
+                    return files;
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException($"Erro ao buscar arquivos: {ex.Message}", ex);
+                }
+                finally
+                {
+                    await _mySqlConnection.CloseAsync();
+                }
+            }
+            throw new ApplicationException("Erro ao buscar arquivos. Conexão não disponível.");
+        }
+
+        public async Task<List<FileSTL>> GetPage(int page, int pageSize)
+        {
+            if (_mySqlConnection != null)
+            {
+                try
+                {
+                    await _mySqlConnection.OpenAsync();
+                    List<FileSTL> files = new List<FileSTL>();
+
                     MySqlCommand command = new MySqlCommand("GetAllFilePath", _mySqlConnection)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure
                     };
+
+                    command.Parameters.AddWithValue("@p_Page", page);
+                    command.Parameters.AddWithValue("@p_PageSize", pageSize);
 
                     using (DbDataReader reader = await command.ExecuteReaderAsync())
                     {
