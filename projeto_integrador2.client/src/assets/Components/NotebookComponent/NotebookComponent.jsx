@@ -1,6 +1,6 @@
 import "./NotebookComponent.css"
 import NotebookImage from "./Img/telaNote.png"
-import HomePageImage from "./Img/Modelo.png"
+import HomePageImage from "./Img/LeximSite.png"
 
 const NotebookComponent = () => {
     return (

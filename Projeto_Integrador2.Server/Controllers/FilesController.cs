@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
-using System.IO;
-using System.Text;
 
 namespace Projeto_Integrador2.Server.Controllers
 {
@@ -20,11 +18,11 @@ namespace Projeto_Integrador2.Server.Controllers
 
         [HttpGet("GetFiles")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetFiles()
+        public async Task<IActionResult> GetFiles([FromQuery] int page, [FromQuery] int pageSize)
         {
             try
             {
-                List<FileSTL> files = await _filesRepository.GetAll();
+                List<FileSTL> files = await _filesRepository.GetPage(page, pageSize);
 
                 files.RemoveAll(file => !System.IO.File.Exists(file.ThumbnailPath));
 
@@ -88,6 +86,25 @@ namespace Projeto_Integrador2.Server.Controllers
             }
         }
 
+        [HttpGet("GetAllFilesNames")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAllFilesNames()
+        {
+            try
+            {
+                List<FileSTL> files = await _filesRepository.GetAll();
+                return Ok(new { Success = true, Message = "Arquivos obtidos com sucesso", Files = files });
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { Success = false, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = "Erro interno do servidor: " + ex.Message });
+            }
+        }
+
         [HttpPost("UploadFile")]
         [Authorize]
         public async Task<IActionResult> UploadFile([FromBody] FileSTL file)
@@ -100,7 +117,7 @@ namespace Projeto_Integrador2.Server.Controllers
                 }
 
                 await _filesRepository.Create(file);
-                return Ok(new { Success = true, Message = "Arquivo publicado com sucesso", Thumbnail = file.Thumbnail!, Name = file.Name! });
+                return Ok(new { Success = true, Message = "Arquivo publicado com sucesso", FileName = file.Name, FileId = file.FileId });
             }
             catch (ApplicationException ex)
             {

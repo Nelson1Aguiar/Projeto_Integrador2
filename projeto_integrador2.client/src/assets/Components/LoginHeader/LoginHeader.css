@@ -9,28 +9,28 @@
     background-color: #ffc712;
 }
 
-.imgUFCForLogin {
+.imgLeximForLogin {
     display: flex;
-    gap: 5%;
     background-color: transparent;
     align-items: center;
     justify-content: start;
     margin-left: 10%;
 }
 
-.imgUFCForLogin img, h1{
+.imgLeximForLogin img, h1{
     background-color: transparent;
 }
 
-.imgUFCForLogin img {
-    width: 3%;
+.imgLeximForLogin img {
+    width: 4%;
 }
+
 @media (max-width: 768px) {
-    .imgUFCForLogin {
+    .imgLeximForLogin {
         justify-content: center;
         margin-left: 0;
     }
-    .imgUFCForLogin img {
+    .imgLeximForLogin img {
         width: 8%;
     }
 }

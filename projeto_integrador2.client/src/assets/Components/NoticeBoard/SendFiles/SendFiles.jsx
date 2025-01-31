@@ -1,6 +1,8 @@
 import { useState } from "react";
+import './SendFiles.css';
+import PropTypes from 'prop-types';
 
-function SendFiles() {
+function SendFiles({ setFiles, setUpdateFileList }) {
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState("");
 
@@ -51,7 +53,6 @@ function SendFiles() {
         };
 
         try {
-
             const response = await fetch(apiUrlUploadFile, options);
             const data = await response.json();
 
@@ -61,6 +62,13 @@ function SendFiles() {
                 throw new Error(message);
             }
 
+            const files = {
+                fileName: data.name,
+                fileId: data.Id
+            }
+
+            setFiles(prevFiles => [...prevFiles, files]);
+            setUpdateFileList(true);
             alert("Arquivo enviado com sucesso!");
         } catch (error) {
             console.error("Erro ao enviar o arquivo:", error);
@@ -71,32 +79,40 @@ function SendFiles() {
     return (
         <div className="containerSendFile">
             <h2>Envio de Arquivo 3D</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="file">Selecione o arquivo STL:</label>
+            <form onSubmit={handleSubmit} className="sendFileForm">
+                <div className="inputGroup">
+                    <label htmlFor="file" className="inputLabel">Selecione o arquivo STL:</label>
                     <input
                         type="file"
                         id="file"
                         accept=".stl"
                         onChange={handleFileChange}
+                        className="fileInput"
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="name">Defina um nome:</label>
+                <div className="inputGroup">
+                    <label htmlFor="name" className="inputLabel">Defina um nome:</label>
                     <input
                         type="text"
                         id="name"
                         value={fileName}
                         onChange={handleNameChange}
                         placeholder="Nome do arquivo"
+                        className="textInput"
                         required
                     />
                 </div>
-                <button type="submit">Enviar</button>
+                <button type="submit" className="submitButton">Enviar</button>
             </form>
         </div>
     );
 }
+
+SendFiles.propTypes = {
+    loginType: PropTypes.string,
+    setFiles: PropTypes.func.isRequired,
+    setUpdateFileList: PropTypes.func.isRequired
+};
 
 export default SendFiles;

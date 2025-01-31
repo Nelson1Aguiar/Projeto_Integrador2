@@ -176,7 +176,7 @@ namespace Projeto_Integrador2.Server.Services
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                bitmap.Encode(SKEncodedImageFormat.Png, 100).SaveTo(ms);
+                bitmap.Encode(SKEncodedImageFormat.Jpeg, 100).SaveTo(ms);
                 return ms.ToArray();
             }
         }

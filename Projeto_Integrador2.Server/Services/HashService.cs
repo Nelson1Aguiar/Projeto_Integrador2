@@ -4,7 +4,7 @@
     {
         public static string HashGeneration(string data)
         {
-            int workfactor = 10;
+            int workfactor = 5;
 
             string salt = BCrypt.Net.BCrypt.GenerateSalt(workfactor);
             string hash = BCrypt.Net.BCrypt.HashPassword(data, salt);

@@ -5,18 +5,28 @@
     width: 100%;
     border-top: 2px solid #000000;
     text-align: center;
-    justify-content:center;
     align-items: center;
-    gap: 25%;
     font-size: 90%;
 }
-.outroslinks{
+.ufcLink{
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+}
+.outroslinks {
     display: flex;
     gap: 20px;
 }
 a {
     color: black;
     text-decoration: none;
+}
+
+.ufcIconLoginPage {
+    justify-self: start;
+    margin-left: 10%;
 }
 
 @media (max-width: 768px) {

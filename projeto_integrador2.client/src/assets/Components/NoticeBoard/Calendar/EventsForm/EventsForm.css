@@ -9,8 +9,9 @@
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 95%;
-    height: 90%;
+    width: 80%;
+    height: 80%;
+    position: absolute;
     margin: 0 auto;
 }
 
@@ -122,8 +123,6 @@
     height: 80%;
     max-width: 100%;
 }
-
-
 
 @media (max-width: 1025px) {
     .EventForm {
