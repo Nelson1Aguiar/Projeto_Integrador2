@@ -191,7 +191,7 @@ const EventsCalendar = ({ loginType }) => {
     };
 
     return (
-        <>
+        <div style={{ width: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         {showCalendar && (
         <div className="containerCalendar">
                 <Calendar
@@ -228,7 +228,7 @@ const EventsCalendar = ({ loginType }) => {
         )}
 
             {showSelectionForm && <EventsForm setShowCalendar={setShowCalendar} setShowSelectionForm={setShowSelectionForm} setEvents={setEvents} actionEvent={actionEvent} updateEvent={updateEvent} />}
-    </>
+    </div>
     );
 };
 

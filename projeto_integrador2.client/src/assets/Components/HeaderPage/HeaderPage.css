@@ -18,7 +18,7 @@
     border-radius: 25px;
 }
 
-.imgUFC {
+.imgLexim {
     width: 33.3%;
     display: flex;
     justify-content: center;
@@ -32,7 +32,7 @@
     align-items: center;
 }
 /* Estilos para cada div interna */
-.imgUFC img {
+.imgLexim img {
     width: 10%; /* Ajuste o tamanho da imagem conforme necessário */
 }
 
@@ -56,7 +56,7 @@
     .header{
         margin-top: 7%;
     }
-    .imgUFC img {
+    .imgLexim img {
         width: 30%;
     }
 }
