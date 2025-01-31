@@ -4,7 +4,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import UserDropBox from '../UserDropBox/UserDropBox';
 import { useEffect, useState } from 'react';
 
-const HeaderPage = ({ setPage, loginType, user, setUser }) => {
+const HeaderPage = ({ setPage, loginType, user, setUser, files, setHasPathBySearchBar, setPathToOpen }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
@@ -18,11 +18,12 @@ const HeaderPage = ({ setPage, loginType, user, setUser }) => {
 
     return (
         <div className = "header">
-            <div className='imgUFC'>
-                <img src="src\assets\Components\HeaderPage\img\ufcSymbol.png" alt="UFC.Symbol.Header" />
+            <div className='imgLexim'>
+                <img src="src\assets\Icons\noname.png" alt="Lexim.Symbol.Header" />
+                <h1>Lexim</h1>
             </div>
             
-                <SearchBar/>
+            <SearchBar files={files} setHasPathBySearchBar={setHasPathBySearchBar} setPathToOpen={setPathToOpen} />
          
             <div className='signIn'>
                 {!isAuthenticated && (
@@ -42,6 +43,9 @@ HeaderPage.propTypes = {
     setPage: PropTypes.func.isRequired,
     loginType: PropTypes.string,
     setUser: PropTypes.func.isRequired,
+    setHasPathBySearchBar: PropTypes.func.isRequired,
+    setPathToOpen: PropTypes.func.isRequired,
+    files: PropTypes.array,
 
     user: PropTypes.oneOfType([
         PropTypes.shape({
