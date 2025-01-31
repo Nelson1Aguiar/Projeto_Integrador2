@@ -9,7 +9,10 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\assets\Components\LoginHeader\Img\" />
+    <None Remove="src\assets\Components\LoginHeader\Img\**" />
+    <TypeScriptConfiguration Remove="src\assets\Components\LoginHeader\Img\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="src\assets\Components\TextLogin\" />
   </ItemGroup>
 </Project>

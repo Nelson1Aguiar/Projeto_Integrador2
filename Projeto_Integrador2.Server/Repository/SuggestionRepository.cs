@@ -140,5 +140,10 @@ namespace Projeto_Integrador2.Server.Repository
         {
             throw new NotImplementedException();
         }
+
+        public Task<List<Suggestion>> GetPage(int page, int pageSize)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

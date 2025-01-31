@@ -7,5 +7,6 @@
         Task Update(T entity);
         Task GetOne(T entity);
         Task<List<T>> GetAll();
+        Task<List<T>> GetPage(int page, int pageSize);
     }
 }

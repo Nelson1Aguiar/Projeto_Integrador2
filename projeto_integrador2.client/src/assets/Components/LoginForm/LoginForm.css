@@ -29,7 +29,7 @@
     width: 60%;
 }
 
-.formLogin label, input, a {
+.formLogin label, input {
     background-color: white;
 }
 
