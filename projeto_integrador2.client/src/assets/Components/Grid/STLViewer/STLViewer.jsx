@@ -13,12 +13,15 @@ const STLViewer = ({ stlData }) => {
     const controlsRef = useRef(null);
     const rendererRef = useRef(null);
     const meshRef = useRef(null);
+    const animationRef = useRef(null);
     const mountedRef = useRef(true);
 
     const initializeScene = () => {
+        if (!canvasRef.current) return;
+
         const scene = new THREE.Scene();
-        sceneRef.current = scene;
         scene.background = new THREE.Color(0xffffff);
+        sceneRef.current = scene;
 
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         cameraRef.current = camera;
@@ -31,7 +34,6 @@ const STLViewer = ({ stlData }) => {
         renderer.setSize(window.innerWidth, window.innerHeight);
         rendererRef.current = renderer;
 
-        // Configuração de iluminação
         [5, -5].forEach(x => {
             const light = new THREE.DirectionalLight(0xffffff, 1);
             light.position.set(x, 5, 5);
@@ -39,18 +41,16 @@ const STLViewer = ({ stlData }) => {
         });
         scene.add(new THREE.AmbientLight(0x404040, 1));
 
-        // Controles de órbita
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.1;
         controlsRef.current = controls;
 
-        // Loop de animação controlado por mountedRef
         const animate = () => {
             if (!mountedRef.current) return;
             controls.update();
             renderer.render(scene, camera);
-            requestAnimationFrame(animate);
+            animationRef.current = requestAnimationFrame(animate);
         };
         animate();
     };
@@ -97,14 +97,29 @@ const STLViewer = ({ stlData }) => {
     };
 
     const cleanUpResources = () => {
+        if (animationRef.current) cancelAnimationFrame(animationRef.current);
+
         if (sceneRef.current) {
             sceneRef.current.traverse(child => {
                 if (child.isMesh) disposeMesh(child);
             });
+            while (sceneRef.current.children.length > 0) {
+                sceneRef.current.remove(sceneRef.current.children[0]);
+            }
             sceneRef.current.clear();
         }
+
+        if (rendererRef.current) {
+            try {
+                rendererRef.current.dispose();
+                rendererRef.current.forceContextLoss();
+                rendererRef.current.domElement = null;
+            } catch (e) {
+                console.warn("Erro ao limpar o renderer:", e);
+            }
+        }
+
         if (controlsRef.current) controlsRef.current.dispose();
-        if (rendererRef.current) rendererRef.current.dispose();
     };
 
     useEffect(() => {
@@ -112,14 +127,32 @@ const STLViewer = ({ stlData }) => {
         if (!rendererRef.current) initializeScene();
         if (stlData) loadSTLModel(stlData);
 
+        const handleResize = () => {
+            if (cameraRef.current && rendererRef.current) {
+                cameraRef.current.aspect = window.innerWidth / window.innerHeight;
+                cameraRef.current.updateProjectionMatrix();
+                rendererRef.current.setSize(window.innerWidth, window.innerHeight);
+            }
+        };
+
+        window.addEventListener("resize", handleResize);
+
         return () => {
             mountedRef.current = false;
-            cleanUpResources();
-            sceneRef.current = null;
-            cameraRef.current = null;
-            controlsRef.current = null;
-            rendererRef.current = null;
-            meshRef.current = null;
+
+            setTimeout(() => {
+                if (!mountedRef.current) {
+                    cleanUpResources();
+                    window.removeEventListener("resize", handleResize);
+
+                    sceneRef.current = null;
+                    cameraRef.current = null;
+                    controlsRef.current = null;
+                    rendererRef.current = null;
+                    meshRef.current = null;
+                    animationRef.current = null;
+                }
+            }, 100);
         };
     }, [stlData]);
 
