@@ -17,7 +17,7 @@ namespace Projeto_Integrador2.Server.Controllers
         }
 
         [HttpPost("SendSuggestion")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> SendSuggestion([FromBody] Suggestion suggestion)
         {
             if (ModelState.IsValid)
@@ -41,7 +41,7 @@ namespace Projeto_Integrador2.Server.Controllers
         }
 
         [HttpGet("GetAllSuggestions")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllSuggestions()
         {
             try
@@ -60,7 +60,7 @@ namespace Projeto_Integrador2.Server.Controllers
         }
 
         [HttpDelete("DeleteSuggestion")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteSuggestion([FromBody] long id)
         {
             try

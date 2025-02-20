@@ -1,6 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Projeto_Integrador2.Server.Interface;
 using Projeto_Integrador2.Server.Model;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -27,13 +28,16 @@ namespace Projeto_Integrador2.Server.Services
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var claims = new[]
+            List<Claim> claims = new List<Claim>
             {
             new Claim("name", user.Name),
             new Claim("userId", user.UserId.ToString()),
             new Claim("email", user.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
+
+            if (!string.IsNullOrEmpty(user.Role))
+                claims.Add(new Claim(ClaimTypes.Role, user.Role));
 
             JwtSecurityToken token = new JwtSecurityToken(
                 issuer: issuer,

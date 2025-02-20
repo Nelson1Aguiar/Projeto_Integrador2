@@ -50,10 +50,18 @@ const EventsCalendar = ({ loginType }) => {
         setLoading(true);
         const apiUrlGetAllEvents = import.meta.env.VITE_API_URL_GETALLEVENTS;
 
+        const token = sessionStorage.getItem('token');
+
+        if (!token) {
+            console.error("Token não encontrado.");
+            return;
+        }
+
         const options = {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
         };
 

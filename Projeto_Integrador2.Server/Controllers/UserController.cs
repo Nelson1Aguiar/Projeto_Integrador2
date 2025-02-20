@@ -18,8 +18,34 @@ namespace Projeto_Integrador2.Server.Controllers
             _tokenService = tokenService;
         }
 
-        [HttpPost("Login")]
+        [HttpGet("GetInitialAuthenticate")]
         [AllowAnonymous]
+        public IActionResult GetToken()
+        {
+            try
+            {
+                User user = new User()
+                {
+                    Name = "guest",
+                    UserId = 0,
+                    Email = "guest@guest.com"
+                };
+
+                string token = _tokenService.GenerateToken(user);
+                return Ok(new { Success = true, Token = token });
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { Success = false, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = "Erro interno do servidor: " + ex.Message });
+            }
+        }
+
+        [HttpPost("Login")]
+        [Authorize]
         public async Task<IActionResult> Login([FromBody] User user)
         {
             if (user != null)
@@ -32,9 +58,9 @@ namespace Projeto_Integrador2.Server.Controllers
                 }
                 catch (ApplicationException ex)
                 {
-                    return BadRequest(new { Success = false, Message = ex.Message});
+                    return BadRequest(new { Success = false, Message = ex.Message });
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     return StatusCode(500, new { Success = false, Message = "Erro interno do servidor: " + ex.Message });
                 }
@@ -43,7 +69,7 @@ namespace Projeto_Integrador2.Server.Controllers
                 return BadRequest(new { Success = false, Message = "Não foi possível efetuar login" });
         }
 
-        [HttpGet("Teste")]
+        [HttpGet("TestLeximApi")]
         [AllowAnonymous]
         public IActionResult TestEndPoint()
         {

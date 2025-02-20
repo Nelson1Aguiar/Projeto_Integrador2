@@ -40,12 +40,23 @@ const LoginForm = ({ setPage, setLoginType, setUser }) => {
 
         const formData = new FormData(event.target);
 
+        formData.append('role', 'Admin');
+
         const json = Object.fromEntries(formData.entries());
+
+        const token = sessionStorage.getItem('token');
+
+        if (!token) {
+            console.error("Token não encontrado.");
+            alert("Não foi possível efetuar login, tente novamente mais tarde");
+            return;
+        }
 
         const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify(json),
         }
@@ -91,7 +102,6 @@ const LoginForm = ({ setPage, setLoginType, setUser }) => {
                     <input name="email" type="email" placeholder="usuario@email.com" required></input>
                     <label htmlFor="password">Senha</label>
                     <input name="password" type="password" placeholder="***********" required></input>
-                    <a>Esqueceu a senha?</a>
                 <button className = "loginFormButton" disabled={disableButtons} type="submit">Sign In</button>
                 <div className="divider">
                     <span>ou</span>

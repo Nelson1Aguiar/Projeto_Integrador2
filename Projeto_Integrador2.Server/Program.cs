@@ -46,12 +46,12 @@ namespace Projeto_Integrador2.Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddSingleton<IConnection, Connection>();
-            builder.Services.AddSingleton<ITokenService, TokenService>();
-            builder.Services.AddSingleton<IRepository<User>, UserRepository>();
-            builder.Services.AddSingleton<IRepository<Event>, EventsRepository>();
-            builder.Services.AddSingleton<IRepository<Suggestion>, SuggestionRepository>();
-            builder.Services.AddSingleton<IRepository<FileSTL>, FilesRepository>();
+            builder.Services.AddScoped<IConnection, Connection>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<IRepository<User>, UserRepository>();
+            builder.Services.AddScoped<IRepository<Event>, EventsRepository>();
+            builder.Services.AddScoped<IRepository<Suggestion>, SuggestionRepository>();
+            builder.Services.AddScoped<IRepository<FileSTL>, FilesRepository>();
 
             builder.Services.Configure<FormOptions>(options =>
             {

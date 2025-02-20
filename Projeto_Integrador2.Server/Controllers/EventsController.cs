@@ -17,7 +17,7 @@ namespace Projeto_Integrador2.Server.Controllers
         }
 
         [HttpGet("GetEvents")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> GetEvents()
         {
             try
@@ -36,7 +36,7 @@ namespace Projeto_Integrador2.Server.Controllers
         }
 
         [HttpDelete("DeleteEvent")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteEvent([FromBody] long id)
         {
             try
@@ -55,7 +55,7 @@ namespace Projeto_Integrador2.Server.Controllers
         }
 
         [HttpPost("CreateEvent")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateEvent([FromBody] Event newEvent)
         {
             if (ModelState.IsValid)
@@ -79,7 +79,7 @@ namespace Projeto_Integrador2.Server.Controllers
         }
 
         [HttpPut("UpdateEvent")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateEvent([FromBody] Event newEvent)
         {
             if (ModelState.IsValid)

@@ -6,7 +6,7 @@ import Grid from './Components/Grid/Grid';
 import Footer from './Components/Footer/Footer'
 import PropTypes from 'prop-types';
 
-const HomePage = ({ setPage, page, loginType, user, setUser }) => {
+const HomePage = ({ setPage, page, loginType, user, setUser, fetchToken }) => {
 
     const [scaled, setScaled] = useState(false);
     const [fileList, setFileList] = useState([]);
@@ -18,10 +18,19 @@ const HomePage = ({ setPage, page, loginType, user, setUser }) => {
         const apiUrlGetAllFilesNames = import.meta.env.VITE_API_URL_GET_ALL_FILES_NAMES;
 
         try {
+
+            const token = sessionStorage.getItem('token');
+
+            if (!token) {
+                console.error("Token não encontrado.");
+                return;
+            }
+
             const response = await fetch(apiUrlGetAllFilesNames, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
                 }
             });
 
@@ -74,7 +83,7 @@ const HomePage = ({ setPage, page, loginType, user, setUser }) => {
 
     return (
         <div id="containerHomePage" className={`homePage ${scaled ? 'changeScale' : ''}`}>
-            <Header setPage={setPage} loginType={loginType} user={user} setUser={setUser} files={fileList} setHasPathBySearchBar={setHasPathBySearchBar} setPathToOpen={setPathToOpen} />
+            <Header setPage={setPage} loginType={loginType} user={user} setUser={setUser} files={fileList} setHasPathBySearchBar={setHasPathBySearchBar} setPathToOpen={setPathToOpen} fetchToken={fetchToken} />
             <NoticeBoard loginType={loginType} setFiles={setFileList} setUpdateFileList={setUpdateFileList} />
             <Grid page={page} updateFileList={updateFileList} setUpdateFileList={setUpdateFileList} hasPathBySearchBar={hasPathBySearchBar} setHasPathBySearchBar={setHasPathBySearchBar} pathToOpen={pathToOpen} />
             <Footer />
@@ -87,6 +96,7 @@ HomePage.propTypes = {
     page: PropTypes.string,
     loginType: PropTypes.string,
     setUser: PropTypes.func.isRequired,
+    fetchToken: PropTypes.func.isRequired,
 
     user: PropTypes.oneOfType([
         PropTypes.shape({

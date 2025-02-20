@@ -3,7 +3,7 @@ import './UserDropBox.css'
 import { FiChevronDown } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 
-const UserDropBox = ({ user, setUser, setPage}) => {
+const UserDropBox = ({ user, setUser, setPage, fetchToken }) => {
 
     const [selectedOption, setSelectedOption] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +13,7 @@ const UserDropBox = ({ user, setUser, setPage}) => {
             setPage("login");
             setSelectedOption(null);
             setUser(null);
-            sessionStorage.removeItem('token');
+            fetchToken();
         }
     }, [selectedOption, setUser, setPage]);
 
@@ -32,7 +32,6 @@ const UserDropBox = ({ user, setUser, setPage}) => {
         setIsOpen(false);
         setSelectedOption(option);
     };
-
 
     return (
       
@@ -65,6 +64,8 @@ const UserDropBox = ({ user, setUser, setPage}) => {
 UserDropBox.propTypes = {
     setPage: PropTypes.func.isRequired,
     setUser: PropTypes.func.isRequired,
+    fetchToken: PropTypes.func.isRequired,
+
     user: PropTypes.oneOfType([
         PropTypes.shape({
             Name: PropTypes.string.isRequired,

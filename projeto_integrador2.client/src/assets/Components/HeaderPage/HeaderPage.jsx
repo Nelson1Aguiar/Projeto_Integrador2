@@ -4,7 +4,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import UserDropBox from '../UserDropBox/UserDropBox';
 import { useEffect, useState } from 'react';
 
-const HeaderPage = ({ setPage, loginType, user, setUser, files, setHasPathBySearchBar, setPathToOpen }) => {
+const HeaderPage = ({ setPage, loginType, user, setUser, files, setHasPathBySearchBar, setPathToOpen, fetchToken }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
@@ -32,7 +32,7 @@ const HeaderPage = ({ setPage, loginType, user, setUser, files, setHasPathBySear
                     </button>
                 )}
                 {isAuthenticated && (
-                    <UserDropBox user={user} setUser={setUser} setPage={setPage} />
+                    <UserDropBox user={user} setUser={setUser} setPage={setPage} fetchToken={fetchToken} />
                 )}
             </div>
         </div>
@@ -46,6 +46,7 @@ HeaderPage.propTypes = {
     setHasPathBySearchBar: PropTypes.func.isRequired,
     setPathToOpen: PropTypes.func.isRequired,
     files: PropTypes.array,
+    fetchToken: PropTypes.func.isRequired,
 
     user: PropTypes.oneOfType([
         PropTypes.shape({

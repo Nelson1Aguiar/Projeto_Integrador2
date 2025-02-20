@@ -17,10 +17,19 @@ const Grid = ({ updateFileList, setUpdateFileList, hasPathBySearchBar, setHasPat
         const apiUrlGetAllThumb = `${import.meta.env.VITE_API_URL_GET_ALL_FILES}?page=${page}&pageSize=${pageSize}`;
 
         try {
+
+            const token = sessionStorage.getItem('token');
+
+            if (!token) {
+                console.error("Token não encontrado.");
+                return;
+            }
+
             const response = await fetch(apiUrlGetAllThumb, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
                 }
             });
 
@@ -110,9 +119,17 @@ const Grid = ({ updateFileList, setUpdateFileList, hasPathBySearchBar, setHasPat
 
     const GetSTLPath = async (filePath) => {
         try {
+
+            const token = sessionStorage.getItem('token');
+
+            if (!token) {
+                console.error("Token não encontrado.");
+                return;
+            }
+
             const response = await fetch(import.meta.env.VITE_API_URL_GET_FILE_BYTES, {
                 method: "GET",
-                headers: { "Content-Type": "application/json", "Path": filePath },
+                headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${token}`, "Path": filePath },
             });
 
             const data = await response.json();

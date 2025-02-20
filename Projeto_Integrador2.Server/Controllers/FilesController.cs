@@ -17,7 +17,7 @@ namespace Projeto_Integrador2.Server.Controllers
         }
 
         [HttpGet("GetFiles")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> GetFiles([FromQuery] int page, [FromQuery] int pageSize)
         {
             try
@@ -51,7 +51,7 @@ namespace Projeto_Integrador2.Server.Controllers
         }
 
         [HttpGet("GetFileBytes")]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult GetFileBytes()
         {
             try
@@ -87,7 +87,7 @@ namespace Projeto_Integrador2.Server.Controllers
         }
 
         [HttpGet("GetAllFilesNames")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> GetAllFilesNames()
         {
             try
@@ -106,7 +106,7 @@ namespace Projeto_Integrador2.Server.Controllers
         }
 
         [HttpPost("UploadFile")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UploadFile([FromBody] FileSTL file)
         {
             try

@@ -14,10 +14,19 @@ const Suggestions = () => {
 
         const apiUrl = import.meta.env.VITE_API_URL_SEND_SUGGESTION;
 
+        const token = sessionStorage.getItem('token');
+
+        if (!token) {
+            console.error("Token não encontrado.");
+            alert("Não foi possível enviar sugestão, tente novamente mais tarde");
+            return;
+        }
+
         const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify(formObject),
         }
